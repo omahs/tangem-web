@@ -5,7 +5,7 @@ import SellIcon from "../../../../public/svg/sell.svg";
 import DeliveryIcon from "../../../../public/svg/delivery2.svg";
 import RevenueIcon from "../../../../public/svg/revenue.svg";
 import {t} from "i18next";
-import ModalNew from "../../Common/Modal";
+import Modal from "../../Common/Modal";
 import ContactForm from "../ContactForm";
 import useModal from "../../../hooks/useModal";
 
@@ -16,7 +16,6 @@ const SectionAffiliate = () => {
 		{
 			id: "promote",
 			icon: <PromoteIcon />,
-
 		},
 		{
 			id: "sell",
@@ -72,9 +71,9 @@ const SectionAffiliate = () => {
 					}
 				</ul>
 			</div>
-			<ModalNew isShowing={isFormShowing} hide={toggleForm} title={t('contactUs.affiliate.title')}>
+			<Modal isShowing={isFormShowing} hide={toggleForm} title={t('contactUs.affiliate.title')}>
 				<ContactForm program='affiliate' />
-			</ModalNew>
+			</Modal>
 		</section>
 	);
 }
