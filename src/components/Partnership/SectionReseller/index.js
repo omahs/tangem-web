@@ -5,7 +5,7 @@ import PriceIcon from '../../../../public/svg/price.svg';
 import PersonIcon from '../../../../public/svg/person.svg';
 import MaterialsIcon from '../../../../public/svg/book-open.svg';
 import DeliveryIcon from '../../../../public/svg/delivery.svg';
-import ModalNew from "../../Common/Modal";
+import Modal from "../../Common/Modal";
 import ContactForm from "../ContactForm";
 import useModal from "../../../hooks/useModal";
 
@@ -68,9 +68,9 @@ const SectionReseller = () => {
 					}
 				</ul>
 			</div>
-			<ModalNew isShowing={isFormShowing} hide={toggleForm} title={t('contactUs.reseller.title')}>
+			<Modal isShowing={isFormShowing} hide={toggleForm} title={t('contactUs.reseller.title')}>
 				<ContactForm program='reseller' />
-			</ModalNew>
+			</Modal>
 		</section>
 	)
 }
