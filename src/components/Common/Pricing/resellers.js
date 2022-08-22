@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react'
 import * as styles from './pricing.module.scss';
 import i18next, {t} from "i18next";
 import {TANGEM_RESELLERS_API_URI} from "../../../config";
-import Features from "./features";
 
-const Resellers = ( ) => {
+const Resellers = ({children}) => {
 	const {language} = i18next;
 	const packKeys = ['pack3', 'pack2'];
 
@@ -118,7 +117,7 @@ const Resellers = ( ) => {
 					</ul>
 				</div>
 			</div>
-			<Features />
+      { children }
 		</div>
 	)
 }
