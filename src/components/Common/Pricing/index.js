@@ -5,6 +5,10 @@ import i18next, {t} from "i18next";
 import Resellers from "./resellers";
 import Shopify from "./shopify";
 import * as styles from "./pricing.module.scss";
+import DeliveryIcon from "../../../../public/svg/delivery-buy.svg";
+import ReturnIcon from "../../../../public/svg/return.svg";
+import SupportIcon from "../../../../public/svg/support.svg";
+import Features from "./features";
 
 const Pricing = () => {
 	const {language} = i18next;
@@ -50,12 +54,37 @@ const Pricing = () => {
       </picture>,
       defaultPrice: '54.90',
     }
-  ]
+  ];
 
-	return useShopify ? <Shopify
-    packs={packs}
-c
-  /> : <Resellers />
+  const features = [
+    {
+      id: 'delivery',
+      text: t('pricing.features.delivery'),
+      icon: <DeliveryIcon />
+    },
+    {
+      id: 'return',
+      text: t('pricing.features.return'),
+      icon: <ReturnIcon />
+    },
+    {
+      id: 'support',
+      text: t('pricing.features.support'),
+      icon: <SupportIcon />
+    }
+  ];
+
+	return useShopify ?
+    <Shopify
+      packs={packs}
+      title={t('pricing.buy.title')}
+      description={t('pricing.buy.description')}
+    >
+      <Features items={features} />
+    </Shopify>:
+    <Resellers>
+      <Features items={features} />
+    </Resellers>
 }
 
 export default Pricing;

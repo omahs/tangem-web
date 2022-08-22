@@ -3,10 +3,9 @@ import * as styles from './pricing.module.scss';
 
 import {t} from "i18next";
 import classNames from "classnames";
-import Features from "./features";
 import Button from "../Button";
 
-const ShopifyForm = ({ products, packs = [], title, description }) => {
+const ShopifyForm = ({ products, packs = [], title, description, children }) => {
 
 	const [currentPack, setCurrentPack] = useState({});
 	const [quantity, setQuantity] = useState(1);
@@ -128,7 +127,7 @@ const ShopifyForm = ({ products, packs = [], title, description }) => {
           </div>
         }
 			</div>
-			<Features />
+      { children }
 		</div>
 	)
 }

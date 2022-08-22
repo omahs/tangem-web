@@ -3,6 +3,9 @@ import Shopify from "../../components/Common/Pricing/shopify";
 import {t} from "i18next";
 import Layout from "../../components/Common/Layout";
 import * as styles from "../../components/Common/Pricing/pricing.module.scss";
+import DeliveryIcon from "../../../public/svg/delivery-buy.svg";
+import ReturnIcon from "../../../public/svg/return.svg";
+import Features from "../../components/Common/Pricing/features";
 
 const Lobstr = () => {
   const packs = [
@@ -23,6 +26,19 @@ const Lobstr = () => {
       </picture>,
       defaultPrice: '59.90',
     }
+  ];
+
+  const features = [
+    {
+      id: 'delivery',
+      text: t('pricing.features.delivery'),
+      icon: <DeliveryIcon />
+    },
+    {
+      id: 'return',
+      text: t('pricing.features.return'),
+      icon: <ReturnIcon />
+    }
   ]
 
   return <Layout title={ t('title') } description={t('description')} >
@@ -31,7 +47,9 @@ const Lobstr = () => {
         packs={packs}
         title= "Buy Vault Signer Card"
         description="Signer Card uses multisignature technology to maximize the security of your digital assets issued on the Stellar network."
-      />
+      >
+        <Features items={features} />
+      </Shopify>
     </main>
   </Layout>
 }

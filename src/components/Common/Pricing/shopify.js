@@ -3,7 +3,7 @@ import ShopifyForm from "./shopify-form";
 import {SHOPIFY_DOMAIN, SHOPIFY_API_KEY} from "../../../config";
 import Script from "next/script";
 
-const Shopify = ({packs, title, description}) => {
+const Shopify = ({packs, title, description, children}) => {
 
 	const [loaded, setLoaded] = useState(false);
 
@@ -72,7 +72,9 @@ const Shopify = ({packs, title, description}) => {
 				strategy="lazyOnload"
 				onLoad={() => setLoaded(true)}
 			/>
-			<ShopifyForm packs={packs} products={products} title={title} description={description} />
+			<ShopifyForm packs={packs} products={products} title={title} description={description}>
+        {children}
+      </ShopifyForm>
 			{
 				packs && packs.map(({productId}) =>
 					<div key={productId} id={`buy-now-${productId}`} style={{display: 'none'}} />
