@@ -14,6 +14,7 @@ import SolanaIcon from '../../../../public/svg/solana.svg'
 import BscIcon from '../../../../public/svg/bsc.svg'
 import TronIcon from '../../../../public/svg/tron.svg'
 import ArbitrumIcon from '../../../../public/svg/arbitrum.svg'
+import XdaiIcon from '../../../../public/svg/xdai.svg'
 import Network from '../../../../public/svg/network.svg'
 import {t} from "i18next";
 
@@ -67,6 +68,10 @@ const networkIcons = {
 	},
 	//'tezos': {},
 	//'rootstock': {}
+  'xdai': {
+    icon: <XdaiIcon />,
+    title: 'Gnosis Chain'
+  },
 }
 
 const Search = ({ hide, anchor }) => {
