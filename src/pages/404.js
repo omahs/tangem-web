@@ -15,7 +15,7 @@ export default function LangCustom404() {
 
 	useEffect(() => {
 		const [, lang] = router.asPath.split('/');
-		setLang(lang);
+		setLang(getLanguage(lang));
 	} ,[router.asPath]);
 
 	useEffect(()=> {
