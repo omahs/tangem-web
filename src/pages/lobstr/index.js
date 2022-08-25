@@ -39,14 +39,19 @@ const Lobstr = () => {
       text: t('pricing.features.return'),
       icon: <ReturnIcon />
     }
-  ]
+  ];
 
-  return <Layout title={ t('title') } description={t('description')} >
+  const page = {
+    title: "Buy Vault Signer Card",
+    description: "Signer Card uses multisignature technology to maximize the security of your digital assets issued on the Stellar network."
+  }
+
+  return <Layout title={ page.title } description={ page.description } >
     <main>
       <Shopify
         packs={packs}
-        title= "Buy Vault Signer Card"
-        description="Signer Card uses multisignature technology to maximize the security of your digital assets issued on the Stellar network."
+        title={page.title}
+        description={page.description}
       >
         <Features items={features} />
       </Shopify>
