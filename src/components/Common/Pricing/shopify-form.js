@@ -1,54 +1,27 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import * as styles from './pricing.module.scss';
 
 import {t} from "i18next";
 import classNames from "classnames";
-import Features from "./features";
 import Button from "../Button";
 
-const ShopifyForm = ({products, ids}) => {
-	const packKeys = ['pack3', 'pack2'];
+const ShopifyForm = ({ products, packs = [], title, description, children }) => {
 
-	const packs = {
-		[packKeys[0]]: {
-			title: t('pricing.pack3.title'),
-			description: t('pricing.pack3.description'),
-			image: <picture className={styles.img}>
-				<source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
-				<source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
-				<img
-					loading='lazy'
-					decoding='async'
-					alt='Pack of 3 Cards'
-					src='/img/packs/pack3@1x.png'
-					srcSet="/img/packs/pack3@2x.png 2x"
-				/>
-			</picture>,
-			defaultPrice: '69.90',
-		},
-		[packKeys[1]]: {
-			title: t('pricing.pack2.title'),
-			description: t('pricing.pack2.description'),
-			image: <picture className={styles.img}>
-				<source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif" />
-				<source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp" />
-				<img
-					loading='lazy'
-					decoding='async'
-					alt='Pack of 2 Cards'
-					src='/img/packs/pack2@1x.png'
-					srcSet="/img/packs/pack2@2x.png 2x"
-				/>
-			</picture>,
-			defaultPrice: '54.90',
-		}
-	};
-
-	const [currentPack, setCurrentPack] = useState(packKeys[0]);
+	const [currentPack, setCurrentPack] = useState({});
 	const [quantity, setQuantity] = useState(1);
 
+  useEffect(() => {
+    const [ first ] = packs
+    setCurrentPack(first);
+  }, [packs])
+
 	const handleBuy = () => {
-		const cardId =`buy-now-${ids[currentPack]}`;
+    if (!currentPack || !currentPack.id) {
+      return
+    }
+		const cardId =`buy-now-${currentPack.productId}`;
+
+    console.log(cardId);
 
 		const elem = document
 			.getElementById(cardId)
@@ -90,39 +63,41 @@ const ShopifyForm = ({products, ids}) => {
 	return (
 		<div className={styles.card}>
 			<div className={styles.picture}>
-				{ packs[currentPack].image }
+				{ currentPack && currentPack.image }
 			</div>
 			<div className={classNames(styles.choice)}>
 				<div>
 					<div>
-						<h3>{ t('pricing.buy.title')}</h3>
-						<p>{ t('pricing.buy.description')}</p>
+						<h3>{ title }</h3>
+						<p>{ description }</p>
 					</div>
-					<form className={styles.form}>
-						<span >{t('pricing.choice')}</span>
-						<fieldset className={styles['check-shopify']}>
-							{ packKeys.map((packKey) =>(
-								<React.Fragment key={packKey}>
-									<input
-										type="radio"
-										name="pack"
-										value={packKey}
-										id={packKey}
-										checked={packKey === currentPack}
-										onChange={ () => setCurrentPack(packKey)}
-										className={styles.radio}
-									/>
-									<label htmlFor={packKey}>
-										<div className={styles['radio-title']}>
-											<h4>{ packs[packKey].title }</h4>
-											<span>{`$${ products[packKey] ? products[packKey].price : packs[packKey].defaultPrice }` }</span>
-										</div>
-										<p className={styles['radio-description']}>{ packs[packKey].description }</p>
-									</label>
-								</React.Fragment>
-							))}
-						</fieldset>
-					</form>
+          { packs && packs.length > 1 ?
+            <form className={styles.form} >
+              <span >{t('pricing.choice')}</span>
+              <fieldset className={styles['check-shopify']}>
+                { packs.map((pack) =>(
+                  <React.Fragment key={pack.id}>
+                    <input
+                      type="radio"
+                      name="pack"
+                      value={pack.id}
+                      id={pack.id}
+                      checked={pack.id === currentPack.id}
+                      onChange={ () => setCurrentPack(pack)}
+                      className={styles.radio}
+                    />
+                    <label htmlFor={pack.id}>
+                      <div className={styles['radio-title']}>
+                        <h4>{ pack.title }</h4>
+                        <span>{`$${ products[pack.id] ? products[pack.id].price : pack.defaultPrice }` }</span>
+                      </div>
+                      <p className={styles['radio-description']}>{ pack.description }</p>
+                    </label>
+                  </React.Fragment>
+                ))}
+              </fieldset>
+            </form> : null
+          }
 					<span className={styles['quantity-label']}>{t('pricing.quantity')}</span>
 					<div className={styles['counter-block']}>
 						<div className={styles.counter}>
@@ -138,19 +113,21 @@ const ShopifyForm = ({products, ids}) => {
 						</div>
 					</div>
 				</div>
-				<div className={styles.total} >
-					<div>
-						<span className={styles.label}>{t('pricing.total')}</span>
-						<span className={styles.value}>{
-						 `$${(quantity * (products[currentPack] ? products[currentPack].price : packs[currentPack].defaultPrice)).toLocaleString('en-US', {currency: 'usd', minimumFractionDigits: 2})}`
-						}</span>
-					</div>
-					<div>
-						<Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
-					</div>
-				</div>
+        { currentPack && currentPack.id &&
+          <div className={styles.total} >
+            <div>
+              <span className={styles.label}>{t('pricing.total')}</span>
+              <span className={styles.value}>{
+               `$${(quantity * (products[currentPack.id] ? products[currentPack.id].price : currentPack.defaultPrice)).toLocaleString('en-US', {currency: 'usd', minimumFractionDigits: 2})}`
+              }</span>
+            </div>
+            <div>
+              <Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+            </div>
+          </div>
+        }
 			</div>
-			<Features />
+      { children }
 		</div>
 	)
 }

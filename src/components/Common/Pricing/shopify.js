@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import ShopifyForm from "./shopify-form";
-
-// import ShopifyBuy from '@shopify/buy-button-js'
 import {SHOPIFY_DOMAIN, SHOPIFY_API_KEY} from "../../../config";
 import Script from "next/script";
 
-const Shopify = ( ) => {
+const Shopify = ({packs, title, description, children}) => {
 
 	const [loaded, setLoaded] = useState(false);
 
 	const [products, setProducts] = useState({});
-
-	const ids = {'pack2': 6677836693570, 'pack3': 6677839577154}
 
 	useEffect(()=> {
 		if (typeof window !== 'undefined' && typeof ShopifyBuy !== 'undefined') {
@@ -20,53 +16,53 @@ const Shopify = ( ) => {
 	},[]);
 
 	useEffect(() => {
-		if(!loaded) {
-			return function empty() {
-				//
-			}
-		}
+    if (!loaded) {
+      return function empty() {
+        //
+      }
+    }
 
-		const shopifyClient = ShopifyBuy.buildClient({
-			domain: SHOPIFY_DOMAIN,
-			storefrontAccessToken: SHOPIFY_API_KEY,
-		});
+    const shopifyClient = ShopifyBuy.buildClient({
+      domain: SHOPIFY_DOMAIN,
+      storefrontAccessToken: SHOPIFY_API_KEY,
+    });
 
-		const ui = ShopifyBuy.UI.init(shopifyClient);
+    const ui = ShopifyBuy.UI.init(shopifyClient);
 
-		async function init(id) {
-			return await ui.createComponent('product', {
-				id,
-				options: {
-					product: {
-						buttonDestination: 'checkout',
-						contents: {
-							quantity: true, // determines whether to show any quantity inputs at all
-							quantityIncrement: true, // button to increase quantity
-							quantityDecrement: true, // button to decrease quantity
-							quantityInput: true, // input field to directly set quantity
-							button: true,
-							img: false,
-							title: false,
-						}
-					},
-					cart: {
-						startOpen: false,
-						popup: false,
-					}
-				},
-				node: document && document.getElementById(`buy-now-${id}`),
-			});
-		}
+    async function init(id) {
+      return await ui.createComponent('product', {
+        id,
+        options: {
+          product: {
+            buttonDestination: 'checkout',
+            contents: {
+              quantity: true, // determines whether to show any quantity inputs at all
+              quantityIncrement: true, // button to increase quantity
+              quantityDecrement: true, // button to decrease quantity
+              quantityInput: true, // input field to directly set quantity
+              button: true,
+              img: false,
+              title: false,
+            }
+          },
+          cart: {
+            startOpen: false,
+            popup: false,
+          }
+        },
+        node: document && document.getElementById(`buy-now-${id}`),
+      });
+    }
 
-		const ids = {'pack2': 6677836693570, 'pack3': 6677839577154};
+    if (packs) {
+      for (const {productId} of packs) {
+        init(productId).then((product) => {
+          setProducts((v) => ({[productId]: product.selectedVariant, ...v}))
+        });
+      }
+    }
 
-		for (const key of Object.keys(ids)) {
-			init(ids[key]).then((product) => {
-				setProducts((v) => ({ [key]: product.selectedVariant, ...v}))
-			});
-		}
-
-	},[loaded]);
+	},[loaded, packs]);
 
 	return (
 		<>
@@ -76,10 +72,12 @@ const Shopify = ( ) => {
 				strategy="lazyOnload"
 				onLoad={() => setLoaded(true)}
 			/>
-			<ShopifyForm ids={ids} products={products}/>
+			<ShopifyForm packs={packs} products={products} title={title} description={description}>
+        {children}
+      </ShopifyForm>
 			{
-				Object.keys(ids).map((key) =>
-					<div key={key} id={`buy-now-${ids[key]}`} style={{display: 'none'}} />
+				packs && packs.map(({productId}) =>
+					<div key={productId} id={`buy-now-${productId}`} style={{display: 'none'}} />
 				)
 			}
 		</>
