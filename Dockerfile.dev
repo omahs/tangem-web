@@ -1,6 +1,10 @@
 FROM nginx:1.21.6
 COPY /build /usr/share/nginx/html
 COPY /version.htm /usr/share/nginx/html
-COPY /nginx.conf /etc/nginx
+COPY /devnginx.conf /etc/nginx
+ADD /etc/nginx/devnginx.conf /etc/nginx/nginx.conf
 COPY /.htpasswd /etc/nginx
-COPY /default.conf /etc/nginx/conf.d
+COPY /devweb.default.conf /etc/nginx/conf.d
+ADD /etc/nginx/conf.d/devweb.default.conf /etc/nginx/conf.d/default.conf
+COPY /devlobstr.conf /etc/nginx/conf.d
+ADD /etc/nginx/conf.d/devlobstr.conf /etc/nginx/conf.d/lobstr.conf  
