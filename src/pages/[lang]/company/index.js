@@ -9,6 +9,7 @@ import SectionPartners from "../../../components/Company/SectionPartners";
 import SectionHiring from "../../../components/Company/SectionHiring";
 import * as styles from "./company.module.scss";
 import Layout from "../../../components/Common/Layout";
+import {loadInsalesProducts} from "../../../lib/insales";
 
 const LangCompany = () => {
 	const { language } = i18next;
@@ -37,6 +38,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const language = getLanguage(params.lang);
+  const data = await loadInsalesProducts();
 	return {
 		props: {
 			language,

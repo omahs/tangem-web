@@ -10,10 +10,11 @@ import {t} from 'i18next';
 import { getAllLanguageSlugs, getLanguage } from '../../lib/lang';
 import Footer from "../../components/Common/Footer";
 import Layout from "../../components/Common/Layout";
+import {loadInsalesProducts} from "../../lib/insales";
 
-export const LangHome = () => {
+export const LangHome = ({prices}) => {
 	return (
-		<Layout title={t('title')} description={t('description') }>
+		<Layout prices={prices} title={t('title')} description={t('description') }>
 			<Header isDark={false} />
 			<main>
 				<SectionHero/>
@@ -38,9 +39,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const language = getLanguage(params.lang);
+  const prices = await loadInsalesProducts();
+
 	return {
 		props: {
 			language,
+      prices,
 		},
 	};
 }

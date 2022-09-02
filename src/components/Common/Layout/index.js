@@ -6,7 +6,7 @@ import {t} from "i18next";
 import Pricing from "../Pricing";
 import {BuyContext} from "../../../context/buy-context";
 
-const Layout = ({title, description, children}) => {
+const Layout = ({title, description, children, prices}) => {
 	const { toggle, isShowing } = React.useContext(BuyContext);
 
 	return (
@@ -45,7 +45,7 @@ const Layout = ({title, description, children}) => {
 					title={t('pricing.title')}
 					anchor="pricing"
 				>
-					<Pricing />
+					<Pricing prices={prices} />
 				</ModalNew>
 			</>
 	)
