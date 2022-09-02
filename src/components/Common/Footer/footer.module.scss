@@ -79,8 +79,8 @@
   column-gap: 23px;
 
   @include mixins.respond-to-medium {
-    grid-template-columns: auto 160px 160px;
-    column-gap: 0;
+    grid-template-columns: auto  minmax(max-content, 146px) minmax(max-content, 160px);
+    column-gap: 16px;
   }
 }
 
