@@ -38,12 +38,15 @@ jobs:
           |
           wget -O default.conf ${{ secrets.NGINX_CONF }}
 
+     - name: Create nginx lobstr.conf
+       run:
+          |
+          wget -O lobstr.conf ${{ secrets.NGINX_CONF_LOBSTR }}
+
      - name: Create nginx nginx.conf
        run:
           |
-          cat << EOF > nginx.conf
-          ${{ secrets.NGINX_NGINX_CONF }}
-          EOF
+          wget -O nginx.conf ${{ secrets.NGINX_NGINX_CONF }}
 
      - name: Create version file
        run:
@@ -59,6 +62,7 @@ jobs:
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
+          NEXT_PUBLIC_RECAPTCHA_SECRET=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET }}
           EOF
 
      - name: Install node v12
