@@ -365,5 +365,10 @@
   "docs": {
     "termsOfUse": "",
     "privacyPolicy": "/docs/ru/Privacy_policy_2022-09-01.pdf"
+  },
+  "pagination": {
+    "prev": "Предыдущая страница",
+    "next": "Следущая страница",
+    "state": "{{page}} из {{pageCount}}"
   }
 }

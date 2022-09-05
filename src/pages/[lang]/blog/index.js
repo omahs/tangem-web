@@ -5,9 +5,14 @@ import Header from "../../../components/Common/Header";
 import * as styles from "./blog.module.scss"
 import React from "react";
 import Footer from "../../../components/Common/Footer";
-import {TANGEM_CMS_TOKEN} from "../../../config";
+import {useRouter} from "next/router";
+import Link from "next/link";
+import {getPosts} from "../../../lib/cms";
 
-const LangBlogPage = ( {posts, categories} ) => {
+const LangBlogPage = ( {posts, categories } ) => {
+  const { page, pageCount } = posts.meta.pagination;
+  const router = useRouter();
+
   return (
   <Layout title={t('pages.company.title')} description={t('description')} >
     <Header />
@@ -25,7 +30,6 @@ const LangBlogPage = ( {posts, categories} ) => {
               const imgSize = index < 2 ? { height: 300, width: 598 } : { height: 220, width: 384 } ;
               const { alternativeText, url, formats} = attributes.image.data.attributes;
               const { data: tags } = attributes.tags;
-              console.log(attributes.author)
               const srcset = Object.values(formats).sort((a, b) => b.width - a.width).map(({url, width}) => `${url} ${width}w`).join(', ');
               return (
               <li key={attributes.title}>
@@ -56,6 +60,19 @@ const LangBlogPage = ( {posts, categories} ) => {
               )})
           }
         </ul>
+        <div className={styles.pagination}>
+          { page === 1 ? <a className={styles.disabled}>{ t('pagination.prev') }</a> :
+            <Link href={`${router.asPath}/page/${page - 1}/`} >
+              <a>{ t('pagination.prev') }</a>
+            </Link>
+          }
+          <span>{ t('pagination.state', { page, pageCount }) }</span>
+          { page === pageCount ? <a className={styles.disabled}>{ t('pagination.next') }</a> :
+            <Link href={`${router.asPath}/page-${page + 1}`} >
+              <a>{ t('pagination.next') }</a>
+            </Link>
+          }
+        </div>
       </section>
     { /*
       Array.isArray(posts.data) && posts.data.map((item) => {
@@ -81,22 +98,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const language = getLanguage(params.lang);
 
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${TANGEM_CMS_TOKEN}`
-    } ,
-  };
-
-  const result = await Promise.all([
-    fetch(`https://cms.sidorovpavel.keenetic.link/api/blog-posts/?populate=*&locale=${language}&?pagination[page]=1&pagination[pageSize]=11`, options),
-    fetch(`https://cms.sidorovpavel.keenetic.link/api/categories/?locale=${language}`, options)
-  ]);
-
-  const [posts, categories] = await Promise.all(
-    result.map(item => item.json())
-  );
+  const { posts, categories } = await getPosts(language);
 
   return {
     props: {
