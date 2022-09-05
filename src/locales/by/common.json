@@ -361,5 +361,9 @@
       "failed": "Сообщение не удалось отправить.",
       "error": ""
     }
+  },
+  "docs": {
+    "termsOfUse": "",
+    "privacyPolicy": "/docs/ru/Privacy_policy_2022-09-01.pdf"
   }
 }

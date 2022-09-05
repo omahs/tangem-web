@@ -363,5 +363,9 @@
       "failed": "The message could not be sent.",
       "error": ""
     }
+  },
+  "docs": {
+    "termsOfUse": "/docs/en/Terms_of_Use_2022-07-01.pdf",
+    "privacyPolicy": "/docs/en/Privacy_policy_2022-06-27.pdf"
   }
 }
