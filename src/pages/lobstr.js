@@ -1,11 +1,11 @@
 import React from 'react';
-import Shopify from "../../components/Common/Pricing/shopify";
+import Shopify from "../components/Common/Pricing/shopify";
 import {t} from "i18next";
-import Layout from "../../components/Common/Layout";
-import * as styles from "../../components/Common/Pricing/pricing.module.scss";
-import DeliveryIcon from "../../../public/svg/delivery-buy.svg";
-import ReturnIcon from "../../../public/svg/return.svg";
-import Features from "../../components/Common/Pricing/features";
+import Layout from "../components/Common/Layout";
+import * as styles from "../components/Common/Pricing/pricing.module.scss";
+import DeliveryIcon from "../../public/svg/delivery-buy.svg";
+import ReturnIcon from "../../public/svg/return.svg";
+import Features from "../components/Common/Pricing/features";
 
 const Lobstr = () => {
   const packs = [
