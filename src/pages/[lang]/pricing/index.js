@@ -2,7 +2,7 @@ import {getAllLanguageSlugs, getLanguage} from "../../../lib/lang";
 import {loadInsalesProducts} from "../../../lib/insales";
 import i18next, {t} from "i18next";
 import Layout from "../../../components/Common/Layout";
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import Header from "../../../components/Common/Header";
 import Footer from "../../../components/Common/Footer";
 import * as styles from './pricing.module.scss';
@@ -14,6 +14,7 @@ import SupportIcon from "../../../../public/svg/support.svg";
 import {getResellers} from "../../../lib/tangem";
 import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
+import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 
 const LangPricingPage = ({prices}) => {
   const {language} = i18next;
@@ -66,9 +67,9 @@ const LangPricingPage = ({prices}) => {
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
   const [products, setProducts] = useState({});
-
-  const [isLoading, setLoading] = useState(false);
   const [list, setList] = useState([]);
+  const [resellersOpen, setResellersOpen] = useState(false);
+  const refResellers = useRef();
 
   useEffect(() => {
     if (!useResellerList) {
@@ -76,13 +77,10 @@ const LangPricingPage = ({prices}) => {
     }
 
     async function getData() {
-      setLoading(true);
-
       try {
         const resellers = await getResellers(language);
         setList(resellers);
-      } finally {
-        setLoading(false);
+      } catch (e) {
       }
     }
 
@@ -189,6 +187,15 @@ const LangPricingPage = ({prices}) => {
     }
 
   },[shopifyLoaded]);
+
+  useEffect(() => {
+    if(!refResellers.current) {
+      return function empty() {
+        //
+      }
+    }
+    refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + "px" : null;
+  }, [resellersOpen]);
 
   function getFormatPrice(value) {
     const parseValue = Number.parseFloat(value);
@@ -349,7 +356,6 @@ const LangPricingPage = ({prices}) => {
                   ></button>
                 </div>
               </div>
-
               { currentPack.id &&
                 <div className={styles.total} >
                   <div>
@@ -363,8 +369,16 @@ const LangPricingPage = ({prices}) => {
               }
               { useResellerList &&
                 <>
-                  <span className={styles.stories}>{t('pricing.stores')}</span>
-                  <ul className={styles.list}>
+                  <div
+                    className={classNames(styles.stories, resellersOpen && styles.open)}
+                    onClick={() => setResellersOpen((v) => !v)}
+                  >
+                    <span >{t('pricing.stores')}</span>
+                    <button type="button">
+                      <ArrowIcon />
+                    </button>
+                  </div>
+                  <ul className={styles.list} ref={refResellers} >
                     { list.map((item) => (
                       <li key={item.id}>
                         <img

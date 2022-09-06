@@ -55,6 +55,10 @@
     max-height: 256px;
     aspect-ratio: 867 / 728;
 
+    @include mixins.respond-to-medium {
+      max-height: 100%;
+    }
+
     @supports not (aspect-ratio: 5 / 4) {
       width: 279px;
       max-width: 279px;
@@ -325,6 +329,9 @@
 }
 
 .stories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 6px;
   color: rgb(0 0 0);
   font-weight: 600;
@@ -342,6 +349,33 @@
   @include mixins.respond-to-medium {
     font-weight: 500;
   }
+
+  svg {
+    fill: black;
+  }
+
+  button {
+    display: none;
+    transform: rotate(0deg);
+
+    @include mixins.motion {
+      transition: all 0.3s ease;
+    }
+
+    @include mixins.respond-to-medium {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgb(118 118 128 / 12%);
+      border-radius: 50%;
+    }
+  }
+}
+
+.open button {
+  transform: rotate(180deg);
 }
 
 .form {
@@ -356,6 +390,15 @@
 
 .list {
   margin-top: 8px;
+
+  @include mixins.respond-to-medium {
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  @include mixins.motion {
+    transition: all 0.3s ease;
+  }
 
   li {
     display: flex;
