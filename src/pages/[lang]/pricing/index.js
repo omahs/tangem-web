@@ -89,24 +89,6 @@ const LangPricingPage = ({prices}) => {
     getData();
   }, []);
 
-  const features = [
-    {
-      id: 'delivery',
-      text: t('pricing.features.delivery'),
-      icon: <DeliveryIcon />
-    },
-    {
-      id: 'return',
-      text: t('pricing.features.return'),
-      icon: <ReturnIcon />
-    },
-    {
-      id: 'support',
-      text: t('pricing.features.support'),
-      icon: <SupportIcon />
-    }
-  ];
-
   function handleClick(name) {
     if (ga !== undefined) {
       ga('send', 'event', 'button', 'click', name);
@@ -251,7 +233,38 @@ const LangPricingPage = ({prices}) => {
     }
     return prices[currentPack.id].old_price;
 
-  }, [prices, products, currentPack.productId])
+  }, [prices, products, currentPack.productId]);
+
+  const Features = ({forMobile}) => {
+    const features = [
+      {
+        id: 'delivery',
+        text: t('pricing.features.delivery'),
+        icon: <DeliveryIcon />
+      },
+      {
+        id: 'return',
+        text: t('pricing.features.return'),
+        icon: <ReturnIcon />
+      },
+      {
+        id: 'support',
+        text: t('pricing.features.support'),
+        icon: <SupportIcon />
+      }
+    ];
+
+    return (
+      <div className={classNames(styles.props, {[styles['only-mobile']]: forMobile}, {[styles['only-desktop']]: !forMobile})}>
+        {features && features.map(({id, icon, text}) => (
+          <div key={id} className={styles.prop}>
+            {icon}
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <Layout title={t('title')} description={t('description')}>
@@ -283,8 +296,11 @@ const LangPricingPage = ({prices}) => {
       <div className={styles.page}>
         <main className={styles.main}>
           <div className={styles.card}>
-            <div className={styles.picture}>
-              { currentPack && currentPack.image }
+            <div className={styles.about}>
+              <div className={styles.picture}>
+                { currentPack && currentPack.image }
+              </div>
+              <Features forMobile={false} />
             </div>
             <div className={styles.choice}>
               <div>
@@ -363,14 +379,7 @@ const LangPricingPage = ({prices}) => {
                   </ul>
                 </>}
             </div>
-            <div className={styles.props}>
-              {features && features.map(({id, icon, text}) => (
-                <div key={id} className={styles.prop}>
-                  {icon}
-                  <p>{text}</p>
-                </div>
-              ))}
-            </div>
+            <Features forMobile={true} />
           </div>
         </main>
         <Footer />
