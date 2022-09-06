@@ -52,7 +52,7 @@
   .img {
     display: flex;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 256px;
     aspect-ratio: 867 / 728;
 
     @supports not (aspect-ratio: 5 / 4) {
