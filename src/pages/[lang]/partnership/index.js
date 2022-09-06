@@ -8,7 +8,6 @@ import SectionAffiliate from "../../../components/Partnership/SectionAffiliate";
 import SectionWorld from "../../../components/Partnership/SectionWorld";
 import Footer from "../../../components/Common/Footer";
 import Layout from "../../../components/Common/Layout";
-import {loadInsalesProducts} from "../../../lib/insales";
 
 const LangPartnership = () => {
 	return (
@@ -35,7 +34,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const language = getLanguage(params.lang);
-  const data = await loadInsalesProducts();
+
 	return {
 		props: {
 			language,

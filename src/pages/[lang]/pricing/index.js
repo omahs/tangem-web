@@ -162,7 +162,7 @@ const LangPricingPage = ({prices}) => {
   }
 
   useEffect(() => {
-    if (!shopifyLoaded) {
+    if (typeof ShopifyBuy === "undefined"  && !shopifyLoaded) {
       return function empty() {
         //
       }

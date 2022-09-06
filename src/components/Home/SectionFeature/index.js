@@ -1,14 +1,14 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import * as styles from './feature.module.scss';
-import {t} from "i18next";
+import i18next, {t} from "i18next";
 import Button from "../../Common/Button";
-import {BuyContext} from "../../../context/buy-context";
 import useModal from "../../../hooks/useModal";
 import Modal from "../Modal";
 import Search from "../Search";
+import Link from "next/link";
 
 const SectionFeature = () => {
-	const { toggle: toggleBuy } = useContext(BuyContext);
+  const {language} = i18next;
 	const { isShowing: isSearchShowing, toggle: toggleSearch } = useModal('search');
 
   return (
@@ -58,9 +58,14 @@ const SectionFeature = () => {
         >
           <h2>{ t('sections.backup.title')}</h2>
           <p>{ t('sections.backup.description') }</p>
-	        <Button onClick={toggleBuy} appearance='primary'>
-		        { t('buttons.buy-now') }
-					</Button>
+          <Link
+            href={{
+              pathname: '/[lang]/pricing/',
+              query: { lang: language },
+            }}
+          >
+            <a className={styles.link}>{ t('buttons.buy-now') }</a>
+          </Link>
         </div>
       </div>
       <div
