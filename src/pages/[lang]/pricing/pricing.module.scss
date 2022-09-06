@@ -80,7 +80,7 @@
   font-weight: normal;
 
   @include mixins.respond-to-medium {
-    justify-content: center;
+    justify-content: space-between;
     min-height: 540px;
   }
 
@@ -332,6 +332,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 24px;
   margin-bottom: 6px;
   color: rgb(0 0 0);
   font-weight: 600;
@@ -347,6 +348,7 @@
   }
 
   @include mixins.respond-to-medium {
+    margin-top: 32px;
     margin-bottom: 0;
     font-weight: 500;
   }
@@ -489,6 +491,10 @@
   font-size: 15px;
   line-height: 28px;
 
+  @include mixins.respond-to-medium {
+    font-size: 18px;
+  }
+
   @supports not (font-size: clamp(1px, 1vw, 2px)) {
     margin-bottom: 0.5rem;
 
@@ -519,7 +525,6 @@
   align-self: end;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 32px;
   padding-top: 0.5rem;
 
   .label {
