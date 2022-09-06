@@ -317,7 +317,7 @@ const LangPricingPage = ({prices}) => {
                 <p>{ t('pricing.buy.description')}</p>
               </div>
               <form className={styles.form} >
-                <span >{t('pricing.choice')}</span>
+                <span>{t('pricing.choice')}</span>
                 <fieldset className={styles['check-shopify']}>
                   { packs.map((pack) =>(
                     <React.Fragment key={pack.id}>

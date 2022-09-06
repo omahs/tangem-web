@@ -482,18 +482,15 @@
 
 .quantity-label {
   display: inline-block;
-  margin-top: calc-clamp(0.5rem, 2.5rem);
   margin-bottom: calc-clamp(0.5rem, 1.5rem);
   font-weight: 600;
   font-size: 15px;
   line-height: 28px;
 
   @supports not (font-size: clamp(1px, 1vw, 2px)) {
-    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 
     @include mixins.respond-to-medium {
-      margin-top: 2.5rem;
       margin-bottom: 1.5rem;
     }
   }
