@@ -40,19 +40,25 @@ jobs:
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
+          NEXT_PUBLIC_RECAPTCHA_SECRET=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET }}
+          NEXT_PUBLIC_TANGEM_INSALES_API_USER=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_USER }}
+          NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           EOF
 
-     - name: Create nginx default.conf
+     - name: Create nginx devdefault.conf
        run:
           |
-          wget -O default.conf ${{ secrets.NGINX_DEV_CONF }}
+          wget -O devweb.default.conf ${{ secrets.NGINX_DEV_CONF }}
 
-     - name: Create nginx nginx.conf
+     - name: Create nginx lobstr.conf
        run:
           |
-          cat << EOF > nginx.conf
-          ${{ secrets.NGINX_DEV_NGINX_CONF }}
-          EOF
+          wget -O devlobstr.conf ${{ secrets.NGINX_DEV_CONF_LOBSTR }}
+
+     - name: Create nginx devnginx.conf
+       run:
+          |
+          wget -O devnginx.conf ${{ secrets.NGINX_DEV_NGINX_CONF }}
 
      - name: Create nginx secret
        run:
