@@ -282,15 +282,17 @@ const LangPricingPage = ({prices}) => {
         </>
       }
       <Header />
-      <div className={styles.order}>
-        <span>{currentPack.title}</span>
-        <div>
-          <span className={styles['old-price']}>{
-            getFormatPrice(quantity * oldCurrentPrice)
-          }</span>
-          <span className={styles.price}>{
-            getFormatPrice(quantity * currentPrice)
-          }</span>
+      <div className={styles['order-wrapper']}>
+        <div className={styles.order}>
+          <span>{currentPack.title}</span>
+          <div>
+            <span className={styles['old-price']}>{
+              getFormatPrice(quantity * oldCurrentPrice)
+            }</span>
+            <span className={styles.price}>{
+              getFormatPrice(quantity * currentPrice)
+            }</span>
+          </div>
         </div>
       </div>
       <div className={styles.page}>
