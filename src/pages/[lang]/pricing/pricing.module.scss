@@ -16,11 +16,11 @@
     width: calc(100% - 2rem);
     max-width: 1240px;
     max-height: 100%;
-    margin: 150px auto 0;
+    margin: 90px auto 0;
   }
 
   @media (min-width: 1272px) {
-    margin-top: 210px;
+    margin-top: 150px;
   }
 }
 
@@ -227,11 +227,11 @@
 
   @include mixins.respond-to-medium {
     position: sticky;
-    top: 150px;
+    top: 90px;
   }
 
   @media (min-width: 1272px) {
-    top: 210px;
+    top: 150px;
   }
 }
 
@@ -347,6 +347,7 @@
   }
 
   @include mixins.respond-to-medium {
+    margin-bottom: 0;
     font-weight: 500;
   }
 
@@ -393,6 +394,7 @@
 
   @include mixins.respond-to-medium {
     max-height: 0;
+    margin-top: 0;
     overflow: hidden;
   }
 
@@ -517,7 +519,7 @@
   align-self: end;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   padding-top: 0.5rem;
 
   .label {
@@ -531,60 +533,6 @@
     font-size: 30px;
     line-height: 1;
   }
-}
-
-.order-wrapper {
-  height: 0;
-  max-height: 0;
-  overflow: hidden;
-
-  @include mixins.respond-to-medium {
-    position: fixed;
-    top: 60px;
-    z-index: 50;
-    width: 100vw;
-    height: 60px;
-    max-height: 60px;
-    padding: 0 1rem;
-    background: rgb(255 255 255 / 20%);
-    border-top: 1px solid rgb(0 0 0 / 5%);
-    backdrop-filter: blur(40px);
-
-    @media (min-width: 1272px) {
-      padding: 0 calc(50% - 620px);
-    }
-  }
-}
-
-.order {
-  height: 0;
-  max-height: 0;
-  overflow: hidden;
-
-  @include mixins.respond-to-medium {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 60px;
-    max-height: 60px;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 1;
-  }
-}
-
-.old-price {
-  margin-right: 10px;
-  color: rgb(104 104 104);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1;
-  text-decoration-line: line-through;
-}
-
-.price {
-  font-size: 20px;
-  line-height: 100%;
 }
 
 .only-mobile {
