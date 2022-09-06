@@ -501,6 +501,7 @@
   @include mixins.respond-to-medium {
     position: fixed;
     top: 60px;
+    z-index: 50;
     width: 100vw;
     height: 60px;
     max-height: 60px;
