@@ -139,7 +139,7 @@ const LangPricingPage = ({prices}) => {
         .click()
     }
     else {
-      window.open(`https://sales.tangem.com/?variant_id=${prices[currentPack.id].id}&qty=${quantity}`, '_blank').focus();
+      window.location.href = `https://sales.tangem.com/?variant_id=${prices[currentPack.id].id}&qty=${quantity}`;
     }
   }
 
