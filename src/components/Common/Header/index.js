@@ -5,13 +5,10 @@ import Logo from '../../../../public/svg/tangem-logo.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
-import Button from "../Button";
-import Breadcrumbs from "../Breadcrumbs";
-import {BuyContext} from "../../../context/buy-context";
+import Breadcrumbs from "../Breadcrumbs"
 
 const Header = ({isDark, className, breadcrumbs = [] }) => {
 	const { language } = i18next;
-	const { toggle } = React.useContext(BuyContext);
 	const router = useRouter();
 
 	const menu = {
@@ -72,13 +69,14 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 						</div>
 		      </div>
 	      </nav>
-		      <Button
-			      theme={isDark ? 'dark' : 'light'}
-			      size='small' className={styles.buy}
-			      onClick={toggle}
-		      >
-			      { t('buttons.buy') }
-					</Button>
+          <Link
+            href={{
+              pathname: '/[lang]/pricing/',
+              query: { lang: language },
+            }}
+          >
+            <a className={classNames(styles.buy)}>{ t('buttons.buy') }</a>
+          </Link>
 	    </div>
 	    {
 				!!breadcrumbs.length && <Breadcrumbs classNames={styles.breadcrumbs} items={breadcrumbs} />

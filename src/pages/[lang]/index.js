@@ -38,6 +38,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const language = getLanguage(params.lang);
+
 	return {
 		props: {
 			language,

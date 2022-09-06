@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import * as styles from './pricing.module.scss';
 import i18next, {t} from "i18next";
-import {TANGEM_RESELLERS_API_URI} from "../../../config";
+import {getResellers} from "../../../lib/tangem";
 
 const Resellers = ({children}) => {
 	const {language} = i18next;
@@ -45,18 +45,17 @@ const Resellers = ({children}) => {
 	const [list, setList] = useState([]);
 
 	useEffect(() => {
-		async function getResellers() {
+		async function getData() {
 			setLoading(true);
 			try {
-				const response = await fetch(`${TANGEM_RESELLERS_API_URI}?defaultCode=${language}`);
-				const data = await response.json()
-				setList(data.resellers);
+				const resellers = await getResellers(language);
+				setList(resellers);
 			} finally {
 				setLoading(false);
 			}
 		}
 
-		getResellers();
+    getData();
 	}, []);
 
 	function handleClick(name) {
