@@ -18,10 +18,6 @@
     max-height: 100%;
     margin: 90px auto 0;
   }
-
-  @media (min-width: 1272px) {
-    margin-top: 150px;
-  }
 }
 
 .picture {
@@ -80,6 +76,8 @@
   font-weight: normal;
 
   @include mixins.respond-to-medium {
+    grid-row: 1 / 3;
+    grid-column: 2;
     justify-content: space-between;
     min-height: 540px;
   }
@@ -106,7 +104,7 @@
   }
 
   p {
-    margin-bottom: 30px;
+    margin-bottom: 1.5rem;
     color: rgb(104 104 104);
     font-size: calc-clamp(0.9375rem, 1.125rem);
     line-height: 1.3;
@@ -144,7 +142,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin: 0.875rem 0;
+    margin: 0 0 0.875rem;
 
     @include mixins.respond-to-medium {
       margin: 1.5rem 0;
@@ -222,19 +220,6 @@
   }
 }
 
-.about {
-  height: min-content;
-
-  @include mixins.respond-to-medium {
-    position: sticky;
-    top: 90px;
-  }
-
-  @media (min-width: 1272px) {
-    top: 150px;
-  }
-}
-
 .info {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -271,6 +256,7 @@
     &:nth-child(n+3) {
       color: rgb(104 104 104);
       font-weight: 400;
+      font-size: 12px;
       line-height: 1;
 
       @include mixins.respond-to-medium {
@@ -358,7 +344,13 @@
   }
 
   button {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgb(118 118 128 / 12%);
+    border-radius: 50%;
     transform: rotate(0deg);
 
     @include mixins.motion {
@@ -366,13 +358,8 @@
     }
 
     @include mixins.respond-to-medium {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 40px;
       height: 40px;
-      background: rgb(118 118 128 / 12%);
-      border-radius: 50%;
     }
   }
 }
@@ -387,18 +374,16 @@
 
     @include mixins.respond-to-medium {
       display: inline-block;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.3;
     }
   }
 }
 
 .list {
-  margin-top: 8px;
-
-  @include mixins.respond-to-medium {
-    max-height: 0;
-    margin-top: 0;
-    overflow: hidden;
-  }
+  max-height: 0;
+  overflow: hidden;
 
   @include mixins.motion {
     transition: all 0.3s ease;
@@ -441,21 +426,32 @@
 .increment {
   position: relative;
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   background: rgb(118 118 128 / 12%);
   border-radius: 50%;
 
+  @include mixins.respond-to-medium {
+    width: 40px;
+    height: 40px;
+  }
+
   &::before {
     position: absolute;
-    top: 19px;
-    left: 11px;
+    top: 16px;
+    left: 9px;
     display: block;
-    width: 18px;
+    width: 16px;
     height: 2px;
     background-color: rgb(0 0 0);
     border-radius: 2px;
     content: "";
+
+    @include mixins.respond-to-medium {
+      top: 19px;
+      left: 11px;
+      width: 18px;
+    }
   }
 
   &.disabled::before {
@@ -466,22 +462,33 @@
 .increment {
   &::after {
     position: absolute;
-    top: 19px;
-    left: 11px;
+    top: 16px;
+    left: 9px;
     display: block;
-    width: 18px;
+    width: 16px;
     height: 2px;
     background-color: rgb(0 0 0);
     border-radius: 2px;
     transform: rotate(90deg);
     content: "";
+
+    @include mixins.respond-to-medium {
+      top: 19px;
+      left: 11px;
+      width: 18px;
+    }
   }
 }
 
 .quantity {
   max-width: 20px;
-  font-size: 24px;
+  font-weight: 500;
+  font-size: 20px;
   line-height: 20px;
+
+  @include mixins.respond-to-medium {
+    font-size: 24px;
+  }
 }
 
 .quantity-label {
@@ -492,6 +499,7 @@
   line-height: 28px;
 
   @include mixins.respond-to-medium {
+    font-weight: 500;
     font-size: 18px;
   }
 
@@ -508,6 +516,10 @@
   width: 100%;
   padding-bottom: 1rem;
   border-bottom: solid 1px rgb(233 233 233);
+
+  @include mixins.respond-to-medium {
+    padding-bottom: 40px;
+  }
 }
 
 .counter {
@@ -527,31 +539,34 @@
   width: 100%;
   padding-top: 0.5rem;
 
+  @include mixins.respond-to-medium {
+    padding-top: 42px;
+  }
+
+  button {
+    @include mixins.respond-to-medium {
+      width: 160px;
+    }
+  }
+
   .label {
     color: rgb(104 104 104);
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1.2;
+
+    @include mixins.respond-to-medium {
+      font-size: 15px;
+    }
   }
 
   .value {
     display: block;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 24px;
     line-height: 1;
-  }
-}
 
-.only-mobile {
-  display: grid;
-
-  @include mixins.respond-to-medium {
-    display: none;
-  }
-}
-
-.only-desktop {
-  display: none;
-
-  @include mixins.respond-to-medium {
-    display: grid;
+    @include mixins.respond-to-medium {
+      font-size: 30px;
+    }
   }
 }
