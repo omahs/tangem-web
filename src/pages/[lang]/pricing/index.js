@@ -234,15 +234,7 @@ const LangPricingPage = ({prices}) => {
 
   }, [prices, products, currentPack.productId]);
 
-  const oldCurrentPrice = useMemo(() => {
-    if (useShopify) {
-      return products[currentPack.id] ? products[currentPack.id].compareAtPrice : ''
-    }
-    return prices[currentPack.id].old_price;
-
-  }, [prices, products, currentPack.productId]);
-
-  const Features = ({forMobile}) => {
+  const Features = () => {
     const features = [
       {
         id: 'delivery',
@@ -262,7 +254,7 @@ const LangPricingPage = ({prices}) => {
     ];
 
     return (
-      <div className={classNames(styles.props, {[styles['only-mobile']]: forMobile}, {[styles['only-desktop']]: !forMobile})}>
+      <div className={styles.props}>
         {features && features.map(({id, icon, text}) => (
           <div key={id} className={styles.prop}>
             {icon}
@@ -292,11 +284,8 @@ const LangPricingPage = ({prices}) => {
       <div className={styles.page}>
         <main className={styles.main}>
           <div className={styles.card}>
-            <div className={styles.about}>
-              <div className={styles.picture}>
-                { currentPack && currentPack.image }
-              </div>
-              <Features forMobile={false} />
+            <div className={styles.picture}>
+              { currentPack && currentPack.image }
             </div>
             <div className={styles.choice}>
               <div>
@@ -375,14 +364,14 @@ const LangPricingPage = ({prices}) => {
                           src={`/img/resellers/${item.id}@1x.png`}
                           srcSet={`/img/resellers/${item.id}@2x.png 2x`}
                         />
-                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.buy')}</a>
+                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.goTo')}</a>
                       </li>
                     ))
                     }
                   </ul>
                 </>}
             </div>
-            <Features forMobile={true} />
+            <Features />
           </div>
         </main>
         <Footer />
