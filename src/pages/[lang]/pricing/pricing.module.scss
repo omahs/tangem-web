@@ -204,7 +204,7 @@
     justify-content: start;
     width: 100%;
     min-height: 140px;
-    padding: 28px;
+    padding: 31px 28px;
     font-size: 1rem;
 
     @supports not(font-size: clamp(1px, 1vw, 2px)) {
