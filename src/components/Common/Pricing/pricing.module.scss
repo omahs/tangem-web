@@ -50,9 +50,12 @@
 
   @include mixins.respond-to-medium {
     grid-row: 1 / 3;
-    justify-content: center;
     min-height: 540px;
     max-height: calc(100vh - 280px);
+
+    .lobstr & {
+      justify-content: center;
+    }
 
     @media (min-height: 680px) {
       max-height: 680px;
