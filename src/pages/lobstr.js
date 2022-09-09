@@ -47,7 +47,7 @@ const Lobstr = () => {
   }
 
   return <Layout title={ page.title } description={ page.description } >
-    <main>
+    <main className={styles.lobstr}>
       <Shopify
         packs={packs}
         title={page.title}
