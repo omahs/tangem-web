@@ -7,8 +7,6 @@
     "developers": "Developers",
     "company": "Company",
     "legalPart": "Legal",
-    "termsOfUse": "Terms of Use",
-    "privacyPolicy": "Privacy Policy",
     "companyPart": "Company",
     "about": "About Tangem",
     "helpCenter": "Help Center"
@@ -364,8 +362,14 @@
       "error": ""
     }
   },
-  "docs": {
-    "termsOfUse": "/docs/en/Terms_of_Use_2022-07-01.pdf",
-    "privacyPolicy": "/docs/en/Privacy_policy_2022-06-27.pdf"
-  }
+  "legalDocuments": [
+    {
+      "title": "Terms of Use",
+      "href": "/docs/en/Terms_of_Use_2022-07-01.pdf"
+    },
+    {
+      "title": "Privacy Policy",
+      "href": "/docs/en/Privacy_policy_2022-06-27.pdf"
+    }
+  ]
 }

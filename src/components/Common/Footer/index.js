@@ -15,6 +15,7 @@ const DynamicZendesk = dynamic(
 const Footer = () => {
   const { language } = i18next;
   const lang = getLanguage(language);
+  const documents = t('legalDocuments');
 
   return (
     <footer className={styles.footer}>
@@ -27,9 +28,8 @@ const Footer = () => {
         </div>
         <div className={classNames(styles.customer, styles.list)}>
           <span className={styles.head}>{t('menu.legalPart')}</span>
-          { t('docs.termsOfUse') ? <a target="_blank" href={t('docs.termsOfUse') } rel="noreferrer">{t('menu.termsOfUse')}</a> : null }
-          { t('docs.privacyPolicy') ? <a target="_blank" href={t('docs.privacyPolicy')} rel="noreferrer">{t('menu.privacyPolicy')}</a> : null }
-        </div>
+          { documents.map(({title, href}) => <a key={href} target="_blank" href={ href } rel="noreferrer">{title}</a> )}
+       </div>
         <div className={classNames(styles.company, styles.list)}>
           <span className={styles.head}>{t('menu.companyPart')}</span>
 
