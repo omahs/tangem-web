@@ -7,8 +7,6 @@
     "developers": "Developers",
     "company": "О компании",
     "legalPart": "Юридическая информация",
-    "termsOfUse": "Условия использования",
-    "privacyPolicy": "Политика конфиденциальности",
     "companyPart": "Компания",
     "about": "О компании",
     "helpCenter": "Поддержка"
@@ -365,8 +363,18 @@
       "error": ""
     }
   },
-  "docs": {
-    "termsOfUse": "",
-    "privacyPolicy": "/docs/ru/Privacy_policy_2022-09-01.pdf"
-  }
+  "legalDocuments": [
+    {
+      "title": "Пользовательское соглашение",
+      "href": "/docs/ru/Terms_of_Use_2022-09-08.pdf"
+    },
+    {
+      "title": "Политика конфиденциальности",
+      "href": "/docs/ru/Privacy_policy_2022-09-01.pdf"
+    },
+    {
+      "title": "Политика файлов Cookie",
+      "href": "/docs/ru/Cookie_policy_2022-09-07.pdf"
+    }
+  ]
 }
