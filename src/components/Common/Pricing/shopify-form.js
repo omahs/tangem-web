@@ -21,8 +21,6 @@ const ShopifyForm = ({ products, packs = [], title, description, children }) => 
     }
 		const cardId =`buy-now-${currentPack.productId}`;
 
-    console.log(cardId);
-
 		const elem = document
 			.getElementById(cardId)
 			.querySelector('iframe')

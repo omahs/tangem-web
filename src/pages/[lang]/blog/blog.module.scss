@@ -41,6 +41,11 @@
 
   li {
     margin-left: 20px;
+    color: #656565;
+
+    &.current {
+      color: #1E1E1E;
+    }
   }
 }
 

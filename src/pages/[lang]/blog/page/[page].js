@@ -1,23 +1,31 @@
-import {getSortedLangsData} from "../../../../lib/lang";
-import {sectionsConfig} from "../../../../config/faq";
-import LangBlogPage from "../index";
+import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
+import {getPagesSlugsPaths, getPosts} from "../../../../lib/cms";
+import BlogList from "../../../../components/BlogList";
 
-const LangBlogPagination = (props) => <LangBlogPage props={...props} />
+const LangBlogPagination = ({ categories, posts }) => <BlogList categories={categories} posts={posts} />
 
 export async function getStaticPaths() {
   const languages = getSortedLangsData();
-
-
-  const slugs = Object.keys(sectionsConfig).map((key) => sectionsConfig[key].slug);
-  let paths = [];
-  for (const lang of languages) {
-    for (const section of slugs) {
-      paths = [...paths, { params: { lang, section }}]
-    }
-  }
+  const paths = await getPagesSlugsPaths(languages);
 
   return {
     paths,
     fallback: false,
   };
 }
+
+export async function getStaticProps({ params }) {
+  const language = getLanguage(params.lang);
+
+  const { posts, categories } = await getPosts({language, page: params.page});
+
+  return {
+    props: {
+      language,
+      posts,
+      categories
+    },
+  };
+}
+
+export default LangBlogPagination;

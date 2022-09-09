@@ -10,6 +10,10 @@ const nextConfig = {
     })
     return config;
   },
+
+  images: {
+    domains: ['sidorov-test.s3.amazonaws.com'],
+  },
 }
 
 module.exports = nextConfig;
