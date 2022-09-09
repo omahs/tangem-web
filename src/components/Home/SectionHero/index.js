@@ -23,14 +23,14 @@ const SectionHero = () => {
 				</div>
 				<div className={styles.phone}>
 					<picture>
-						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}@1x.avif 1x, /img/hero/phone-${imgLocale}@2x.avif 2x`} type="image/avif" />
-						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}@1x.webp 1x, /img/hero/phone-${imgLocale}@2x.webp 2x`} type="image/webp" />
-						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}@1x.png 1x, /img/hero/phone-${imgLocale}@2x.png 2x`} type="image/png" />
-						<source srcSet={`/img/hero/phone-mobile-${imgLocale}@1x.avif 1x, /img/hero/phone-mobile-${imgLocale}@2x.avif 2x`} type="image/avif" />
-						<source srcSet={`/img/hero/phone-mobile-${imgLocale}@1x.webp 1x, /img/hero/phone-mobile-${imgLocale}@2x.webp 2x`} type="image/webp" />
+						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}.avif 1x, /img/hero/phone-${imgLocale}@2x.avif 2x`} type="image/avif" />
+						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}.webp 1x, /img/hero/phone-${imgLocale}@2x.webp 2x`} type="image/webp" />
+						<source media='(min-width: 768px)' srcSet={`/img/hero/phone-${imgLocale}.png 1x, /img/hero/phone-${imgLocale}@2x.png 2x`} type="image/png" />
+						<source srcSet={`/img/hero/phone-mobile-${imgLocale}.avif 1x, /img/hero/phone-mobile-${imgLocale}@2x.avif 2x`} type="image/avif" />
+						<source srcSet={`/img/hero/phone-mobile-${imgLocale}.webp 1x, /img/hero/phone-mobile-${imgLocale}@2x.webp 2x`} type="image/webp" />
 						<img
 							alt={t('sections.safe.title')}
-							src={`/img/hero/phone-mobile-${imgLocale}@1x.png`}
+							src={`/img/hero/phone-mobile-${imgLocale}.png`}
 							srcSet={`/img/hero/phone-mobile-${imgLocale}@2x.png 2x`}
 							height={711}
 							width={520}
