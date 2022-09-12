@@ -8,8 +8,6 @@
     "developers": "Developers",
     "company": "О компании",
     "legalPart": "Legal",
-    "termsOfUse": "Условия использования",
-    "privacyPolicy": "Политика конфиденциальности",
     "companyPart": "Компания",
     "about": "О компании",
     "helpCenter": "Поддержка"
@@ -37,7 +35,7 @@
   },
   "sections": {
     "safe": {
-      "title": "Надежный крипто кошелек для всех",
+      "title": "Надежный криптокошелек для всех",
       "description": "Tangem Wallet позволяет хранить криптовалюту просто и безопасно. Ключи надежно хранятся на карте, а приложение Tangem открывает полный доступ ко всей криптовселенной!"
     },
     "backup": {
@@ -363,13 +361,23 @@
       "error": ""
     }
   },
-  "docs": {
-    "termsOfUse": "",
-    "privacyPolicy": "/docs/ru/Privacy_policy_2022-09-01.pdf"
-  },
   "pagination": {
     "prev": "Предыдущая страница",
     "next": "Следущая страница",
     "state": "{{page}} из {{pageCount}}"
-  }
+  },
+  "legalDocuments": [
+    {
+      "title": "Пользовательское соглашение",
+      "href": "/docs/ru/Terms_of_Use_2022-09-01.pdf"
+    },
+    {
+      "title": "Политика конфиденциальности",
+      "href": "/docs/ru/Privacy_policy_2022-09-01.pdf"
+    },
+    {
+      "title": "Политика файлов Cookie",
+      "href": "/docs/ru/Cookie_policy_2022-09-01.pdf"
+    }
+  ]
 }
