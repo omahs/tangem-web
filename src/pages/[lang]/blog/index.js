@@ -1,7 +1,7 @@
 import {getAllLanguageSlugs, getLanguage} from "../../../lib/lang";
 import React from "react";
 import {getPosts} from "../../../lib/cms";
-import BlogList from "../../../components/BlogList";
+import BlogList from "../../../components/Blog/BlogList";
 
 const LangBlogPage = ( {posts, categories} ) => <BlogList posts={posts} categories={categories}  />
 

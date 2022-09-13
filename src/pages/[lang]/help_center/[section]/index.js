@@ -8,6 +8,7 @@ import Footer from "../../../../components/Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 import ReactHtmlParser from "react-html-parser";
+import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
 
 const Accordion = ({ id, title, body }) => {
 
@@ -198,7 +199,9 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
 
   return (
 		<Layout title={section.name} description={t('description') }>
-			<Header isDark={true} breadcrumbs={breadcrumbs} />
+			<Header isDark={true}>
+        <Breadcrumbs items={breadcrumbs} />
+      </Header>
 			<div className={styles.wrapper}>
 				<aside>
 					<div

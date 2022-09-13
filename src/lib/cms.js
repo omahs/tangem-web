@@ -5,7 +5,6 @@ const MAX_PAGE_SIZE = 100;
 const DEFAULT_POSTS_FIELDS = ['title', 'slug', 'locale', 'publishedAt'];
 const DEFAULT_POST_MEDIA = '&populate[0]=image&populate[1]=category&populate[2]=author.image&populate[3]=tags';
 
-
 /**
  *
  * @param url string
@@ -38,10 +37,10 @@ function getCategoriesData(language) {
   return getData(`categories/?locale=${language}`)
 }
 
-export async function getPosts(option) {
+export async function getPosts(options) {
   const result = await Promise.all([
-    getPostsData({...option, withMedia: true}),
-    getCategoriesData(option.language),
+    getPostsData({...options, withMedia: true}),
+    getCategoriesData(options.language),
   ]);
 
   const [posts, categories] = await Promise.all(
@@ -108,7 +107,7 @@ export async function getPostsSlugsPaths(languages) {
     }, []);
 }
 
-export async function getPagesSlugsPaths(languages, ) {
+export async function getPagesSlugsPaths(languages) {
   const result = await Promise.all(
     languages.map((language) => getPostsData({language}))
   );

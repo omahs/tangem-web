@@ -6,10 +6,9 @@ import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
 import Button from "../Button";
-import Breadcrumbs from "../Breadcrumbs";
 import {BuyContext} from "../../../context/buy-context";
 
-const Header = ({isDark, className, breadcrumbs = [] }) => {
+const Header = ({isDark, className, children }) => {
 	const { language } = i18next;
 	const { toggle } = React.useContext(BuyContext);
 	const router = useRouter();
@@ -81,9 +80,7 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 			      { t('buttons.buy') }
 					</Button>
 	    </div>
-	    {
-				!!breadcrumbs.length && <Breadcrumbs classNames={styles.breadcrumbs} items={breadcrumbs} />
-	    }
+	    { children }
     </header>
   )
 }

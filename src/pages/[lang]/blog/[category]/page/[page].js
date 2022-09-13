@@ -1,6 +1,6 @@
 import {getLanguage, getSortedLangsData} from "../../../../../lib/lang";
 import {getCategoryPagesSlugsPaths, getPosts} from "../../../../../lib/cms";
-import BlogList from "../../../../../components/BlogList";
+import BlogList from "../../../../../components/Blog/BlogList";
 
 
 const LangBlogCategoryPagination = ({ categories, posts }) => <BlogList categories={categories} posts={posts} />

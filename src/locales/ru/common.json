@@ -10,7 +10,8 @@
     "legalPart": "Юридическая информация",
     "companyPart": "Компания",
     "about": "О компании",
-    "helpCenter": "Поддержка"
+    "helpCenter": "Поддержка",
+    "blog": "Блог"
   },
   "pages": {
     "partnership": {
@@ -26,6 +27,10 @@
         "results": "Результаты для: {{query}}",
         "noResults": "Нет результатов по запросу: {{query}}"
       }
+    },
+    "blog": {
+      "title": "Блог",
+      "allCategories": "Все категории"
     }
   },
   "404": {

@@ -1,31 +1,73 @@
 import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
-import {getPost, getPostsSlugsPaths} from "../../../../lib/cms";
-import {t} from "i18next";
+import {getPost, getPostsSlugsPaths, getSrcSet} from "../../../../lib/cms";
+import i18next, {t} from "i18next";
 import Header from "../../../../components/Common/Header";
-import * as styles from "../blog.module.scss";
+import * as styles from "./post.module.scss";
 import React from "react";
 import Footer from "../../../../components/Common/Footer";
 import ReactHtmlParser from "react-html-parser";
 import Layout from "../../../../components/Common/Layout";
-import Image from "next/image";
+import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
+import {getFormatDate} from "../../../../lib/util";
+import Tags from "../../../../components/Blog/Tags";
 
 const LangBlogPostPage = ({post})  => {
-  const { body, title, image } = post;
+  const { body, title, image, category, author, publishedAt, tags } = post;
+  const authorImage = author.data.attributes.image.data.attributes;
+  const localDate = getFormatDate(publishedAt)
+  const {language} = i18next;
+
+  const breadcrumbs = [
+    {
+      href: `/${language}/blog/`,
+      name: t('menu.blog'),
+    },
+    {
+      href: `/${language}/blog/${category.data.attributes.slug}/`,
+      name: category.data.attributes.title,
+    },
+    {
+      name: title,
+    }
+  ];
 
   return (
     <Layout title={t('pages.blog.title')} description={t('description')} >
-      <Header />
+      <Header className={styles.header}>
+        <Breadcrumbs items={breadcrumbs} classNames={styles.breadcrumbs}/>
+      </Header>
       <main className={styles.page}>
-        <section className={styles.hero}>
+        <section className={styles.post}>
           <h1>{title}</h1>
-          <Image src={image.data.attributes.url}  width={52} height={52} />
-          {  ReactHtmlParser(body) }
-          <div className={styles.author}>
-
-            <span className={styles.name}>Name</span>
-            <span className={styles.date}>Date</span>
+          <div className={styles.author} role="group">
+            <img
+              height={52}
+              width={52}
+              loading='lazy'
+              decoding='async'
+              alt={authorImage.alternativeText}
+              src={authorImage.url}
+              srcSet={getSrcSet(authorImage.formats)}
+              className={styles.avatar}
+            />
+            <span>{author.data.attributes.name}</span>
+            <time dateTime={localDate} className={styles.date}>{localDate}</time>
           </div>
-
+          <Tags items={tags} />
+          <div className={styles.cover}>
+            <img
+              height={377}
+              width={752}
+              loading='lazy'
+              decoding='async'
+              alt={image.data.attributes.alternativeText}
+              src={image.data.attributes.url}
+              srcSet={getSrcSet(image.data.attributes.formats)}
+            />
+          </div>
+          <div className={styles.body}>
+          {  ReactHtmlParser(body) }
+          </div>
         </section>
       </main>
       <Footer />

@@ -10,7 +10,8 @@
     "legalPart": "Legal",
     "companyPart": "Company",
     "about": "About Tangem",
-    "helpCenter": "Help Center"
+    "helpCenter": "Help Center",
+    "blog": "Blog"
   },
   "pages": {
     "partnership": {
@@ -26,6 +27,10 @@
         "results": "Search results for: {{query}}",
         "noResults": "No results for: {{query}}"
       }
+    },
+    "blog": {
+      "title": "Blog",
+      "allCategories": "All categories"
     }
   },
   "404": {
