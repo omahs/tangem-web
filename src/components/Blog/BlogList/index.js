@@ -62,7 +62,7 @@ const BlogList = ({ posts, categories, category} ) => {
             { posts.data.map(({ attributes: { slug, tags, image, title, author, publishedAt }}, index) => {
               const imgSize = index < 2 ? { height: 300, width: 598 } : { height: 220, width: 384 } ;
               const { alternativeText, url, formats} = image.data.attributes;
-              const authorImage = author.data.attributes.image.data.attributes;
+              const authorImage = author ? author.data.attributes.image.data.attributes : null;
               const localDate = getFormatDate(publishedAt)
 
               return (
@@ -74,21 +74,23 @@ const BlogList = ({ posts, categories, category} ) => {
                           <a>{title}</a>
                         </Link>
                       </h2>
-                      <Tags items={tags} />
-                      <div className={styles.author} role="group">
-                        <img
-                          height={40}
-                          width={40}
-                          loading='lazy'
-                          decoding='async'
-                          alt={authorImage.alternativeText}
-                          src={authorImage.url}
-                          srcSet={getSrcSet(authorImage.formats)}
-                          className={styles.avatar}
-                        />
-                        <span className={styles.name}>{author.data.attributes.name}</span>
-                        <time dateTime={localDate} className={styles.date}>{localDate}</time>
-                      </div>
+                      { tags ? <Tags items={tags} /> : null }
+                      { author ?
+                        <div className={styles.author} role="group">
+                          <img
+                            height={40}
+                            width={40}
+                            loading='lazy'
+                            decoding='async'
+                            alt={authorImage.alternativeText}
+                            src={authorImage.url}
+                            srcSet={getSrcSet(authorImage.formats)}
+                            className={styles.avatar}
+                          />
+                          <span className={styles.name}>{author.data.attributes.name}</span>
+                          <time dateTime={localDate} className={styles.date}>{localDate}</time>
+                        </div> : null
+                      }
                     </div>
                     <div className={styles.cover}>
                       <img

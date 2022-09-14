@@ -1,5 +1,21 @@
-import LangBlogPage from "../[lang]/blog";
+import BlogList from "../../components/Blog/BlogList";
+import { getLanguage} from "../../lib/lang";
+import {getPosts} from "../../lib/cms";
 
-export default function BlogPage() {
-  return <LangBlogPage language="en" />
+const BlogPage = ( {posts, categories} ) => <BlogList posts={posts} categories={categories}  />
+
+export async function getStaticProps() {
+  const language = getLanguage();
+
+  const { posts, categories } = await getPosts({language});
+
+  return {
+    props: {
+      language,
+      posts,
+      categories
+    },
+  };
 }
+
+export default BlogPage;

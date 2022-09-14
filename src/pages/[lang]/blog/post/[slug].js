@@ -13,7 +13,7 @@ import Tags from "../../../../components/Blog/Tags";
 
 const LangBlogPostPage = ({post})  => {
   const { body, title, image, category, author, publishedAt, tags } = post;
-  const authorImage = author.data.attributes.image.data.attributes;
+  const authorImage = author.data ? author.data.attributes.image.data.attributes : undefined;
   const localDate = getFormatDate(publishedAt)
   const {language} = i18next;
 
@@ -22,10 +22,10 @@ const LangBlogPostPage = ({post})  => {
       href: `/${language}/blog/`,
       name: t('menu.blog'),
     },
-    {
-      href: `/${language}/blog/${category.data.attributes.slug}/`,
-      name: category.data.attributes.title,
-    },
+    ...(category.data ? [{
+        href: `/${language}/blog/${category.data.attributes.slug}/`,
+        name: category.data.attributes.title,
+      }] : []),
     {
       name: title,
     }
@@ -39,21 +39,23 @@ const LangBlogPostPage = ({post})  => {
       <main className={styles.page}>
         <section className={styles.post}>
           <h1>{title}</h1>
-          <div className={styles.author} role="group">
-            <img
-              height={52}
-              width={52}
-              loading='lazy'
-              decoding='async'
-              alt={authorImage.alternativeText}
-              src={authorImage.url}
-              srcSet={getSrcSet(authorImage.formats)}
-              className={styles.avatar}
-            />
-            <span>{author.data.attributes.name}</span>
-            <time dateTime={localDate} className={styles.date}>{localDate}</time>
-          </div>
-          <Tags items={tags} />
+          { authorImage ?
+            <div className={styles.author} role="group">
+              <img
+                height={52}
+                width={52}
+                loading='lazy'
+                decoding='async'
+                alt={authorImage.alternativeText}
+                src={authorImage.url}
+                srcSet={getSrcSet(authorImage.formats)}
+                className={styles.avatar}
+              />
+              <span>{author.data.attributes.name}</span>
+              <time dateTime={localDate} className={styles.date}>{localDate}</time>
+            </div> : null
+          }
+          { tags.data ? <Tags items={tags} /> : null }
           <div className={styles.cover}>
             <img
               height={377}

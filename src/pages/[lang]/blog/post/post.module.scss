@@ -24,6 +24,10 @@
 
 .body {
   order: 4;
+
+  iframe {
+    max-width: 100%;
+  }
 }
 
 .cover {
@@ -34,6 +38,8 @@
 
 .post {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
+  grid-template-columns: 100%;
   gap: 24px;
   width: 100%;
   max-width: 750px;
