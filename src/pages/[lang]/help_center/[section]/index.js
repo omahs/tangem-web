@@ -196,8 +196,12 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
 		setClickedArticleId(elem.id);
 	}
 
+  const titlePostfix = t('pages.helpCenter.titlePostfix', '');
+  const pageTitle = titlePostfix ? `${section.name}: ${titlePostfix}` : section.name;
+  const description = t('pages.helpCenter.description', '');
+  const pageDescription = description ? `${section.name}. ${description}` : t('description');
   return (
-		<Layout title={section.name} description={t('description') }>
+		<Layout title={pageTitle} description={pageDescription}>
 			<Header isDark={true} breadcrumbs={breadcrumbs} />
 			<div className={styles.wrapper}>
 				<aside>
