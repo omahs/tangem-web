@@ -9,7 +9,8 @@ const SectionHero = () => {
 			<p className={styles.description}>{t('sections.company.description')}</p>
 			<div  className={styles.quote}>{t('sections.company.quote')}</div>
 			<p className={styles.about}>{t('sections.company.about-1')}</p>
-			<p  className={styles.about}>{t('sections.company.about-2')}</p>
+			<p className={styles.about}>{t('sections.company.about-2')}</p>
+			<p className={styles.sbi}>{t('sections.company.about-sbi')}</p>
 		</section>
 	);
 }

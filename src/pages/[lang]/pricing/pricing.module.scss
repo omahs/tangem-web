@@ -1,0 +1,582 @@
+@use "../../../styles/function" as *;
+@use "../../../styles/mixins";
+
+.page {
+  display: grid;
+  grid-template-rows: auto min-content;
+  height: 100vh;
+  min-height: 100vh;
+  background: rgb(248 249 249);
+}
+
+.main {
+  margin: 63px 16px;
+
+  @include mixins.respond-to-medium {
+    width: calc(100% - 2rem);
+    max-width: 1240px;
+    max-height: 100%;
+    margin: 90px auto 0;
+  }
+}
+
+.picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: calc(100vw - 2rem);
+  min-height: 311px;
+  max-height: 311px;
+  padding: 2rem;
+  background: rgb(0 0 0 / 3%);
+  border-radius: 14px;
+
+  @include mixins.respond-to-medium {
+    max-width: none;
+    height: 320px;
+    min-height: auto;
+    max-height: 320px;
+    border-radius: 20px;
+  }
+
+  @media (min-width: 1272px) {
+    height: 520px;
+    max-height: 520px;
+  }
+
+  .img {
+    display: flex;
+    max-width: 100%;
+    max-height: 256px;
+    aspect-ratio: 867 / 728;
+
+    @include mixins.respond-to-medium {
+      max-height: 100%;
+    }
+
+    @supports not (aspect-ratio: 5 / 4) {
+      width: 279px;
+      max-width: 279px;
+      height: 234px;
+      max-height: 234px;
+    }
+
+    img {
+      max-width: inherit;
+      max-height: inherit;
+    }
+  }
+}
+
+.choice {
+  display: flex;
+  flex-direction: column;
+  color: rgb(0 0 0);
+  font-weight: normal;
+
+  @include mixins.respond-to-medium {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    justify-content: space-between;
+    min-height: 540px;
+  }
+
+  h3 {
+    margin-top: 18px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: calc-clamp(1.375rem, 2.25rem);
+    line-height: 1;
+
+    @supports not (font-size: clamp(1px, 1vw, 2px)) {
+      font-size: 1.375rem;
+
+      @include mixins.respond-to-medium {
+        font-size: 2.25rem;
+      }
+    }
+
+    @include mixins.respond-to-medium {
+      margin-top: 0;
+      font-weight: 500;
+    }
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+    color: rgb(104 104 104);
+    font-size: calc-clamp(0.9375rem, 1.125rem);
+    line-height: 1.3;
+
+    @supports not (font-size: clamp(1px, 1vw, 2px)) {
+      font-size: 0.9375rem;
+    }
+
+    @include mixins.respond-to-medium {
+      margin-bottom: calc-clamp(0.5rem, 1.875rem);
+
+      @supports not (font-size: clamp(1px, 1vw, 2px)) {
+        margin-bottom: 1.875rem;
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  .reseller {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: calc-clamp(0.875rem, 1.5rem) 0;
+
+    @supports not (font-size: clamp(1px, 1vw, 2px)) {
+      margin: 0.875rem 0;
+
+      @include mixins.respond-to-medium {
+        margin: 1.5rem 0;
+      }
+    }
+  }
+
+  .check-shopify {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 0 0.875rem;
+
+    @include mixins.respond-to-medium {
+      margin: 1.5rem 0;
+    }
+  }
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: space-between;
+  box-sizing: border-box;
+  column-gap: 2rem;
+
+  @media (min-width: 1172px) {
+    column-gap: calc(100% - 1140px);
+  }
+
+  @include mixins.respond-to-medium {
+    grid-template-rows: auto min-content auto;
+    grid-template-columns: 650fr 490fr;
+    max-width: 1260px;
+  }
+}
+
+.props {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  height: min-content;
+  margin-top: 20px;
+
+  @include mixins.respond-to-medium {
+    grid-template-columns: repeat(auto-fit, minmax(calc((100% - 40px) / 3), 1fr));
+    gap: 20px;
+  }
+}
+
+.prop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 1.125rem 1.25rem;
+  color: rgb(0 0 0);
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.2;
+  text-align: center;
+  background: rgb(0 0 0 / 3%);
+  border-radius: 20px;
+
+  svg {
+    margin-right: 24px;
+  }
+
+  @include mixins.respond-to-medium {
+    flex-direction: column;
+    justify-content: start;
+    width: 100%;
+    min-height: 140px;
+    padding: 31px 28px;
+    font-size: 1rem;
+
+    @supports not(font-size: clamp(1px, 1vw, 2px)) {
+      padding: 0.125rem;
+      font-size: 0.75rem;
+    }
+
+    svg {
+      flex-shrink: 0;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: flex-end;
+  width: 100%;
+
+  > * {
+    display: flex;
+    white-space: nowrap;
+
+    &:nth-child(2n) {
+      justify-content: end;
+    }
+
+    &:nth-child(1) {
+      font-weight: 600;
+    }
+
+    &:nth-child(2) {
+      font-weight: 500;
+    }
+
+    &:nth-child(-n+2) {
+      margin-bottom: 8px;
+      font-size: 18px;
+      line-height: 1;
+
+      @include mixins.respond-to-medium {
+        font-weight: 500;
+        font-size: 24px;
+      }
+    }
+
+    &:nth-child(n+3) {
+      color: rgb(104 104 104);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1;
+
+      @include mixins.respond-to-medium {
+        font-size: 15px;
+        line-height: 18px;
+      }
+    }
+
+    &:nth-child(4) {
+      text-decoration: line-through;
+
+      @include mixins.respond-to-medium {
+        font-size: 18px;
+      }
+    }
+  }
+
+  @include mixins.respond-to-medium {
+    flex-direction: row;
+    font-weight: 500;
+  }
+}
+
+.radio {
+  display: none;
+
+  + label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background: rgb(255 255 255);
+    border: 1px solid rgb(0 0 0 / 10%);
+    border-radius: 14px;
+
+    @include mixins.respond-to-medium {
+      align-items: normal;
+      padding: 24px 20px;
+      border-radius: 20px;
+    }
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  &:checked + label {
+    border-color: rgb(0 0 0);
+    box-shadow: 0 0 0 4px rgb(223 224 224);
+
+    @include mixins.respond-to-medium {
+      box-shadow: 0 0 0 6px rgb(0 0 0 / 10%);
+    }
+  }
+}
+
+.form {
+  > span {
+    display: none;
+
+    @include mixins.respond-to-medium {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+  }
+}
+
+.stories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  margin-bottom: 6px;
+  padding-top: 20px;
+  color: rgb(0 0 0);
+  font-weight: 600;
+  font-size: calc-clamp(0.9375rem, 1.125rem);
+  line-height: 1.3;
+  border-top: 1px solid rgb(233 233 233);
+
+  @supports not(font-size: clamp(1px, 1vw, 2px)) {
+    font-size: 0.9375rem;
+
+    @include mixins.respond-to-medium {
+      font-size: 1.125rem;
+    }
+  }
+
+  @include mixins.respond-to-medium {
+    margin-top: 40px;
+    margin-bottom: 0;
+    padding-top: 36px;
+    font-weight: 500;
+  }
+
+  span {
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  svg {
+    fill: black;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgb(118 118 128 / 12%);
+    border-radius: 50%;
+    transform: rotate(0deg);
+
+    @include mixins.motion {
+      transition: all 0.3s ease;
+    }
+
+    @include mixins.respond-to-medium {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+.open button {
+  transform: rotate(180deg);
+}
+
+.list {
+  max-height: 0;
+  overflow: hidden;
+
+  @include mixins.motion {
+    transition: all 0.3s ease;
+  }
+
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 78px;
+
+    &:not(:first-child) {
+      border-top: 1px solid rgb(233 233 233);
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 86px;
+      height: 36px;
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 22px;
+      text-align: center;
+      border: 1px solid rgb(0 0 0);
+      border-radius: 100px;
+
+      @include mixins.respond-to-medium {
+        width: 101px;
+        height: 46px;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.decrement,
+.increment {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  background: rgb(118 118 128 / 12%);
+  border-radius: 50%;
+
+  @include mixins.respond-to-medium {
+    width: 40px;
+    height: 40px;
+  }
+
+  &::before {
+    position: absolute;
+    top: 16px;
+    left: 9px;
+    display: block;
+    width: 16px;
+    height: 2px;
+    background-color: rgb(0 0 0);
+    border-radius: 2px;
+    content: "";
+
+    @include mixins.respond-to-medium {
+      top: 19px;
+      left: 11px;
+      width: 18px;
+    }
+  }
+
+  &.disabled::before {
+    background-color: rgb(0 0 0 / 30%);
+  }
+}
+
+.increment {
+  &::after {
+    position: absolute;
+    top: 16px;
+    left: 9px;
+    display: block;
+    width: 16px;
+    height: 2px;
+    background-color: rgb(0 0 0);
+    border-radius: 2px;
+    transform: rotate(90deg);
+    content: "";
+
+    @include mixins.respond-to-medium {
+      top: 19px;
+      left: 11px;
+      width: 18px;
+    }
+  }
+}
+
+.quantity {
+  max-width: 20px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+
+  @include mixins.respond-to-medium {
+    font-size: 24px;
+  }
+}
+
+.quantity-label {
+  display: inline-block;
+  margin-bottom: calc-clamp(0.5rem, 1.5rem);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 28px;
+
+  @include mixins.respond-to-medium {
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  @supports not (font-size: clamp(1px, 1vw, 2px)) {
+    margin-bottom: 0.5rem;
+
+    @include mixins.respond-to-medium {
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.counter-block {
+  width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: solid 1px rgb(233 233 233);
+
+  @include mixins.respond-to-medium {
+    padding-bottom: 40px;
+  }
+}
+
+.counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: end;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 0.5rem;
+
+  @include mixins.respond-to-medium {
+    padding-top: 42px;
+  }
+
+  button {
+    @include mixins.respond-to-medium {
+      width: 160px;
+    }
+  }
+
+  .label {
+    color: rgb(104 104 104);
+    font-size: 12px;
+    line-height: 1.2;
+
+    @include mixins.respond-to-medium {
+      font-size: 15px;
+    }
+  }
+
+  .value {
+    display: block;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1;
+
+    @include mixins.respond-to-medium {
+      font-size: 30px;
+    }
+  }
+}

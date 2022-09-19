@@ -12,7 +12,7 @@ import {ZendeskContext} from "../../../context/zendesk-context";
 const LangHelpCenter = ({sections, language}) => {
 	const { setNeedOpen, setNeedLoad } = useContext(ZendeskContext);
   const [ isFormActive, setIsFormActive ] = useState(false);
-  const search = useRef();
+  const search = useRef()
   const form = useRef();
 
 	const videos = [
