@@ -1,16 +1,14 @@
 import React from 'react';
-
 import i18next, {t} from "i18next";
-
-import Resellers from "./resellers";
 import Shopify from "./shopify";
 import * as styles from "./pricing.module.scss";
 import DeliveryIcon from "../../../../public/svg/delivery-buy.svg";
 import ReturnIcon from "../../../../public/svg/return.svg";
 import SupportIcon from "../../../../public/svg/support.svg";
 import Features from "./features";
+import InSales from "./insales";
 
-const Pricing = () => {
+const Pricing = ({ prices }) => {
 	const {language} = i18next;
 
 	const resellersLocales = ['ru', 'by'];
@@ -82,9 +80,9 @@ const Pricing = () => {
     >
       <Features items={features} />
     </Shopify>:
-    <Resellers>
+    <InSales packs={packs} prices={prices}>
       <Features items={features} />
-    </Resellers>
+    </InSales>
 }
 
 export default Pricing;

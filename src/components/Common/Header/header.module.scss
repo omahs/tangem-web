@@ -281,5 +281,32 @@
 
 .buy {
   margin-left: 16px;
+  padding: 5.5px 11px;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-align: center;
+  border-radius: 100px;
   backdrop-filter: blur(30px);
+
+  @media (min-width: 768px) {
+    height: 30px;
+    padding: 6px 14px;
+    font-size: 17px;
+  }
+
+  .dark & {
+    color: rgb(0 0 0);
+    background: rgb(255 255 255);
+  }
+
+  .light & {
+    color: rgb(255 255 255);
+    background: rgb(0 0 0);
+
+    &:hover,
+    &:focus {
+      background: rgb(51 51 51);
+    }
+  }
 }
