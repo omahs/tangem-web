@@ -5,9 +5,8 @@ import Logo from '../../../../public/svg/tangem-logo.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
-import Breadcrumbs from "../Breadcrumbs"
 
-const Header = ({isDark, className, breadcrumbs = [] }) => {
+const Header = ({isDark, className, children }) => {
 	const { language } = i18next;
 	const router = useRouter();
 
@@ -15,7 +14,8 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 		start: [
 			{ name: t('menu.wallet'), slug: '', href: `/${language}/`},
 			{ name: t('menu.partnership'), slug: 'partnership', href: `/${language}/partnership/` },
-			...(language !== 'ru' ? [{ name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com'}]: []),
+			...(['ru', 'by'].includes(language) ? []: [{ name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com'}]),
+      { name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` },
 		],
 		end: [
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
@@ -78,9 +78,7 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
             <a className={classNames(styles.buy)}>{ t('buttons.buy') }</a>
           </Link>
 	    </div>
-	    {
-				!!breadcrumbs.length && <Breadcrumbs classNames={styles.breadcrumbs} items={breadcrumbs} />
-	    }
+	    { children }
     </header>
   )
 }

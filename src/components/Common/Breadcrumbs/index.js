@@ -10,16 +10,18 @@ import classnames from "classnames";
  */
 const Breadcrumbs = ({classNames, items= []}) => {
 	const [last, ...all] = [...items].reverse();
-	return items.length && (<div className={classnames(styles.breadcrumbs, classNames)}>
+	return items.length && (<ul className={classnames(styles.breadcrumbs, classNames)}>
 		{ all.reverse().map(({name, href}) => (
-			<Link key={href} href={href}>
-				<a className={styles.link}>{name}</a>
-			</Link>
+      <li key={href} >
+        <Link href={href}>
+          <a>{name}</a>
+        </Link>
+      </li>
 		)) }
-		<a key={last.href}>
-			{last.name}
-		</a>
-	</div>);
+    <li key={last.href}>
+      <a>{last.name}</a>
+    </ li>
+	</ul>);
 }
 
 export default Breadcrumbs;

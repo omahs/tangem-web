@@ -8,6 +8,7 @@ import Footer from "../../../../components/Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 import ReactHtmlParser from "react-html-parser";
+import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
 
 const Accordion = ({ id, title, body }) => {
 
@@ -201,8 +202,10 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
   const description = t('pages.helpCenter.description', '');
   const pageDescription = description ? `${section.name}. ${description}` : t('description');
   return (
-		<Layout title={pageTitle} description={pageDescription}>
-			<Header isDark={true} breadcrumbs={breadcrumbs} />
+		<Layout title={section.name} description={t('description') }>
+			<Header isDark={true}>
+        <Breadcrumbs items={breadcrumbs} />
+      </Header>
 			<div className={styles.wrapper}>
 				<aside>
 					<div

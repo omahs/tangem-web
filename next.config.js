@@ -1,5 +1,4 @@
 const nextConfig = {
-
   optimizeFonts: true,
 	trailingSlash: true,
 
@@ -9,7 +8,7 @@ const nextConfig = {
       use: ["@svgr/webpack"]
     })
     return config;
-  },
+  }
 }
 
 module.exports = nextConfig;

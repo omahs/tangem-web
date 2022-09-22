@@ -10,7 +10,7 @@ export function getAllLanguageSlugs() {
 	});
 }
 
-export function getLanguage(lang) {
+export function getLanguage(lang = '') {
 	return languages.includes(lang) ? lang : defaultLanguage;
 }
 
