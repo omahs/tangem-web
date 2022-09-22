@@ -51,7 +51,7 @@
   width: 100%;
   height: 47px;
 
-  @include mixins.respond-to("lagre") {
+  @include mixins.respond-to-large {
     justify-content: start;
     width: 100%;
     height: 60px;
@@ -61,7 +61,7 @@
 .menu {
   display: flex;
 
-  @include mixins.respond-to("lagre") {
+  @include mixins.respond-to-large {
     justify-content: space-between;
     width: 100%;
     height: 100%;
@@ -76,7 +76,7 @@
     height: 28px;
     cursor: pointer;
 
-    @include mixins.respond-to("lagre") {
+    @include mixins.respond-to-large {
       display: none;
     }
 
@@ -129,7 +129,7 @@
       background-color: colors.$header-bg-dark;
     }
 
-    @include mixins.respond-to("lagre") {
+    @include mixins.respond-to-large {
       position: relative;
       right: auto;
       display: flex;
@@ -146,7 +146,7 @@
       @supports not (font-size: clamp(1px, 1vw, 2px)) {
         padding: 0;
 
-        @include mixins.respond-to("lagre") {
+        @include mixins.respond-to-large {
           padding: 0 3.125rem;
         }
       }
@@ -162,7 +162,7 @@
     width: 10rem;
     list-style: none;
 
-    @include mixins.respond-to("lagre") {
+    @include mixins.respond-to-large {
       display: flex;
       flex-direction: row;
       width: auto;
@@ -177,7 +177,7 @@
       background-color: colors.$header-bg-dark;
       box-shadow: 1px 0 6px rgb(255 255 255 / 20%);
 
-      @include mixins.respond-to("lagre") {
+      @include mixins.respond-to-large {
         background: transparent;
         box-shadow: none;
       }
@@ -201,7 +201,7 @@
       transition: 0.25s;
     }
 
-    @include mixins.respond-to("lagre") {
+    @include mixins.respond-to-large {
       align-items: center;
       height: 100%;
     }
@@ -228,7 +228,7 @@
   .toggle {
     opacity: 0;
 
-    @include mixins.respond-to("lagre") {
+    @include mixins.respond-to-large {
       display: none;
     }
 
