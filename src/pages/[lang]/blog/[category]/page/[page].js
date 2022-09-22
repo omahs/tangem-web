@@ -1,5 +1,5 @@
 import {getLanguage, getSortedLangsData} from "../../../../../lib/lang";
-import {getCategoryPagesSlugsPaths, getPosts} from "../../../../../lib/cms";
+import {getCategoryPagesSlugsPaths, getPostsAndCategories} from "../../../../../lib/cms";
 import BlogList from "../../../../../components/Blog/BlogList";
 
 
@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: {lang, page, category} }) {
   const language = getLanguage(lang);
-  const { posts, categories } = await getPosts({ language, page, category } );
+  const { posts, categories } = await getPostsAndCategories({ language, page, category } );
 
   return {
     props: {

@@ -5,10 +5,9 @@ import * as styles from "./blogList.module.scss";
 import Link from "next/link";
 import Footer from "../../Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
-import {getSrcSet} from "../../../lib/cms";
 import classNames from "classnames";
-import {getFormatDate} from "../../../lib/util";
-import Tags from "../Tags";
+import Pagination from "../Pagination";
+import Card from "../Card";
 
 const BlogList = ({ posts, categories, category} ) => {
   const { page, pageCount } = posts.meta.pagination;
@@ -46,12 +45,12 @@ const BlogList = ({ posts, categories, category} ) => {
                     <a>{t('pages.blog.allCategories')}</a>
                   </Link>
                 </li>
-                { categories.data.map(({attributes}) =>
-                  <li key={attributes.title} className={category === attributes.slug ? styles.current : undefined}>
-                    { category === attributes.slug ?
-                      <a>{attributes.title}</a> :
-                      <Link href={`/${language}/blog/${attributes.slug}`} >
-                        <a>{attributes.title}</a>
+                { categories.data.map(({attributes: {slug, title}}) =>
+                  <li key={title} className={category === slug ? styles.current : undefined}>
+                    { category === slug ?
+                      <a>{title}</a> :
+                      <Link href={`/${language}/blog/${slug}`} >
+                        <a>{title}</a>
                       </Link>}
                   </li>
                 )}
@@ -59,71 +58,16 @@ const BlogList = ({ posts, categories, category} ) => {
             </div>
           </div>
           <ul className={styles.grid}>
-            { posts.data.map(({ attributes: { slug, tags, image, title, author, publishedAt }}, index) => {
-              const imgSize = index < 2 ? { height: 300, width: 598 } : { height: 220, width: 384 } ;
-              const { alternativeText, url, formats} = image.data.attributes;
-              const authorImage = author ? author.data.attributes.image.data.attributes : null;
-              const localDate = getFormatDate(publishedAt)
+            { posts.data.map(({ attributes}, index) => {
 
               return (
-                <li key={slug}>
-                  <article className={styles.article} >
-                    <div role="group" className={styles.info}>
-                      <h2>
-                        <Link href={`/${language}/blog/post/${slug}/`}>
-                          <a>{title}</a>
-                        </Link>
-                      </h2>
-                      { tags ? <Tags items={tags} /> : null }
-                      { author ?
-                        <div className={styles.author} role="group">
-                          <img
-                            height={40}
-                            width={40}
-                            loading='lazy'
-                            decoding='async'
-                            alt={authorImage.alternativeText}
-                            src={authorImage.url}
-                            srcSet={getSrcSet(authorImage.formats)}
-                            className={styles.avatar}
-                          />
-                          <span className={styles.name}>{author.data.attributes.name}</span>
-                          <time dateTime={localDate} className={styles.date}>{localDate}</time>
-                        </div> : null
-                      }
-                    </div>
-                    <div className={styles.cover}>
-                      <img
-                        height={imgSize.height}
-                        width={imgSize.width}
-                        loading='lazy'
-                        decoding='async'
-                        alt={alternativeText}
-                        src={url}
-                        srcSet={getSrcSet(formats)}
-                      />
-                    </div>
-                  </article>
+                <li key={attributes.slug}>
+                  <Card attributes={attributes} isBig={index < 2} />
                 </li>
               )})
             }
           </ul>
-          {
-            pageCount > 1 ?
-              <div className={styles.pagination}>
-                {page === pageCount ? <a className={styles.disabled}>{t('pagination.next')}</a> :
-                  <Link href={`${path}page/${page + 1}/`}>
-                    <a>{t('pagination.next')}</a>
-                  </Link>
-                }
-                <span>{t('pagination.state', {page, pageCount})}</span>
-                { page === 1 ? <a className={styles.disabled}>{t('pagination.prev')}</a> :
-                  <Link href={ page === 2 ? path : `${path}page/${page - 1}/`}>
-                    <a>{t('pagination.prev')}</a>
-                  </Link>
-                }
-              </div> : null
-          }
+          <Pagination path={path} pageCount={pageCount} page={page} />
         </section>
       </main>
       <Footer />

@@ -16,7 +16,7 @@
     padding-left: calc(50% - 620px);
   }
 
-  @include mixins.respond-to-medium {
+  @include mixins.respond-to("large") {
     min-width: 100%;
     padding-top: 200px;
   }

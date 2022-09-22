@@ -1,5 +1,4 @@
 const nextConfig = {
-
   optimizeFonts: true,
 	trailingSlash: true,
 
@@ -9,11 +8,7 @@ const nextConfig = {
       use: ["@svgr/webpack"]
     })
     return config;
-  },
-
-  images: {
-    domains: ['sidorov-test.s3.amazonaws.com'],
-  },
+  }
 }
 
 module.exports = nextConfig;

@@ -51,7 +51,7 @@ const LangBlogPostPage = ({post})  => {
                 srcSet={getSrcSet(authorImage.formats)}
                 className={styles.avatar}
               />
-              <span>{author.data.attributes.name}</span>
+              <span>{author.data.attributes.title}</span>
               <time dateTime={localDate} className={styles.date}>{localDate}</time>
             </div> : null
           }
