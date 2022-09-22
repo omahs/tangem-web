@@ -26,8 +26,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.9",
     "babel-plugin-inline-react-svg": "^2.0.1",
-    "eslint": "8.20.0",
-    "eslint-config-next": "12.2.2",
+    "eslint": "8.23.0",
+    "eslint-config-next": "12.2.5",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "postcss": "^8.4.16",
     "stylelint": "^14.11.0",

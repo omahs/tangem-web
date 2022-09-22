@@ -1,14 +1,12 @@
-import React, {useContext, useState} from 'react';
+import React, { useState } from 'react';
 import styles from './hero.module.scss';
 import i18next, {t} from 'i18next';
 import classNames from "classnames";
 import YouTubeVideo from "../../Common/YouTubeVideo";
-import Button from "../../Common/Button";
-import {BuyContext} from "../../../context/buy-context";
+import Link from "next/link";
 
 const SectionHero = () => {
 	const [videoStarted, setVideoStarted] = useState(false);
-	const {toggle} = useContext(BuyContext);
   const {language} = i18next;
 
   const imgLocale = 'en'; // ['ru', 'by'].includes(language) ? 'ru' : 'en';
@@ -19,7 +17,14 @@ const SectionHero = () => {
 		    <div className={classNames(styles.title, {[styles.long]: true })}>
 			    <h1>{ t('sections.safe.title') }</h1>
 			    <p>{ t('sections.safe.description') }</p>
-			    <Button onClick={toggle} appearance='primary' theme='light'>{ t('buttons.buy-now') }</Button>
+          <Link
+            href={{
+              pathname: '/[lang]/pricing/',
+              query: { lang: language },
+            }}
+          >
+            <a className={styles.link}>{ t('buttons.buy-now') }</a>
+          </Link>
 				</div>
 				<div className={styles.phone}>
 					<picture>
