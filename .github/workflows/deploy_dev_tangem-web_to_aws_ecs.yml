@@ -43,6 +43,8 @@ jobs:
           NEXT_PUBLIC_RECAPTCHA_SECRET=${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET }}
           NEXT_PUBLIC_TANGEM_INSALES_API_USER=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_USER }}
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
+          NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI_DEV }}
+          NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN_DEV }}
           EOF
 
      - name: Create nginx devdefault.conf
@@ -79,7 +81,7 @@ jobs:
        with:
           node-version: '12'
 
-     - name: Build, tag, and push image to Amazon ECR
+     - name: Build, tags, and push image to Amazon ECR
        id: build-image
        env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
