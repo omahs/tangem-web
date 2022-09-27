@@ -202,7 +202,7 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
   const description = t('pages.helpCenter.description', '');
   const pageDescription = description ? `${section.name}. ${description}` : t('description');
   return (
-		<Layout title={section.name} description={t('description') }>
+		<Layout title={pageTitle} description={pageDescription}>
 			<Header isDark={true}>
         <Breadcrumbs items={breadcrumbs} />
       </Header>

@@ -266,7 +266,7 @@ const LangPricingPage = ({prices}) => {
   }
 
   return (
-    <Layout title={t('title')} description={t('description')}>
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
       { useShopify &&
         <>
           <Script
