@@ -13,7 +13,10 @@ import Tags from "../../../../components/Blog/Tags";
 
 const LangBlogPostPage = ({post})  => {
   const { body, title, image, category, author, publishedAt, tags } = post;
-  const authorImage = author.data ? author.data.attributes.image.data.attributes : undefined;
+  const authorImage = author.data && author.data.attributes.image.data
+    ? author.data.attributes.image.data.attributes
+    : undefined;
+
   const localDate = getFormatDate(publishedAt)
   const {language} = i18next;
 
@@ -39,34 +42,38 @@ const LangBlogPostPage = ({post})  => {
       <main className={styles.page}>
         <section className={styles.post}>
           <h1>{title}</h1>
-          { authorImage ?
+          { author ?
             <div className={styles.author} role="group">
-              <img
-                height={52}
-                width={52}
-                loading='lazy'
-                decoding='async'
-                alt={authorImage.alternativeText}
-                src={authorImage.url}
-                srcSet={getSrcSet(authorImage.formats)}
-                className={styles.avatar}
-              />
+              {authorImage ?
+                <img
+                  height={52}
+                  width={52}
+                  loading='lazy'
+                  decoding='async'
+                  alt={authorImage.alternativeText}
+                  src={authorImage.url}
+                  srcSet={getSrcSet(authorImage.formats)}
+                  className={styles.avatar}
+                /> : null
+              }
               <span>{author.data.attributes.title}</span>
               <time dateTime={localDate} className={styles.date}>{localDate}</time>
             </div> : null
           }
           { tags.data ? <Tags items={tags} /> : null }
-          <div className={styles.cover}>
-            <img
-              height={377}
-              width={752}
-              loading='lazy'
-              decoding='async'
-              alt={image.data.attributes.alternativeText}
-              src={image.data.attributes.url}
-              srcSet={getSrcSet(image.data.attributes.formats)}
-            />
-          </div>
+          { image.data ?
+            <div className={styles.cover}>
+              <img
+                height={377}
+                width={752}
+                loading='lazy'
+                decoding='async'
+                alt={image.data.attributes.alternativeText}
+                src={image.data.attributes.url}
+                srcSet={getSrcSet(image.data.attributes.formats)}
+              />
+            </div> : null
+          }
           <div className={styles.body}>
           {  ReactHtmlParser(body) }
           </div>

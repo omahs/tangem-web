@@ -10,8 +10,7 @@ const Card = ({ attributes, isBig = false }) => {
   const imageSize = isBig ? { height: 300, width: 598 } : { height: 220, width: 384 } ;
   const { language } = i18next;
   const { slug, tags, image, title, author, date } = attributes;
-  const { alternativeText, url, formats} = image.data.attributes;
-  const authorImage = author ? author.data.attributes.image.data.attributes : null;
+  const authorImage = author && author.data.attributes.image.data ? author.data.attributes.image.data.attributes : null;
   const localDate = getFormatDate(date);
 
   return (
@@ -25,31 +24,36 @@ const Card = ({ attributes, isBig = false }) => {
           { tags ? <Tags items={tags} /> : null }
           { author ?
             <div className={styles.author} role="group">
-              <img
-                height={40}
-                width={40}
-                loading='lazy'
-                decoding='async'
-                alt={authorImage.alternativeText}
-                src={authorImage.url}
-                srcSet={getSrcSet(authorImage.formats)}
-                className={styles.avatar}
-              />
+              {authorImage ?
+                <img
+                  height={40}
+                  width={40}
+                  loading='lazy'
+                  decoding='async'
+                  alt={authorImage.alternativeText}
+                  src={authorImage.url}
+                  srcSet={getSrcSet(authorImage.formats)}
+                  className={styles.avatar}
+                /> : null
+              }
               <span className={styles.name}>{author.data.attributes.title}</span>
               <time dateTime={localDate} className={styles.date}>{localDate}</time>
             </div> : null
           }
         </div>
         <div className={styles.cover}>
-          <img
-            height={imageSize.height}
-            width={imageSize.width}
-            loading='lazy'
-            decoding='async'
-            alt={alternativeText}
-            src={url}
-            srcSet={getSrcSet(formats)}
-          />
+          {image && image.data ?
+            <img
+              height={imageSize.height}
+              width={imageSize.width}
+              loading='lazy'
+              decoding='async'
+              alt={image.data.attributes.alternativeText}
+              src={image.data.attributes.url}
+              srcSet={getSrcSet(image.data.attributes.formats)}
+            />
+            : null
+          }
         </div>
       </article>
   )
