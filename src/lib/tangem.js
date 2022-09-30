@@ -7,7 +7,11 @@ export async function getResellers(language) {
 }
 
 export async function getGeoCode() {
-  const response = await fetch(TANGEM_GEO_API_URI);
-  const { code } = await response.json();
-  return code;
+  try {
+    const response = await fetch(TANGEM_GEO_API_URI);
+    const { code } = await response.json();
+    return code;
+  } catch (e) {
+    return ''
+  }
 }
