@@ -1,15 +1,18 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Logo from '../../../../public/svg/tangem-logo.svg'
+import GiftIcon from '../../../../public/svg/button-gift.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
 import Breadcrumbs from "../Breadcrumbs"
+import {GiftContext} from "../../../context/gift-context";
 
 const Header = ({isDark, className, breadcrumbs = [] }) => {
 	const { language } = i18next;
 	const router = useRouter();
+  const { isGiftEnabled } = useContext(GiftContext);
 
 	const menu = {
 		start: [
@@ -75,7 +78,7 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
               query: { lang: language },
             }}
           >
-            <a className={classNames(styles.buy)}>{ t('buttons.buy') }</a>
+            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
 	    {
