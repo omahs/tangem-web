@@ -274,7 +274,7 @@ const LangPricingPage = ({prices}) => {
         <>
           <Script
           id="buy-button"
-          src="https://sdks.shopifycdn.com/buy-button/1.0.0/buybutton.js"
+          src="https://sdks.shopifycdn.com/buy-button/2.2.1/buybutton.min.js"
           strategy="afterInteractive"
           onLoad={() => setShopifyLoaded(true)}
           />
