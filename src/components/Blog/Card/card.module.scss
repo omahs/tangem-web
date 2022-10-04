@@ -1,6 +1,9 @@
 .info {
   display: grid;
+  flex-grow: 1;
   gap: 16px;
+  align-content: space-between;
+  width: 100%;
   padding: 28px;
 }
 
@@ -30,13 +33,6 @@
   border-radius: 32px;
   box-shadow: 0 4px 10px rgb(0 0 0 / 6%);
 
-  h2 {
-    order: 2;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.2;
-  }
-
   &:hover,
   &:focus,
   &:focus-within {
@@ -51,6 +47,20 @@
       border-radius: 32px 32px 0 0;
       content: "";
     }
+  }
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+
+  h2 {
+    order: 1;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.2;
   }
 }
 
