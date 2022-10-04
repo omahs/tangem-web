@@ -33,7 +33,7 @@ const BlogList = ({ posts, categories, category} ) => {
       <Header />
       <main className={styles.page}>
         <section className={styles.hero}>
-          <h1>Blog</h1>
+          <h1>{t('pages.blog.title')}</h1>
           <div className={styles.categories}>
             <div role="group" className={classNames(styles.dropdown, {[styles.open]: isCategoriesOpen })} >
               <button onClick={() => setIsCategoriesOpen((v) => !v)}>
