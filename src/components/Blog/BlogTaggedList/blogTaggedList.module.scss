@@ -23,6 +23,7 @@
     color: rgb(30 30 30);
     font-size: 60px;
     line-height: 1;
+    text-transform: capitalize;
 
     @include mixins.respond-to-medium {
       font-size: 100px;
