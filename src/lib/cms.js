@@ -36,8 +36,8 @@ function getPostBySlug(slug, language) {
   return getData(`blog-posts/?locale=${language}&filters[slug][$eq]=${slug}${DEFAULT_POST_MEDIA}`);
 }
 
-function getTagBySlug(slug) {
-  return getData(`tags/?filters[slug][$eq]=${slug}`);
+function getTagBySlug(slug, language) {
+  return getData(`tags/?filters[slug][$eq]=${slug}&locale=${language}`);
 }
 
 function getCategoriesData(language) {
@@ -83,8 +83,8 @@ export async function getPost(slug, language) {
   return item.attributes;
 }
 
-export async function getTag(slug) {
-  const result = await getTagBySlug(slug);
+export async function getTag(slug, language) {
+  const result = await getTagBySlug(slug, language);
   const { data } =  await result.json();
   const [ item ] =  data;
   return item.attributes;

@@ -20,7 +20,7 @@ export async function getStaticProps({ params }) {
   const language = getLanguage(lang);
   const [posts, tagData] = await Promise.all([
     getPostsForTag({ language, tag, page }),
-    getTag(tag),
+    getTag(tag, language),
   ])
 
   return {

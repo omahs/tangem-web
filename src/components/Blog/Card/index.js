@@ -16,12 +16,14 @@ const Card = ({ attributes, isBig = false }) => {
   return (
       <article className={classNames(styles.article, {[styles.big]: isBig})}>
         <div role="group" className={styles.info}>
-          <h2>
-            <Link href={`/${language}/blog/post/${slug}/`}>
-              <a className={styles.title}>{title}</a>
-            </Link>
-          </h2>
-          { tags ? <Tags items={tags} /> : null }
+          <div role="group" className={styles.caption}>
+            <h2>
+              <Link href={`/${language}/blog/post/${slug}/`}>
+                <a className={styles.title}>{title}</a>
+              </Link>
+            </h2>
+            { tags ? <Tags items={tags} /> : null }
+          </div>
           { author ?
             <div className={styles.author} role="group">
               {authorImage ?
