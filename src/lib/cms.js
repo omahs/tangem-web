@@ -44,8 +44,8 @@ function getCategoriesData(language) {
   return getData(`categories/?locale=${language}&sort[0]=position&sort[1]=id`)
 }
 
-function getTagsData() {
-  return getData(`tags/`)
+function getTagsData(language) {
+  return getData(`tags/?locale=${language}`)
 }
 
 export async function getPostsForTag(options) {
@@ -110,13 +110,8 @@ export async function getCategoriesSlugsPaths(languages) {
 }
 
 export async function getTagsSlugsPaths(languages) {
-  const response = await getTagsData();
-  const { data } = await response.json();
-
-  return data.reduce((acc, {attributes}) => {
-    languages.forEach((lang) => acc.push({ params: { lang, tag: attributes.slug }}));
-    return acc;
-  }, []);
+  const response = await Promise.all(languages.map((lang) => getTagsData(lang)));
+  return await getSlugPaths(response, languages, 'tag');
 }
 
 export async function getPostsSlugsPaths(languages) {
