@@ -16,14 +16,13 @@ const Card = ({ attributes, isBig = false }) => {
   return (
       <article className={classNames(styles.article, {[styles.big]: isBig})}>
         <div role="group" className={styles.info}>
-          <div role="group" className={styles.caption}>
             <h2>
               <Link href={`/${language}/blog/post/${slug}/`}>
                 <a className={styles.title}>{title}</a>
               </Link>
             </h2>
+          <div role="group" className={styles.caption}>
             { tags ? <Tags items={tags} /> : null }
-          </div>
           { author ?
             <div className={styles.author} role="group">
               {authorImage ?
@@ -42,6 +41,7 @@ const Card = ({ attributes, isBig = false }) => {
               <time dateTime={localDate} className={styles.date}>{localDate}</time>
             </div> : null
           }
+          </div>
         </div>
         <div className={styles.cover}>
           {image && image.data ?
