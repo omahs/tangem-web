@@ -8,7 +8,6 @@
 
 .tag {
   max-width: 100%;
-  padding: 4px 10px;
   overflow: hidden;
   color: rgb(104 104 104);
   font-size: 18px;
@@ -16,12 +15,19 @@
   text-overflow: ellipsis;
   background: rgb(240 241 241);
   border-radius: 8px;
+
+  &:hover,
+  &:focus {
+    color: rgb(30 30 30);
+  }
 }
 
 .link {
   position: relative;
   z-index: 10;
+  display: flex;
   max-width: 100%;
+  padding: 4px 10px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
