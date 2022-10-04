@@ -17,7 +17,7 @@
   border-radius: 8px;
 
   &:hover,
-  &:focus {
+  &:focus-within {
     color: rgb(30 30 30);
   }
 }
