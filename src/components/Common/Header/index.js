@@ -18,7 +18,9 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 		start: [
 			{ name: t('menu.wallet'), slug: '', href: `/${language}/`},
 			{ name: t('menu.partnership'), slug: 'partnership', href: `/${language}/partnership/` },
-			...(language !== 'ru' ? [{ name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com'}]: []),
+			...(language !== 'ru' ? [
+        { name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com', external: true}
+      ]: []),
 		],
 		end: [
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
@@ -50,13 +52,13 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 						{
 							Object.keys(menu).map((key) =>
 								<ul key={key}>
-									{ menu[key].map(({name, href, slug}) => {
+									{ menu[key].map(({name, href, slug, external = false}) => {
 										const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language).reverse();
 										return (
 											<li key={name} className={slugFromRouter === slug ? styles.active : null} >
 												{ router.asPath !== href && (
 														<Link href={href}>
-															<a>{name}</a>
+															<a target={external ? '_blank' : '_self'}>{name}</a>
 														</Link>
 													) ||
 													(
