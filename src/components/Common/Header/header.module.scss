@@ -268,7 +268,10 @@
 }
 
 .buy {
-  margin-left: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: 8px;
   padding: 5.5px 11px;
   color: rgb(255 255 255);
   font-size: 15px;
