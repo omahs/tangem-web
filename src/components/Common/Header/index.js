@@ -15,7 +15,7 @@ const Header = ({isDark, className, children }) => {
 			{ name: t('menu.wallet'), slug: '', href: `/${language}/`},
 			{ name: t('menu.partnership'), slug: 'partnership', href: `/${language}/partnership/` },
 			...(['ru', 'by'].includes(language) ? []: [{ name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com'}]),
-      { name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` },
+			...(['ru'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
