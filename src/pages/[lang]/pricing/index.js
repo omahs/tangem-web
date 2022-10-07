@@ -2,7 +2,7 @@ import {getAllLanguageSlugs, getLanguage} from "../../../lib/lang";
 import {loadInsalesProducts} from "../../../lib/insales";
 import i18next, {t} from "i18next";
 import Layout from "../../../components/Common/Layout";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
 import Header from "../../../components/Common/Header";
 import Footer from "../../../components/Common/Footer";
 import * as styles from './pricing.module.scss';
@@ -15,6 +15,7 @@ import {getResellers} from "../../../lib/tangem";
 import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
+import {GiftContext} from "../../../context/gift-context";
 
 const LangPricingPage = ({prices}) => {
   const {language} = i18next;
@@ -23,6 +24,8 @@ const LangPricingPage = ({prices}) => {
   const useResellerList = resellersLocales.includes(language)
 
   const useShopify = !resellersLocales.includes(language);
+
+  const { isGiftEnabled } = useContext(GiftContext);
 
   const packs = [
     {
@@ -266,12 +269,12 @@ const LangPricingPage = ({prices}) => {
   }
 
   return (
-    <Layout title={t('title')} description={t('description')}>
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
       { useShopify &&
         <>
           <Script
           id="buy-button"
-          src="https://sdks.shopifycdn.com/buy-button/1.0.0/buybutton.js"
+          src="https://sdks.shopifycdn.com/buy-button/2.2.1/buybutton.min.js"
           strategy="afterInteractive"
           onLoad={() => setShopifyLoaded(true)}
           />
@@ -292,6 +295,11 @@ const LangPricingPage = ({prices}) => {
                 <h3>{ t('pricing.buy.title')}</h3>
                 <p>{ t('pricing.buy.description')}</p>
               </div>
+              { isGiftEnabled && language === 'ru' ?
+                <div className={styles.gift}>
+                { t('pricing.gift') }
+                </div> : null
+              }
               <form className={styles.form} >
                 <span>{t('pricing.choice')}</span>
                 <fieldset className={styles['check-shopify']}>

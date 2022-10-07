@@ -31,6 +31,10 @@
     "blog": {
       "title": "Blog",
       "allCategories": "All categories"
+    },
+    "pricing": {
+      "title": "Tangem Wallet — Hardware Wallet For Your Crypto",
+      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
     }
   },
   "404": {
