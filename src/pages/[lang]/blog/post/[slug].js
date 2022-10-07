@@ -39,47 +39,49 @@ const LangBlogPostPage = ({post})  => {
       <Header className={styles.header}>
         <Breadcrumbs items={breadcrumbs} classNames={styles.breadcrumbs}/>
       </Header>
-      <main className={styles.page}>
-        <section className={styles.post}>
-          <h1>{title}</h1>
-          { author ?
-            <div className={styles.author} role="group">
-              {authorImage ?
+      <div className={styles.wrapper}>
+        <main className={styles.page}>
+          <section className={styles.post}>
+            <h1>{title}</h1>
+            { author ?
+              <div className={styles.author} role="group">
+                {authorImage ?
+                  <img
+                    height={52}
+                    width={52}
+                    loading='lazy'
+                    decoding='async'
+                    alt={authorImage.alternativeText}
+                    src={authorImage.url}
+                    srcSet={getSrcSet(authorImage.formats)}
+                    className={styles.avatar}
+                  /> : null
+                }
+                <span>{author.data.attributes.title}</span>
+                <time dateTime={localDate} className={styles.date}>{localDate}</time>
+              </div> : null
+            }
+            { tags.data ? <Tags items={tags} /> : null }
+            { image.data ?
+              <div className={styles.cover}>
                 <img
-                  height={52}
-                  width={52}
+                  height={377}
+                  width={752}
                   loading='lazy'
                   decoding='async'
-                  alt={authorImage.alternativeText}
-                  src={authorImage.url}
-                  srcSet={getSrcSet(authorImage.formats)}
-                  className={styles.avatar}
-                /> : null
-              }
-              <span>{author.data.attributes.title}</span>
-              <time dateTime={localDate} className={styles.date}>{localDate}</time>
-            </div> : null
-          }
-          { tags.data ? <Tags items={tags} /> : null }
-          { image.data ?
-            <div className={styles.cover}>
-              <img
-                height={377}
-                width={752}
-                loading='lazy'
-                decoding='async'
-                alt={image.data.attributes.alternativeText}
-                src={image.data.attributes.url}
-                srcSet={getSrcSet(image.data.attributes.formats)}
-              />
-            </div> : null
-          }
-          <div className={styles.body}>
-          {  ReactHtmlParser(body) }
-          </div>
-        </section>
-      </main>
-      <Footer />
+                  alt={image.data.attributes.alternativeText}
+                  src={image.data.attributes.url}
+                  srcSet={getSrcSet(image.data.attributes.formats)}
+                />
+              </div> : null
+            }
+            <div className={styles.body}>
+            {  ReactHtmlParser(body) }
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
     </Layout>
   );
 }

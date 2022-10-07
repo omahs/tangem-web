@@ -13,7 +13,7 @@
   font-size: 18px;
   line-height: 1.3;
   text-overflow: ellipsis;
-  background: rgb(240 241 241);
+  background: var(--color-tag-background, rgb(240 241 241));
   border-radius: 8px;
 
   &:hover,
