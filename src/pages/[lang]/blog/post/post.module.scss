@@ -41,6 +41,17 @@
   figure {
     margin: 1rem auto;
   }
+
+  blockquote {
+    margin-bottom: 1rem;
+    padding: 30px;
+    background: rgb(255 255 255);
+    border-radius: 16px;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .cover {
