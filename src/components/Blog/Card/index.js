@@ -10,7 +10,9 @@ const Card = ({ attributes, isBig = false }) => {
   const imageSize = isBig ? { height: 300, width: 598 } : { height: 220, width: 384 } ;
   const { language } = i18next;
   const { slug, tags, image, title, author, date } = attributes;
-  const authorImage = author && author.data.attributes.image.data ? author.data.attributes.image.data.attributes : null;
+  const authorImage = author.data && author.data.attributes.image.data
+    ? author.data.attributes.image.data.attributes
+    : undefined;
   const localDate = getFormatDate(date);
 
   return (
@@ -24,7 +26,7 @@ const Card = ({ attributes, isBig = false }) => {
             </h2>
             { tags ? <Tags items={tags} /> : null }
           </div>
-          { author ?
+          { author && author.data ?
             <div className={styles.author} role="group">
               {authorImage ?
                 <img
