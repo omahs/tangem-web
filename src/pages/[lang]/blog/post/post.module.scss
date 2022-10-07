@@ -40,8 +40,34 @@
     max-width: 100%;
   }
 
-  p {
+  blockquote,
+  dl,
+  dd,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  p,
+  pre {
     margin-bottom: 1rem;
+  }
+
+  p,
+  ul {
+    color: rgb(101 101 101);
+  }
+
+  strong,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6, {
+    color: rgb(30 30 30);
   }
 
   ul {
@@ -54,7 +80,6 @@
   }
 
   blockquote {
-    margin-bottom: 1rem;
     padding: 16px;
     background: rgb(255 255 255);
     border-radius: 16px;
