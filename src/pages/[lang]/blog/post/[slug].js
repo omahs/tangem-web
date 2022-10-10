@@ -1,4 +1,4 @@
-import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
+import {getLanguage, getBlogLangsData} from "../../../../lib/lang";
 import {getPost, getPostsSlugsPaths, getSrcSet} from "../../../../lib/cms";
 import i18next, {t} from "i18next";
 import Header from "../../../../components/Common/Header";
@@ -87,7 +87,7 @@ const LangBlogPostPage = ({post})  => {
 }
 
 export async function getStaticPaths() {
-  const languages = getSortedLangsData();
+  const languages = getBlogLangsData();
   const paths = await getPostsSlugsPaths(languages);
 
   return {

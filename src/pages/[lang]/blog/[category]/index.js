@@ -1,4 +1,4 @@
-import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
+import {getLanguage, getBlogLangsData} from "../../../../lib/lang";
 import {getCategoriesSlugsPaths, getPostsAndCategories} from "../../../../lib/cms";
 import BlogList from "../../../../components/Blog/BlogList";
 
@@ -6,7 +6,7 @@ const LangBlogCategory = ({ categories, posts, category }) =>
   <BlogList categories={categories} posts={posts} category={category} />
 
 export async function getStaticPaths() {
-  const languages = getSortedLangsData();
+  const languages = getBlogLangsData();
   const paths = await getCategoriesSlugsPaths(languages);
 
   return {
