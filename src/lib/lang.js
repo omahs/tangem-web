@@ -15,7 +15,7 @@ export function getAllLanguageSlugs() {
 }
 
 export function getBlogLanguageSlugs() {
-  return { params: { lang: 'ru' } };
+  return [{ params: { lang: 'ru' } }];
 }
 
 export function getLanguage(lang = '') {
