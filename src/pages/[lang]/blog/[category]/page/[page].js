@@ -1,4 +1,4 @@
-import {getLanguage, getSortedLangsData} from "../../../../../lib/lang";
+import {getLanguage, getBlogLangsData} from "../../../../../lib/lang";
 import {getCategoryPagesSlugsPaths, getPostsAndCategories} from "../../../../../lib/cms";
 import BlogList from "../../../../../components/Blog/BlogList";
 
@@ -6,7 +6,7 @@ import BlogList from "../../../../../components/Blog/BlogList";
 const LangBlogCategoryPagination = ({ categories, posts }) => <BlogList categories={categories} posts={posts} />
 
 export async function getStaticPaths() {
-  const languages = getSortedLangsData();
+  const languages = getBlogLangsData();
   const paths = await getCategoryPagesSlugsPaths(languages);
   return {
     paths,

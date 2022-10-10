@@ -4,10 +4,18 @@ export function getSortedLangsData() {
 	return languages;
 }
 
+export function getBlogLangsData() {
+  return ['ru'];
+}
+
 export function getAllLanguageSlugs() {
 	return languages.map((lang) => {
 		return { params: { lang: lang } };
 	});
+}
+
+export function getBlogLanguageSlugs() {
+  return { params: { lang: 'ru' } };
 }
 
 export function getLanguage(lang = '') {

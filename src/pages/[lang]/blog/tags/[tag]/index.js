@@ -1,13 +1,13 @@
 
 import {getPostsForTag, getTag, getTagsSlugsPaths} from "../../../../../lib/cms";
-import {getLanguage, getSortedLangsData} from "../../../../../lib/lang";
+import {getLanguage, getBlogLangsData} from "../../../../../lib/lang";
 import BlogTaggedList from "../../../../../components/Blog/BlogTaggedList";
 
 const LangBlogTag = ({ tag, posts }) =>
   <BlogTaggedList tag={tag} posts={posts} />
 
 export async function getStaticPaths() {
-  const languages = getSortedLangsData();
+  const languages = getBlogLangsData();
   const paths = await getTagsSlugsPaths(languages);
 
   return {
