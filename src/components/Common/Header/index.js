@@ -6,10 +6,9 @@ import GiftIcon from '../../../../public/svg/button-gift.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
-import Breadcrumbs from "../Breadcrumbs"
 import {GiftContext} from "../../../context/gift-context";
 
-const Header = ({isDark, className, breadcrumbs = [] }) => {
+const Header = ({isDark, className, children }) => {
 	const { language } = i18next;
 	const router = useRouter();
   const { isGiftEnabled } = useContext(GiftContext);
@@ -21,6 +20,7 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
 			...(language !== 'ru' ? [
         { name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com', external: true}
       ]: []),
+			...(['ru'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
@@ -83,9 +83,7 @@ const Header = ({isDark, className, breadcrumbs = [] }) => {
             <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
-	    {
-				!!breadcrumbs.length && <Breadcrumbs classNames={styles.breadcrumbs} items={breadcrumbs} />
-	    }
+	    { children }
     </header>
   )
 }

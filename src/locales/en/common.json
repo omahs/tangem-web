@@ -1,4 +1,5 @@
 {
+  "locale": "en-US",
   "title": "Tangem Wallet — Hardware Wallet For Your Crypto",
   "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card.",
   "menu": {
@@ -9,7 +10,8 @@
     "legalPart": "Legal",
     "companyPart": "Company",
     "about": "About Tangem",
-    "helpCenter": "Help Center"
+    "helpCenter": "Help Center",
+    "blog": "Blog"
   },
   "pages": {
     "partnership": {
@@ -25,6 +27,10 @@
         "results": "Search results for: {{query}}",
         "noResults": "No results for: {{query}}"
       }
+    },
+    "blog": {
+      "title": "Blog",
+      "allCategories": "All categories"
     },
     "pricing": {
       "title": "Tangem Wallet — Hardware Wallet For Your Crypto",
@@ -360,6 +366,11 @@
       "failed": "The message could not be sent.",
       "error": ""
     }
+  },
+  "pagination": {
+    "prev": "Previous page",
+    "next": "Next Page",
+    "state": "{{page}} of {{pageCount}}"
   },
   "legalDocuments": [
     {

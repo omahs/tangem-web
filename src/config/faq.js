@@ -33,5 +33,4 @@ export const sectionsConfig = {
 	},
 };
 
-
 export const getCodeByLanguage = (language) => ['ru', 'by'].includes(language) ? 'ru' : 'en-us';
