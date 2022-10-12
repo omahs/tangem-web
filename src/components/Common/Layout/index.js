@@ -1,8 +1,11 @@
 import React from 'react'
 import Head from "next/head";
 import Script from "next/script";
+import {useRouter} from "next/router";
 
 const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription }) => {
+
+  const router = useRouter();
 
 	return (
 		<>
@@ -12,7 +15,7 @@ const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription 
 				<meta name="title" content={ title } />
 				<meta name="description" content={ description } />
 				<meta property="og:type" content="website" />
-				<meta property="og:url" content="https://tangem.com" />
+				<meta property="og:url" content={`https://tangem.com${router.asPath}`} />
 				<meta property="og:site_name" content={ title } />
 				<meta property="og:title" content={ ogTitle || title } />
 				<meta property="og:description" content={ ogDescription || description } />
