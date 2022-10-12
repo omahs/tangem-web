@@ -2,7 +2,7 @@ import React from 'react'
 import Head from "next/head";
 import Script from "next/script";
 
-const Layout = ({ title, description, children }) => {
+const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription }) => {
 
 	return (
 		<>
@@ -14,9 +14,9 @@ const Layout = ({ title, description, children }) => {
 				<meta property="og:type" content="website" />
 				<meta property="og:url" content="https://tangem.com" />
 				<meta property="og:site_name" content={ title } />
-				<meta property="og:title" content={ title } />
-				<meta property="og:description" content={ description } />
-				<meta property="og:image" content="https://tangem.com/img/hero/phone@1x.png" />
+				<meta property="og:title" content={ ogTitle || title } />
+				<meta property="og:description" content={ ogDescription || description } />
+				<meta property="og:image" content={ ogImage || "https://tangem.com/img/hero/phone-en.png"} />
 				<meta property="og:video" content="https://www.youtube.com/watch?v=ST4jvcaE_UU" />
 				<meta property="og:locale" content="en_US" />
 				<meta name="yandex-verification" content="d7ceaf19b3538bb6" />
