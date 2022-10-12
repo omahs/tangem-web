@@ -1,4 +1,4 @@
-import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
+import {getLanguage, getBlogLangsData} from "../../../../lib/lang";
 import {getPost, getPostsSlugsPaths, getSrcSet} from "../../../../lib/cms";
 import i18next, {t} from "i18next";
 import Header from "../../../../components/Common/Header";
@@ -12,7 +12,7 @@ import {getFormatDate} from "../../../../lib/util";
 import Tags from "../../../../components/Blog/Tags";
 
 const LangBlogPostPage = ({post})  => {
-  const { body, title, image, category, author, publishedAt, tags } = post;
+  const { body, title, image, category, author, publishedAt, tags, excerpt } = post;
   const authorImage = author.data && author.data.attributes.image.data
     ? author.data.attributes.image.data.attributes
     : undefined;
@@ -35,7 +35,7 @@ const LangBlogPostPage = ({post})  => {
   ];
 
   return (
-    <Layout title={t('pages.blog.title')} description={t('description')} >
+    <Layout title={title} description={excerpt || t('description')} ogImage={image?.data?.attributes?.url} ogDescription={excerpt} >
       <Header className={styles.header}>
         <Breadcrumbs items={breadcrumbs} classNames={styles.breadcrumbs}/>
       </Header>
@@ -87,7 +87,7 @@ const LangBlogPostPage = ({post})  => {
 }
 
 export async function getStaticPaths() {
-  const languages = getSortedLangsData();
+  const languages = getBlogLangsData();
   const paths = await getPostsSlugsPaths(languages);
 
   return {
