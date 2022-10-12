@@ -20,7 +20,7 @@ const Header = ({isDark, className, children }) => {
 			...(language !== 'ru' ? [
         { name: t('menu.developers'), slug: 'developers', href: 'https://developers.tangem.com', external: true}
       ]: []),
-			...(['ru'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
+			...(['ru', 'en'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
