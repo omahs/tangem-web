@@ -32,6 +32,7 @@
     },
     "blog": {
       "title": "Блог",
+      "titleSuffix": "Tangem Блог",
       "allCategories": "Все категории"
     },
     "pricing": {

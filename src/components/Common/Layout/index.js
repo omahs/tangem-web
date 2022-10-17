@@ -3,7 +3,7 @@ import Head from "next/head";
 import Script from "next/script";
 import {useRouter} from "next/router";
 
-const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription }) => {
+const Layout = ({ title, titleSuffix, description, children, ogImage, ogTitle, ogDescription }) => {
 
   const router = useRouter();
 
@@ -23,7 +23,7 @@ const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription 
 				<meta property="og:video" content="https://www.youtube.com/watch?v=ST4jvcaE_UU" />
 				<meta property="og:locale" content="en_US" />
 				<meta name="yandex-verification" content="d7ceaf19b3538bb6" />
-				<title>{ title }</title>
+				<title>{ titleSuffix ? `${title}: ${titleSuffix}` : title }</title>
 				<link rel='shortcut icon' href='/img/favicon/favicon.png' />
 				<link rel='apple-touch-icon' href='/img/favicon/favicon-180.png' />
 			</Head>

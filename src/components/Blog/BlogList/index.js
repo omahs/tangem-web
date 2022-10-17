@@ -29,7 +29,11 @@ const BlogList = ({ posts, categories, category} ) => {
   }, [isCategoriesOpen]);
 
   return (
-    <Layout title={t('pages.blog.title')} description={t('description')} >
+    <Layout
+      title={currentCategoryTitle || t('pages.blog.title')}
+      titleSuffix={currentCategoryTitle ? t('pages.blog.titleSuffix') : undefined}
+      description={t('description')}
+    >
       <Header />
       <main className={styles.page}>
         <section className={styles.hero}>
