@@ -96,6 +96,7 @@ const Zendesk = () => {
 				className={styles.block}
 				onClick={() => setNeedOpen(true)}
 				onMouseOver={() => setNeedLoad(true)}
+        aria-label={'Help'}
 			>
 				<ChatIcon />
 			</button>

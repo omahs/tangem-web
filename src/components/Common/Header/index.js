@@ -39,13 +39,13 @@ const Header = ({isDark, className, children }) => {
 	    <div className={styles.wrapper}>
 	      <nav className={styles.nav}>
 	        <Link href="/">
-	          <a className={styles.logo}>
+	          <a aria-label={'Tangem'} className={styles.logo}>
 	            <Logo />
 	          </a>
 	        </Link>
 					<div className={styles.menu}>
 			      <input id="toggle" type="checkbox" className={styles.toggle} />
-			      <label htmlFor="toggle">
+			      <label aria-label={'toggle'} htmlFor="toggle">
 				      <span/>
 			      </label>
 						<div className={styles.items}>
@@ -79,8 +79,9 @@ const Header = ({isDark, className, children }) => {
               pathname: '/[lang]/pricing/',
               query: { lang: language },
             }}
+            aria-label={'Gift'}
           >
-            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }</a>
+            <a aria-label={'Gift'} className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
 	    { children }
