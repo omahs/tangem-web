@@ -125,6 +125,7 @@
 
   .reseller {
     display: grid;
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: calc-clamp(0.875rem, 1.5rem) 0;
@@ -140,6 +141,7 @@
 
   .check-shopify {
     display: grid;
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: 1fr;
     gap: 1rem;
     margin: 0 0 0.875rem;
@@ -152,9 +154,11 @@
 
 .card {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: 1fr;
   justify-content: space-between;
   box-sizing: border-box;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   column-gap: 2rem;
 
   @media (min-width: 1172px) {
@@ -163,6 +167,7 @@
 
   @include mixins.respond-to-medium {
     grid-template-rows: auto min-content auto;
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: 650fr 490fr;
     max-width: 1260px;
   }
@@ -547,7 +552,7 @@
   align-self: end;
   justify-content: space-between;
   width: 100%;
-  padding-top: 0.5rem;
+  padding-top: 24px;
 
   @include mixins.respond-to-medium {
     padding-top: 42px;
@@ -560,6 +565,7 @@
   }
 
   .label {
+    display: flex;
     color: rgb(104 104 104);
     font-size: 12px;
     line-height: 1.2;
@@ -570,7 +576,7 @@
   }
 
   .value {
-    display: block;
+    display: flex;
     font-weight: 500;
     font-size: 24px;
     line-height: 1;
