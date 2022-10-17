@@ -52,7 +52,7 @@ const Card = ({ attributes, isBig = false }) => {
               width={imageSize.width}
               loading='lazy'
               decoding='async'
-              alt={image.data.attributes.alternativeText}
+              alt={title}
               src={image.data.attributes.url}
               srcSet={getSrcSet(image.data.attributes.formats)}
             />

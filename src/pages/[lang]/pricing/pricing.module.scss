@@ -162,6 +162,7 @@
   column-gap: 2rem;
 
   @media (min-width: 1172px) {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     column-gap: calc(100% - 1140px);
   }
 
@@ -175,12 +176,14 @@
 
 .props {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: 1fr;
   gap: 10px;
   height: min-content;
   margin-top: 20px;
 
   @include mixins.respond-to-medium {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: repeat(auto-fit, minmax(calc((100% - 40px) / 3), 1fr));
     gap: 20px;
   }
@@ -227,6 +230,7 @@
 
 .info {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: repeat(2, 1fr);
   align-content: flex-end;
   width: 100%;

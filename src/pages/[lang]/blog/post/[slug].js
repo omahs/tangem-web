@@ -34,8 +34,15 @@ const LangBlogPostPage = ({post})  => {
     }
   ];
 
+
   return (
-    <Layout title={title} description={excerpt || t('description')} ogImage={image?.data?.attributes?.url} ogDescription={excerpt} >
+    <Layout
+      title={title}
+      titleSuffix={t('pages.blog.titleSuffix')}
+      description={excerpt || t('description')}
+      ogImage={image?.data?.attributes?.url}
+      ogDescription={excerpt}
+    >
       <Header className={styles.header}>
         <Breadcrumbs items={breadcrumbs} classNames={styles.breadcrumbs}/>
       </Header>
