@@ -47,24 +47,26 @@
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   height: 47px;
 
   @include mixins.respond-to-large {
-    justify-content: start;
-    width: 100%;
     height: 60px;
   }
 }
 
 .menu {
   display: flex;
+  order: -1;
+  margin-right: 12px;
 
   @include mixins.respond-to-large {
     justify-content: space-between;
+    order: initial;
     width: 100%;
     height: 100%;
+    margin-right: 0;
   }
 
   label {
@@ -226,6 +228,7 @@
   }
 
   .toggle {
+    width: 0;
     opacity: 0;
 
     @include mixins.respond-to-large {
@@ -248,7 +251,7 @@
       }
 
       ~ .items {
-        right: 0;
+        left: 0;
         visibility: visible;
       }
     }

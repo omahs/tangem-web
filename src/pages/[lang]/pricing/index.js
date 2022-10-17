@@ -17,6 +17,45 @@ import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 import {GiftContext} from "../../../context/gift-context";
 
+const packs = [
+  {
+    id: 'pack3',
+    productId: '6677839577154',
+    title: t('pricing.pack3.title'),
+    description: t('pricing.pack3.description'),
+    image: <picture className={styles.img}>
+      <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
+      <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
+      <img
+        loading='lazy'
+        decoding='async'
+        alt='Pack of 3 Cards'
+        src='/img/packs/pack3@1x.png'
+        srcSet="/img/packs/pack3@2x.png 2x"
+      />
+    </picture>,
+    defaultPrice: '69.90',
+  },
+  {
+    id: 'pack2',
+    productId: '6677836693570',
+    title: t('pricing.pack2.title'),
+    description: t('pricing.pack2.description'),
+    image: <picture className={styles.img}>
+      <source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif" />
+      <source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp" />
+      <img
+        loading='lazy'
+        decoding='async'
+        alt='Pack of 2 Cards'
+        src='/img/packs/pack2@1x.png'
+        srcSet="/img/packs/pack2@2x.png 2x"
+      />
+    </picture>,
+    defaultPrice: '54.90',
+  }
+];
+
 const LangPricingPage = ({prices}) => {
   const {language} = i18next;
   const resellersLocales = ['ru', 'by'];
@@ -27,45 +66,7 @@ const LangPricingPage = ({prices}) => {
 
   const { isGiftEnabled } = useContext(GiftContext);
 
-  const packs = [
-    {
-      id: 'pack3',
-      productId: '6677839577154',
-      title: t('pricing.pack3.title'),
-      description: t('pricing.pack3.description'),
-      image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
-        <img
-          loading='lazy'
-          decoding='async'
-          alt='Pack of 3 Cards'
-          src='/img/packs/pack3@1x.png'
-          srcSet="/img/packs/pack3@2x.png 2x"
-        />
-      </picture>,
-      defaultPrice: '69.90',
-    },
-    {
-      id: 'pack2',
-      productId: '6677836693570',
-      title: t('pricing.pack2.title'),
-      description: t('pricing.pack2.description'),
-      image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp" />
-        <img
-          loading='lazy'
-          decoding='async'
-          alt='Pack of 2 Cards'
-          src='/img/packs/pack2@1x.png'
-          srcSet="/img/packs/pack2@2x.png 2x"
-        />
-      </picture>,
-      defaultPrice: '54.90',
-    }
-  ];
-
+  const [discountCode, setDiscountCode] = useState('');
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
@@ -73,6 +74,11 @@ const LangPricingPage = ({prices}) => {
   const [list, setList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
   const refResellers = useRef();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setDiscountCode(searchParams.get('promocode'));
+  }, []);
 
   useEffect(() => {
     if (!useResellerList) {
@@ -140,7 +146,13 @@ const LangPricingPage = ({prices}) => {
         .click()
     }
     else {
-      window.location.href = `https://sales.tangem.com/?variant_id=${prices[currentPack.id].id}&qty=${quantity}`;
+      const searchParams = new URLSearchParams();
+      searchParams.set('variant_id', prices[currentPack.id].id);
+      searchParams.set('qty', quantity);
+      if (discountCode) {
+        searchParams.set('variant_discount', discountCode);
+      }
+      window.location.href = `https://sales.tangem.com/?${searchParams.toString()}`;
     }
   }
 
@@ -163,7 +175,33 @@ const LangPricingPage = ({prices}) => {
         id,
         options: {
           product: {
-            buttonDestination: 'checkout',
+            // how-to apply discount code https://github.com/Shopify/buy-button-js/issues/487#issuecomment-763132108
+            // source code of buttonDestination: 'checkout' is taken
+            // from https://github.com/Shopify/buy-button-js/blob/master/src/components/product.js#L665-L687
+            buttonDestination: function (btnProps) {
+              btnProps._userEvent('openCheckout');
+              btnProps.props.tracker.track('Direct Checkout', {});
+              let checkoutWindow;
+
+              if (btnProps.config.cart.popup && browserFeatures.windowOpen()) {
+                const params = (new Checkout(btnProps.config)).params;
+                checkoutWindow = window.open('', 'checkout', params);
+              } else {
+                checkoutWindow = window;
+              }
+              const input = {
+                lineItems: [
+                  {
+                    variantId: btnProps.selectedVariant.id,
+                    quantity: btnProps.selectedQuantity,
+                  },
+                ],
+              };
+
+              btnProps.props.client.checkout.create(input).then((checkout) => {
+                checkoutWindow.location = `${checkout.webUrl}&discount=${discountCode}`;
+              });
+            },
             contents: {
               quantity: true, // determines whether to show any quantity inputs at all
               quantityIncrement: true, // button to increase quantity
