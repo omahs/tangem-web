@@ -253,7 +253,14 @@
     "contact-us": "Contact Us",
     "submit": "Submit",
     "join-us": "Join Us",
-    "contact-support": "Contact Support"
+    "contact-support": "Contact Support",
+    "goTo": "Go to",
+    "accordion": {
+      "open": "Open",
+      "close": "Close"
+    },
+    "toggle": "Toggle",
+    "help": "Help"
   },
   "faq": {
     "title": "Frequently Asked Questions",
