@@ -56,7 +56,8 @@
   }
 
   p,
-  ul {
+  ul,
+  ol {
     color: rgb(101 101 101);
   }
 
@@ -72,7 +73,12 @@
 
   ul {
     margin: 1rem 0 1rem 2rem;
-    list-style: initial;
+    list-style: disc;
+  }
+
+  ol {
+    margin: 1rem 0 1rem 2rem;
+    list-style: decimal;
   }
 
   figure {
