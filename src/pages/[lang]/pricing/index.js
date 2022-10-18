@@ -150,7 +150,7 @@ const LangPricingPage = ({prices}) => {
       searchParams.set('variant_id', prices[currentPack.id].id);
       searchParams.set('qty', quantity);
       if (discountCode) {
-        searchParams.set('variant_discount', discountCode);
+        searchParams.set('discount', discountCode);
       }
       window.location.href = `https://sales.tangem.com/?${searchParams.toString()}`;
     }
