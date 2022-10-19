@@ -88,7 +88,7 @@ const LangPricingPage = ({prices}) => {
     }
 
     getData();
-  }, []);
+  }, [language, useResellerList]);
 
   function handleClick(name) {
     if (ga !== undefined) {
@@ -189,7 +189,7 @@ const LangPricingPage = ({prices}) => {
       });
     }
 
-  },[shopifyLoaded]);
+  },[shopifyLoaded, packs]);
 
   useEffect(() => {
     if(!refResellers.current) {
@@ -235,7 +235,7 @@ const LangPricingPage = ({prices}) => {
     }
     return prices[currentPack.id].price;
 
-  }, [prices, products, currentPack.productId]);
+  }, [prices, products, useShopify, currentPack.id, currentPack.defaultPrice]);
 
   const Features = () => {
     const features = [
@@ -319,7 +319,7 @@ const LangPricingPage = ({prices}) => {
                           <h4>{ pack.title }</h4>
                           <span>{ getFormatPrice(getPrice(pack)) }</span>
                           <span>{ pack.description }</span>
-                          <span>{ getFormatPrice(getOldPrice(pack)) }</span>
+                          <span></span>
                         </div>
                       </label>
                     </React.Fragment>
