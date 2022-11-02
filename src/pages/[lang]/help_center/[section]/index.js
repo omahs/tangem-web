@@ -9,6 +9,8 @@ import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 import ReactHtmlParser from "react-html-parser";
 import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
+import {transformLinkRel} from "../../../../lib/util";
+import {parseHtml} from "../../../../lib/html-parse";
 
 const Accordion = ({ id, title, body }) => {
 
@@ -35,7 +37,7 @@ const Accordion = ({ id, title, body }) => {
       <article className={classNames(styles.article, {[styles.active]: isActive})} >
         <h2>{title}</h2>
         <button className={styles.button}></button>
-        <div className={styles.body} ref={ref}>{ReactHtmlParser(body)}</div>
+        <div className={styles.body} ref={ref}>{parseHtml(body)}</div>
         <div className={styles.link} id={`a${id}`}></div>
       </article>
     </li>

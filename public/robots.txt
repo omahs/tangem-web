@@ -1,11 +1,22 @@
+# Yandex
 User-agent: Yandex
-Disallow: /en
-Sitemap: https://tangem.com/sitemap.xml
+Allow: /
+Disallow: /*?
+
+# *
 User-agent: *
 Allow: /*.css
 Allow: /*.js
 Allow: /*.jpg
+Allow: /*.avif
+Allow: /*.webp
 Allow: /*.png
 Allow: /*.gi
 Allow: /*.svg
+Disallow: /*?
+
+# Host
+Host: https://tangem.com
+
+# Sitemaps
 Sitemap: https://tangem.com/sitemap.xml

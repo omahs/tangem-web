@@ -8,6 +8,8 @@ import Footer from "../../../../components/Common/Footer";
 import {useRouter} from "next/router";
 import {getCodeByLanguage, sectionsConfig} from "../../../../config/faq";
 import ReactHtmlParser from "react-html-parser";
+import {transformLinkRel} from "../../../../lib/util";
+import {parseHtml} from "../../../../lib/html-parse";
 
 const LangHelpCenterSearch = ({language}) => {
 	const search = useRef();
@@ -86,7 +88,7 @@ const LangHelpCenterSearch = ({language}) => {
 								<li key={id}>
 									<article className={styles.article}>
 										<h2>{title}</h2>
-                    <div>{ReactHtmlParser(body)}</div>
+                    <div>{parseHtml(body)}</div>
 									</article>
 								</li>
 							)) }

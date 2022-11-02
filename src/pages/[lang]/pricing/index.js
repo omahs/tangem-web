@@ -292,7 +292,7 @@ const LangPricingPage = ({prices}) => {
             </div>
             <div className={styles.choice}>
               <div>
-                <h3>{ t('pricing.buy.title')}</h3>
+                <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
                 <p>{ t('pricing.buy.description')}</p>
               </div>
               { isGiftEnabled && language === 'ru' ?

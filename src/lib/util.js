@@ -1,4 +1,5 @@
 import {t} from "i18next";
+import {convertNodeToElement} from "react-html-parser";
 
 export function getFormatDate(date) {
   return (new Date(date))
