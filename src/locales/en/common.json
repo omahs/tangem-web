@@ -30,8 +30,20 @@
     },
     "blog": {
       "title": "Blog",
-      "titleSuffix": "Tangem Blog",
-      "allCategories": "All categories"
+      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card.",
+      "allCategories": "All categories",
+      "category": {
+        "title": "{{title}} | Tangem Blog",
+        "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
+      },
+      "tag": {
+        "title": "{{title}} | Tangem Blog",
+        "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
+      },
+      "post": {
+        "title": "{{title}} | Tangem Blog",
+        "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
+      }
     },
     "pricing": {
       "title": "Tangem Wallet — Hardware Wallet For Your Crypto",

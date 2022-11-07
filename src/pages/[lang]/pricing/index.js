@@ -27,11 +27,11 @@ const packs = [
       <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
       <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
       <img
-        loading='lazy'
-        decoding='async'
         alt='Pack of 3 Cards'
         src='/img/packs/pack3@1x.png'
         srcSet="/img/packs/pack3@2x.png 2x"
+        width={434}
+        height={364}
       />
     </picture>,
     defaultPrice: '69.90',
@@ -50,6 +50,8 @@ const packs = [
         alt='Pack of 2 Cards'
         src='/img/packs/pack2@1x.png'
         srcSet="/img/packs/pack2@2x.png 2x"
+        width={434}
+        height={364}
       />
     </picture>,
     defaultPrice: '54.90',
@@ -227,7 +229,7 @@ const LangPricingPage = ({prices}) => {
       });
     }
 
-  },[shopifyLoaded, packs]);
+  },[shopifyLoaded]);
 
   useEffect(() => {
     if(!refResellers.current) {
@@ -404,7 +406,6 @@ const LangPricingPage = ({prices}) => {
                     { list.map((item) => (
                       <li key={item.id}>
                         <img
-                          loading='lazy'
                           decoding='async'
                           alt={item.name}
                           src={`/img/resellers/${item.id}@1x.png`}

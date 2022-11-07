@@ -24,7 +24,10 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
   const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
 
   return (
-    <Layout title={`${capitalizeTitle}`} titleSuffix={t('pages.blog.titleSuffix')} description={t('description')} >
+    <Layout
+      title={t('pages.blog.tag.title', { title: capitalizeTitle })}
+      description={t('pages.blog.tag.description', { title: capitalizeTitle })}
+    >
       <Header className={styles.header}>
         <Breadcrumbs items={breadcrumbs} classNames={styles.breadcrumbs} />
       </Header>
