@@ -55,6 +55,7 @@ const Card = ({ attributes, isBig = false }) => {
               alt={title}
               src={image.data.attributes.url}
               srcSet={getSrcSet(image.data.attributes.formats)}
+              sizes="100vw"
             />
             : null
           }

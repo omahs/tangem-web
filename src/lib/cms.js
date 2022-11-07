@@ -219,7 +219,7 @@ export function getSrcSet(formats) {
   }
 
   return Object.values(formats)
-    .sort((a, b) => b.width - a.width)
+    .sort((a, b) => a.width - b.width)
     .map(({url, width}) => `${url} ${width}w`)
     .join(', ');
 }

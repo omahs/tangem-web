@@ -37,9 +37,8 @@ const LangBlogPostPage = ({post})  => {
 
   return (
     <Layout
-      title={title}
-      titleSuffix={t('pages.blog.titleSuffix')}
-      description={excerpt || t('description')}
+      title={t('pages.blog.post.title', { title })}
+      description={t('pages.blog.post.description', { title })}
       ogImage={image?.data?.attributes?.url}
       ogDescription={excerpt}
     >

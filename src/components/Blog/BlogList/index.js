@@ -15,7 +15,7 @@ const BlogList = ({ posts, categories, category} ) => {
   const path = category ? `/${language}/blog/${category}/` : `/${language}/blog/`;
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const refCategories = useRef();
-  const currentCategoryTitle = category
+  const title = category
     ? categories.data.find(({attributes}) => attributes.slug === category).attributes.title
     : undefined;
 
@@ -30,9 +30,8 @@ const BlogList = ({ posts, categories, category} ) => {
 
   return (
     <Layout
-      title={currentCategoryTitle || t('pages.blog.title')}
-      titleSuffix={currentCategoryTitle ? t('pages.blog.titleSuffix') : undefined}
-      description={t('description')}
+      title={ title ? t('pages.blog.category.title', { title }) : t('pages.blog.title')}
+      description={ title ? t('pages.blog.category.description', { title }) : t('pages.blog.description')}
     >
       <Header />
       <main className={styles.page}>
@@ -41,7 +40,7 @@ const BlogList = ({ posts, categories, category} ) => {
           <div className={styles.categories}>
             <div role="group" className={classNames(styles.dropdown, {[styles.open]: isCategoriesOpen })} >
               <button onClick={() => setIsCategoriesOpen((v) => !v)}>
-                { category ? currentCategoryTitle: t('pages.blog.allCategories')}
+                { category ? title: t('pages.blog.allCategories')}
               </button>
               <ul ref={refCategories}>
                 <li key="allCategories" className={ !category ? styles.current : undefined}>
