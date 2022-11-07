@@ -15,11 +15,11 @@ const SectionHero = () => {
 					<source srcSet="/img/business/business-hero@1x.avif 1x, /img/business/business-hero@2x.avif 2x" type="image/avif" />
 					<source srcSet="/img/business/business-hero@1x.webp 1x, /img/business/business-hero@2x.webp 2x" type="image/webp" />
 					<img
-						loading='lazy'
-						decoding='async'
 						alt='Tangem hero image'
 						src='/img/business/business-hero@1x.png'
 						srcSet="/img/business/business-hero@2x.png 2x"
+            height={750}
+            width={870}
 					/>
 				</picture>
 			</div>
