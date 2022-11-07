@@ -1,5 +1,8 @@
-import LangHelpCenter from "../[lang]/help_center";
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+const LangHelpCenter = dynamic(() => import("../[lang]/help_center"), { suspense: true });
 
 export default function HelpCenter() {
-	return <LangHelpCenter language='en' />
+	return <Suspense><LangHelpCenter language='en' /></Suspense>
 }

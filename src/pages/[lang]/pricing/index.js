@@ -68,6 +68,7 @@ const LangPricingPage = ({prices}) => {
 
   const { isGiftEnabled } = useContext(GiftContext);
 
+  const [discountCode, setDiscountCode] = useState('');
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
@@ -75,6 +76,11 @@ const LangPricingPage = ({prices}) => {
   const [list, setList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
   const refResellers = useRef();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setDiscountCode(searchParams.get('promocode'));
+  }, []);
 
   useEffect(() => {
     if (!useResellerList) {
@@ -142,7 +148,13 @@ const LangPricingPage = ({prices}) => {
         .click()
     }
     else {
-      window.location.href = `https://sales.tangem.com/?variant_id=${prices[currentPack.id].id}&qty=${quantity}`;
+      const searchParams = new URLSearchParams();
+      searchParams.set('variant_id', prices[currentPack.id].id);
+      searchParams.set('qty', quantity);
+      if (discountCode) {
+        searchParams.set('promocode', discountCode);
+      }
+      window.location.href = `https://sales.tangem.com/?${searchParams.toString()}`;
     }
   }
 
@@ -165,7 +177,33 @@ const LangPricingPage = ({prices}) => {
         id,
         options: {
           product: {
-            buttonDestination: 'checkout',
+            // how-to apply discount code https://github.com/Shopify/buy-button-js/issues/487#issuecomment-763132108
+            // source code of buttonDestination: 'checkout' is taken
+            // from https://github.com/Shopify/buy-button-js/blob/master/src/components/product.js#L665-L687
+            buttonDestination: function (btnProps) {
+              btnProps._userEvent('openCheckout');
+              btnProps.props.tracker.track('Direct Checkout', {});
+              let checkoutWindow;
+
+              if (btnProps.config.cart.popup && browserFeatures.windowOpen()) {
+                const params = (new Checkout(btnProps.config)).params;
+                checkoutWindow = window.open('', 'checkout', params);
+              } else {
+                checkoutWindow = window;
+              }
+              const input = {
+                lineItems: [
+                  {
+                    variantId: btnProps.selectedVariant.id,
+                    quantity: btnProps.selectedQuantity,
+                  },
+                ],
+              };
+
+              btnProps.props.client.checkout.create(input).then((checkout) => {
+                checkoutWindow.location = `${checkout.webUrl}&discount=${discountCode}`;
+              });
+            },
             contents: {
               quantity: true, // determines whether to show any quantity inputs at all
               quantityIncrement: true, // button to increase quantity
