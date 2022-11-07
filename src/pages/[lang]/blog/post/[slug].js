@@ -5,11 +5,11 @@ import Header from "../../../../components/Common/Header";
 import * as styles from "./post.module.scss";
 import React from "react";
 import Footer from "../../../../components/Common/Footer";
-import ReactHtmlParser from "react-html-parser";
 import Layout from "../../../../components/Common/Layout";
 import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
 import {getFormatDate} from "../../../../lib/util";
 import Tags from "../../../../components/Blog/Tags";
+import {parseHtml} from "../../../../lib/html-parse";
 
 const LangBlogPostPage = ({post})  => {
   const { body, title, image, category, author, publishedAt, tags, excerpt } = post;
@@ -82,7 +82,7 @@ const LangBlogPostPage = ({post})  => {
               </div> : null
             }
             <div className={styles.body}>
-            {  ReactHtmlParser(body) }
+            { parseHtml(body) }
             </div>
           </section>
         </main>
