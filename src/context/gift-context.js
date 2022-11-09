@@ -16,7 +16,7 @@ export const GeoProvider = ({ children }) => {
 
     async function getData() {
       try {
-        const notOver = new Date(Date.UTC(2022, 10, 6, 21, 0, 0)) > new Date();
+        const notOver = new Date(Date.UTC(2022, 10, 30, 21, 0, 0)) > new Date();
         if (notOver) {
           const result = await getGeoCode();
           setIsGiftEnabled(result === 'ru' );
