@@ -1,7 +1,8 @@
 import {TANGEM_GEO_API_URI, TANGEM_RESELLERS_API_URI} from "../config";
 
 export async function getResellers(language) {
-  const response = await fetch(`${TANGEM_RESELLERS_API_URI}?defaultCode=${language}`);
+  const params = language ? `?defaultCode=${language}` : '';
+  const response = await fetch(`${TANGEM_RESELLERS_API_URI}${params}`);
   const {resellers} = await response.json();
   return resellers;
 }
