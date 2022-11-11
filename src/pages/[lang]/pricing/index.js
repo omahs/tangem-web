@@ -61,11 +61,8 @@ const LangPricingPage = ({prices}) => {
   ];
 
   const {language} = i18next;
-  const resellersLocales = ['ru', 'by'];
 
-  const useResellerList = resellersLocales.includes(language)
-
-  const useShopify = !resellersLocales.includes(language);
+  const useShopify = !['ru', 'by'].includes(language);
 
   const { isGiftEnabled } = useContext(GiftContext);
 
@@ -73,25 +70,21 @@ const LangPricingPage = ({prices}) => {
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
   const [products, setProducts] = useState({});
-  const [list, setList] = useState([]);
+  const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
   const refResellers = useRef();
 
   useEffect(() => {
-    if (!useResellerList) {
-      return function empty() {}
-    }
-
     async function getData() {
       try {
         const resellers = await getResellers(language);
-        setList(resellers);
+        setResellersList(resellers);
       } catch (e) {
       }
     }
 
-    getData();
-  }, [language, useResellerList]);
+    getData()
+  }, [language]);
 
   function handleClick(name) {
     if (ga !== undefined) {
@@ -354,7 +347,7 @@ const LangPricingPage = ({prices}) => {
                   </div>
                 </div>
               }
-              { useResellerList &&
+              { !!resellersList.length &&
                 <>
                   <div
                     className={classNames(styles.stories, resellersOpen && styles.open)}
@@ -366,7 +359,7 @@ const LangPricingPage = ({prices}) => {
                     </button>
                   </div>
                   <ul className={styles.list} ref={refResellers} >
-                    { list.map((item) => (
+                    { resellersList.map((item) => (
                       <li key={item.id}>
                         <img
                           decoding='async'
@@ -374,7 +367,7 @@ const LangPricingPage = ({prices}) => {
                           src={`/img/resellers/${item.id}@1x.png`}
                           srcSet={`/img/resellers/${item.id}@2x.png 2x`}
                         />
-                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.goTo')}</a>
+                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.resellerOpenLink')}</a>
                       </li>
                     ))
                     }
