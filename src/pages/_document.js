@@ -8,7 +8,7 @@ export default function Document() {
 	return (
 		<Html lang={language}>
 			<Head>
-				<script
+				<NextScript
 					dangerouslySetInnerHTML={{
 						__html: `
 							(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -29,26 +29,14 @@ export default function Document() {
 					style={{ display: "none", visibility: "hidden"}}
 				/>
 				<div>
-					<noscript>
-						<iframe
-							src="https://www.googletagmanager.com/ns.html?id=GTM-N7NQVMC"
-							height="0"
-							width="0"
-							style={{ display: "none", visibility: "hidden"}}
-						/>
-						<div>
-							<img
-								src="https://mc.yandex.ru/watch/89538595"
-								style={{ position: "absolute", left: "-9999px" }}
-								alt="" />
-						</div>
-					</noscript>
-
+          <img
+            src="https://mc.yandex.ru/watch/89538595"
+            style={{ position: "absolute", left: "-9999px" }}
+            alt="" />
 				</div>
 			</noscript>
 			<Main />
 			<div id="portal" />
-			<NextScript />
 			</body>
 		</Html>
 	)

@@ -250,6 +250,13 @@
     "join-us": "Join Us",
     "contact-support": "Contact Support",
     "resellerOpenLink": "Open"
+    "goTo": "Go to",
+    "accordion": {
+      "open": "Open",
+      "close": "Close"
+    },
+    "toggle": "Toggle",
+    "help": "Help"
   },
   "faq": {
     "title": "Preguntas frecuentes",
