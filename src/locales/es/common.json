@@ -234,7 +234,7 @@
     },
     "helpCenter": {
       "title": "We’re here\n to help",
-      "usingTangem": "Have a questions?",
+      "usingTangem": "Have a question?",
       "search" : "Search for a topic or question",
       "getStarted": "Get started"
     }
@@ -249,6 +249,7 @@
     "submit": "Submit",
     "join-us": "Join Us",
     "contact-support": "Contact Support",
+    "resellerOpenLink": "Open"
     "goTo": "Go to",
     "accordion": {
       "open": "Open",
