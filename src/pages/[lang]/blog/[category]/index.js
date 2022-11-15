@@ -1,6 +1,6 @@
 import {getLanguage, getBlogLangsData} from "../../../../lib/lang";
 import {getCategoriesSlugsPaths, getPostsAndCategories} from "../../../../lib/cms";
-import BlogList from "../../../../components/Blog/BlogList";
+import BlogList from "../../../../templates/BlogList";
 
 const LangBlogCategory = ({ categories, posts, category }) =>
   <BlogList categories={categories} posts={posts} category={category} />
