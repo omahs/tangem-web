@@ -7,9 +7,7 @@ import * as styles from "./section.module.scss";
 import Footer from "../../../../components/Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
-import ReactHtmlParser from "react-html-parser";
 import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
-import {transformLinkRel} from "../../../../lib/util";
 import {parseHtml} from "../../../../lib/html-parse";
 
 const Accordion = ({ id, title, body }) => {
@@ -44,7 +42,7 @@ const Accordion = ({ id, title, body }) => {
   );
 };
 
-const LangHelpCenterSection = ({ language, articles, section}) => {
+const LangHelpCenterSection = ({ language, articles, section }) => {
 	const breadcrumbs = [
 		{
 			href: `/${language}/help_center`,

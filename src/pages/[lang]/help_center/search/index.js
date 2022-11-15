@@ -7,8 +7,6 @@ import Header from "../../../../components/Common/Header";
 import Footer from "../../../../components/Common/Footer";
 import {useRouter} from "next/router";
 import {getCodeByLanguage, sectionsConfig} from "../../../../config/faq";
-import ReactHtmlParser from "react-html-parser";
-import {transformLinkRel} from "../../../../lib/util";
 import {parseHtml} from "../../../../lib/html-parse";
 
 const LangHelpCenterSearch = ({language}) => {
