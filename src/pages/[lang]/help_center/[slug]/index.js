@@ -42,7 +42,7 @@ const Accordion = ({ id, title, body }) => {
   );
 };
 
-const LangHelpCenterSection = ({ language, articles, section}) => {
+const LangHelpCenterSection = ({ language, articles, section }) => {
 	const breadcrumbs = [
 		{
 			href: `/${language}/help_center`,

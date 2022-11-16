@@ -67,7 +67,7 @@ const LangBlogPostPage = ({post})  => {
                 <time dateTime={localDate} className={styles.date}>{localDate}</time>
               </div> : null
             }
-            { tags.data ? <Tags items={tags} /> : null }
+            { tags.data ? <Tags className={styles.tags} items={tags} /> : null }
             { image.data ?
               <div className={styles.cover}>
                 <img

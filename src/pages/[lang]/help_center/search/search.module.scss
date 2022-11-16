@@ -79,6 +79,10 @@
       gap: 1.25rem;
     }
   }
+
+  @include mixins.respond-to-medium {
+    margin-bottom: 150px;
+  }
 }
 
 .article {

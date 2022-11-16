@@ -22,7 +22,7 @@ const Accordion = ({ head, body }) => {
       <div className={classNames(styles.item, isActive && styles.active )} onClick={() => setIsActive((v) => !v)}>
         <div className={styles.head}>
           <span>{head}</span>
-          <button className={styles.button}></button>
+          <button aria-label={t(isActive ? 'buttons.accordion.close' : 'buttons.accordion.open')} className={styles.button}></button>
         </div>
 	      <div ref={ref} className={styles.body}>{body}</div>
       </div>

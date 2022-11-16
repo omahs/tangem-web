@@ -250,7 +250,13 @@
     "join-us": "Присоединиться",
     "contact-support": "Обратиться в поддержку",
     "goTo": "Перейти",
-    "resellerOpenLink": "Перейти"
+    "resellerOpenLink": "Перейти",
+    "accordion": {
+      "open": "Открыть",
+      "close": "Закрыть"
+    },
+    "toggle": "Переключить",
+    "help": "Помощь"
   },
   "faq": {
     "title": "Часто задаваемые вопросы",

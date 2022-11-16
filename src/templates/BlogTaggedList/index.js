@@ -1,11 +1,11 @@
-import Layout from "../../Common/Layout";
+import Layout from "../../components/Common/Layout";
 import i18next, {t} from "i18next";
-import Header from "../../Common/Header";
+import Header from "../../components/Common/Header";
 import * as styles from "./blogTaggedList.module.scss";
-import Footer from "../../Common/Footer";
-import Pagination from "../Pagination";
-import Breadcrumbs from "../../Common/Breadcrumbs";
-import Card from "../Card";
+import Footer from "../../components/Common/Footer";
+import Pagination from "../../components/Blog/Pagination";
+import Breadcrumbs from "../../components/Common/Breadcrumbs";
+import Card from "../../components/Blog/Card";
 
 const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
   const { page, pageCount } = posts.meta.pagination;
@@ -46,7 +46,7 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
           <Pagination page={page}  pageCount={pageCount} path={`/${language}/blog/tags/${slug}/`} />
         </section>
       </main>
-      <Footer />
+      <Footer className={styles.body}  />
     </Layout>
   );
 }

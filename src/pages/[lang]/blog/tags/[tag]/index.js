@@ -1,7 +1,7 @@
 
 import {getPostsForTag, getTag, getTagsSlugsPaths} from "../../../../../lib/cms";
 import {getLanguage, getBlogLangsData} from "../../../../../lib/lang";
-import BlogTaggedList from "../../../../../components/Blog/BlogTaggedList";
+import BlogTaggedList from "../../../../../templates/BlogTaggedList";
 
 const LangBlogTag = ({ tag, posts }) =>
   <BlogTaggedList tag={tag} posts={posts} />

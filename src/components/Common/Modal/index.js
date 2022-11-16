@@ -15,7 +15,9 @@ function Modal({ isShowing, hide, children, title, anchor }) {
 			};
 		}
 		const historyState = {...window.history.state };
-		window.history.pushState(null, null, `#${anchor}`);
+    if (anchor) {
+      window.history.pushState(null, null, `#${anchor}`);
+    }
 		const focusedElementBeforeModal = document.activeElement;
 		const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), object, embed, [tabindex="0"], [contenteditable]';
 		const focusableElementsValues = node.querySelectorAll(focusableElementsString);

@@ -19,12 +19,12 @@ const Card = ({ attributes, isBig = false }) => {
       <article className={classNames(styles.article, {[styles.big]: isBig})}>
         <div role="group" className={styles.info}>
           <div role="group" className={styles.caption}>
+            { tags ? <Tags items={tags} /> : null }
             <h2>
               <Link href={`/${language}/blog/post/${slug}/`}>
                 <a className={styles.title}>{title}</a>
               </Link>
             </h2>
-            { tags ? <Tags items={tags} /> : null }
           </div>
           { author && author.data ?
             <div className={styles.author} role="group">

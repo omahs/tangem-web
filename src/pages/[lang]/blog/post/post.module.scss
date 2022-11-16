@@ -17,6 +17,7 @@
   overflow-x: hidden;
 
   @media (min-width: 1272px) {
+    margin-bottom: 90px;
     padding-right: calc(50% - 620px);
     padding-left: calc(50% - 620px);
   }
@@ -103,6 +104,10 @@
 .cover {
   order: 3;
   border-radius: 32px;
+
+  @include mixins.respond-to-large {
+    margin: 14px 0;
+  }
 }
 
 .post {
@@ -116,7 +121,7 @@
   --color-tag-background: rgb(235 235 235);
 
   h1 {
-    order: 2;
+    order: 1;
     color: rgb(30 30 30);
     font-weight: 600;
     font-size: 32px;
@@ -127,6 +132,10 @@
       font-size: 50px;
     }
   }
+}
+
+.tags {
+  order: 2;
 }
 
 .header {
@@ -156,6 +165,7 @@
 
     @include mixins.respond-to-medium {
       font-size: 24px;
+      line-height: 1.2;
     }
   }
 

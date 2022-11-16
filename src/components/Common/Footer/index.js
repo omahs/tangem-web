@@ -6,19 +6,20 @@ import i18next, {t} from "i18next";
 import classNames from "classnames";
 import Link from "next/link";
 import {getLanguage} from "../../../lib/lang";
+import classnames from "classnames";
 
 const DynamicZendesk = dynamic(
   () => import('../Zendesk'),
   { ssr: false }
 )
 
-const Footer = () => {
+const Footer = ({className}) => {
   const { language } = i18next;
   const lang = getLanguage(language);
   const documents = t('legalDocuments');
 
   return (
-    <footer className={styles.footer}>
+    <footer className={classnames(styles.footer, className)}>
       <div className={styles.grid}>
         <div className={styles.logo}>
           <Logo />
