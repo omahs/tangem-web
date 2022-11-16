@@ -23,8 +23,8 @@ const Header = ({isDark, className, children }) => {
 			...(['ru', 'en'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
+      { name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
-			{ name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 		]
 	};
 

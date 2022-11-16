@@ -10,5 +10,6 @@ module.exports = {
 	TANGEM_EMAIL_URI: process.env.NEXT_PUBLIC_TANGEM_EMAIL_URI || 'https://api.tangem-tech.com/email/partner',
   RECAPTCHA_SECRET: process.env.NEXT_PUBLIC_RECAPTCHA_SECRET,
   TANGEM_CMS_TOKEN: process.env.NEXT_PUBLIC_TANGEM_CMS_TOKEN,
-  TANGEM_CMS_URI: process.env.NEXT_PUBLIC_TANGEM_CMS_URI
+  TANGEM_CMS_URI: process.env.NEXT_PUBLIC_TANGEM_CMS_URI,
+  ZENDESK_HELP_CENTER_API_URI: process.env.NEXT_PUBLIC_ZENDESK_HELP_CENTER_API_URI || 'https://tangem.zendesk.com/api/v2/help_center/',
 }
