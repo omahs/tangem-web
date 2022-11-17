@@ -47,6 +47,7 @@ jobs:
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI_DEV }}
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN_DEV }}
+          TANGEM_WEB_DEV=${{ secrets.TANGEM_WEB_DEV }}
           EOF
 
      - name: Create nginx devdefault.conf
