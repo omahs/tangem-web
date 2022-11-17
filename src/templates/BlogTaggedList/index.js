@@ -10,6 +10,7 @@ import Card from "../../components/Blog/Card";
 const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
   const { page, pageCount } = posts.meta.pagination;
   const { language } = i18next;
+  const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
 
   const breadcrumbs = [
     {
@@ -17,11 +18,9 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
       name: t('menu.blog'),
     },
     {
-      name: `#${title}`,
+      name: `#${capitalizeTitle}`,
     }
   ];
-
-  const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
 
   return (
     <Layout
@@ -33,7 +32,7 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
       </Header>
       <main className={styles.page}>
         <section className={styles.hero}>
-          <h1>{title}</h1>
+          <h1>{capitalizeTitle}</h1>
           <ul className={styles.grid}>
             { posts.data.map(({ attributes }) => {
               return (
