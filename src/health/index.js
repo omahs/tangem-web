@@ -8,4 +8,5 @@ const output = Object.entries(config)
   return acc
 }, {});
 
-fs.writeFile("build/config.json", JSON.stringify(output), function(err, result) {});
+fs.writeFile("public/config.json", JSON.stringify(output), function(err, result) {
+});
