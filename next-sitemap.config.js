@@ -6,7 +6,6 @@ module.exports = {
   sitemapSize: 5000,
   generateRobotsTxt: true,
   generateIndexSitemap: false,
-  outDir: 'build',
   exclude: ['/resellers', '*/resellers', '/lobstr'],
   robotsTxtOptions: {
     policies: [

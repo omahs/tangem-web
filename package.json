@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3330 -H 0.0.0.0",
-    "build": "NODE_ENV=production next build && NODE_ENV=production next export -o build",
-    "postbuild": "next-sitemap && node src/health",
+    "build": "NODE_ENV=production next build && next-sitemap && node src/health && NODE_ENV=production next export -o build",
     "start": "NODE_ENV=production next start -p 3333",
     "lint": "next lint"
   },
