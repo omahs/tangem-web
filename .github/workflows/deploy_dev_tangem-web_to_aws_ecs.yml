@@ -39,6 +39,7 @@ jobs:
        run:
           |
           cat << EOF > .env.production
+          NODE_ENV=staging
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
