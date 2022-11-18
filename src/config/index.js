@@ -36,17 +36,17 @@ const developmentConfig = {
   ZENDESK_HELP_CENTER_API_URI: process.env.NEXT_PUBLIC_ZENDESK_HELP_CENTER_API_URI_DEV,
 }
 
-const IS_PROD = process.env.NODE_ENV !== 'production';
+const USE_DEV_CONFIG = process.env.USE_DEV_CONFIG === 'true';
 
 module.exports = Object.entries(productionConfig).reduce(
   (acc, [key, value]) => {
     if (value) {
       acc[key] = value;
     }
-    if (!IS_PROD && developmentConfig.hasOwnProperty(key) && developmentConfig[key] ) {
+    if (USE_DEV_CONFIG && developmentConfig.hasOwnProperty(key) && developmentConfig[key] ) {
       acc[key] = developmentConfig[key];
     }
     return acc;
   },
-  {...defaultConfig, ...(!IS_PROD ? developmentConfig: {})}
+  {...defaultConfig, ...(USE_DEV_CONFIG ? developmentConfig: {})}
 );
