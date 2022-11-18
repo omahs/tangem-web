@@ -9,4 +9,5 @@ const output = Object.entries(config)
 }, {});
 
 fs.writeFile("public/config.json", JSON.stringify(output), function(err, result) {
+  console.log(output);
 });
