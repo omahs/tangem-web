@@ -81,10 +81,6 @@ const LangPricingPage = ({prices}) => {
   }, []);
 
   useEffect(() => {
-    if (!useResellerList) {
-      return function empty() {}
-    }
-
     async function getData() {
       try {
         const resellers = await getResellers(language);
