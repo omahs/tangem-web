@@ -293,8 +293,8 @@ const LangPricingPage = ({prices}) => {
               </div>
               { isBlackFridayEnabled ?
                 <div className={styles.gift}>
-                  <p>{ t('pricing.blackFriday.title')}</p>
-                  <p className={styles.gold}>{ t('pricing.blackFriday.description')}</p>
+                  <p>{ t('pricing.blackFriday.gift.title')}</p>
+                  <p className={styles.gold}>{ t('pricing.blackFriday.gift.description')}</p>
                 </div> : null
               }
               <form className={styles.form} >
@@ -378,25 +378,15 @@ const LangPricingPage = ({prices}) => {
             <div>
               <Features />
               {isBlackFridayEnabled ? <div className={styles.details}>
-                <h3>Подробнее об условиях и как активировать бонусы</h3>
-                <p>Внимание, по условиям промоакции, бонусы от Binance могут получать только новые пользователи
-                  платформы Binance.</p>
-                <p>После покупки Tangem Wallet на официальном сайте, зарегистрируйтесь и пройдите верификацию на
-                  Binance. Затем отправьте фото чека Tangem, приобретенного в период акции, и номер Binance ID в
-                  поддержку Tangem в Telegram: @Tangem_Support_RU_bot или на почту support@tangem.com</p>
-                <p>В ответ будет направлен промокод для активации на Binance. После активации промокода на ваш счёт в
-                  Binance будут зачислены:</p>
-                <p>Приветственный бонус 10 BUSD</p>
-                <p>Купон 50 BUSD на торговые комиссии</p>
-                <p>Ваучер 100 BUSD для депозитов (нельзя вывести или перевести, но можно заработать ~10% годовых от 100
-                  BUSD в течение 90 дней)</p>
+                <h3>{t('pricing.blackFriday.condition.title')}</h3>
+                <p>{t('pricing.blackFriday.condition.description')}</p>
               </div> : null
               }
             </div>
           </div>
-          {isBlackFridayEnabled ? <div className={ styles.promo}>
-            <h2>Черная пятница Tangem и Binance</h2>
-            <p>С 21 ноября по 4 декабря Tangem в партнёрстве с крупнейшей криптобиржей Binance предлагает особые условия для новых клиентов!</p>
+          {isBlackFridayEnabled ? <div className={ styles.promo }>
+            <h2>{ t('pricing.blackFriday.title')}</h2>
+            <p>{ t('pricing.blackFriday.description')}</p>
           </div> : null}
         </main>
         <Footer />

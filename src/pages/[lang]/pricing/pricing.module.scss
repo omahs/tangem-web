@@ -616,6 +616,7 @@
 .details {
   margin-top: 46px;
   color: rgb(162 162 162);
+  white-space: break-spaces;
 
   @include mixins.respond-to-medium {
     margin-top: 56px;
@@ -665,8 +666,12 @@
   &.page {
     height: 100%;
     overflow: hidden;
-    background-image: url("/img/pricing/bf-bg.png");
+    background-image: url("/img/pricing/bf-bg-mobile.png");
     background-repeat: no-repeat;
+
+    @include mixins.respond-to-medium {
+      background-image: url("/img/pricing/bf-bg.png");
+    }
   }
 
   .main {
