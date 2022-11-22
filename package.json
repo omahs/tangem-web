@@ -8,7 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@shopify/buy-button-js": "^2.1.8",
     "@svgr/webpack": "^6.2.0",
     "caniuse-lite": "^1.0.30001378",
     "classnames": "^2.3.1",
@@ -24,7 +23,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-html-parser": "^2.0.2",
     "react-infinite-scroll-component": "^6.1.0",
-    "sass": "^1.52.3"
+    "sass": "^1.56.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.9",
