@@ -6,7 +6,7 @@ const defaultValues = {
 
 export const GiftContext = React.createContext(defaultValues);
 
-export const GeoProvider = ({ children }) => {
+export const GiftProvider = ({ children }) => {
   const [isGiftEnabled, setIsGiftEnabled] = useState(false);
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {

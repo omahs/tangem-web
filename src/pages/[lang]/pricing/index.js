@@ -3,7 +3,7 @@ import {loadInsalesProducts} from "../../../lib/insales";
 import i18next, {t} from "i18next";
 import Layout from "../../../components/Common/Layout";
 import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import Header from "../../../components/Common/Header";
+import Header from "../../../components/Common/HeaderNew";
 import Footer from "../../../components/Common/Footer";
 import * as styles from './pricing.module.scss';
 import classNames from "classnames";
@@ -15,7 +15,7 @@ import {getResellers} from "../../../lib/tangem";
 import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
-import {GiftContext} from "../../../context/gift-context";
+import {PromoContext} from "../../../context/promo-context";
 
 const LangPricingPage = ({prices}) => {
 
@@ -64,7 +64,7 @@ const LangPricingPage = ({prices}) => {
 
   const useShopify = !['ru', 'by'].includes(language);
 
-  const { isGiftEnabled } = useContext(GiftContext);
+  const { isBlackFridayEnabled } = useContext(PromoContext);
 
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
@@ -279,8 +279,8 @@ const LangPricingPage = ({prices}) => {
           }
         </>
       }
-      <Header />
-      <div className={styles.page}>
+      <Header className={classNames({[styles.friday]: isBlackFridayEnabled })} />
+      <div className={classNames(styles.page, {[styles.friday]: isBlackFridayEnabled } )}>
         <main className={styles.main}>
           <div className={styles.card}>
             <div className={styles.picture}>
@@ -291,13 +291,14 @@ const LangPricingPage = ({prices}) => {
                 <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
                 <p>{ t('pricing.buy.description')}</p>
               </div>
-              { isGiftEnabled && language === 'ru' ?
+              { isBlackFridayEnabled ?
                 <div className={styles.gift}>
-                { t('pricing.gift') }
+                  <p>{ t('pricing.blackFriday.title')}</p>
+                  <p className={styles.gold}>{ t('pricing.blackFriday.description')}</p>
                 </div> : null
               }
               <form className={styles.form} >
-                <span>{t('pricing.choice')}</span>
+                <span>{ isBlackFridayEnabled ? t('pricing.blackFriday.choice') : t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   { packs.map((pack) =>(
                     <React.Fragment key={pack.id}>
@@ -313,7 +314,7 @@ const LangPricingPage = ({prices}) => {
                       <label htmlFor={pack.id}>
                         <div className={styles.info}>
                           <h4>{ pack.title }</h4>
-                          <span>{ getFormatPrice(getPrice(pack)) }</span>
+                          <span className={styles.price}>{ getFormatPrice(getPrice(pack)) }</span>
                           <span>{ pack.description }</span>
                           <span>{ useShopify ? '' : getFormatPrice(getOldPrice(pack)) }</span>
                         </div>
@@ -343,7 +344,7 @@ const LangPricingPage = ({prices}) => {
                     <span className={styles.value}>{ getFormatPrice(quantity * currentPrice) }</span>
                   </div>
                   <div>
-                    <Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                    <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
                   </div>
                 </div>
               }
@@ -374,8 +375,29 @@ const LangPricingPage = ({prices}) => {
                   </ul>
                 </>}
             </div>
-            <Features />
+            <div>
+              <Features />
+              {isBlackFridayEnabled ? <div className={styles.details}>
+                <h3>Подробнее об условиях и как активировать бонусы</h3>
+                <p>Внимание, по условиям промоакции, бонусы от Binance могут получать только новые пользователи
+                  платформы Binance.</p>
+                <p>После покупки Tangem Wallet на официальном сайте, зарегистрируйтесь и пройдите верификацию на
+                  Binance. Затем отправьте фото чека Tangem, приобретенного в период акции, и номер Binance ID в
+                  поддержку Tangem в Telegram: @Tangem_Support_RU_bot или на почту support@tangem.com</p>
+                <p>В ответ будет направлен промокод для активации на Binance. После активации промокода на ваш счёт в
+                  Binance будут зачислены:</p>
+                <p>Приветственный бонус 10 BUSD</p>
+                <p>Купон 50 BUSD на торговые комиссии</p>
+                <p>Ваучер 100 BUSD для депозитов (нельзя вывести или перевести, но можно заработать ~10% годовых от 100
+                  BUSD в течение 90 дней)</p>
+              </div> : null
+              }
+            </div>
           </div>
+          {isBlackFridayEnabled ? <div className={ styles.promo}>
+            <h2>Черная пятница Tangem и Binance</h2>
+            <p>С 21 ноября по 4 декабря Tangem в партнёрстве с крупнейшей криптобиржей Binance предлагает особые условия для новых клиентов!</p>
+          </div> : null}
         </main>
         <Footer />
       </div>

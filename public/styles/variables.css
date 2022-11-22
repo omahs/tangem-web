@@ -1,4 +1,18 @@
 :root {
   --color-breadcrumbs-text: rgb(255 255 255 / 50%);
   --color-breadcrumbs-separator: rgb(255 255 255 / 5%);
+
+  /* --color-header-bg: rgb(248 249 249 / 70%); */
+  --color-header-font: rgb(0 0 0 / 50%);
+  --color-header-font-selected: rgb(0 0 0);
+  --color-header-logo: rgb(9 14 19);
+  --color-header-menu: rgb(9 14 19);
+  --color-body-bg: rgb(248 249 249);
+  --color-button-primary-bg: rgb(0 0 0);
+  --color-button-primary-bg-hover: rgb(51 51 51);
+  --color-button-primary-font: rgb(255 255 255);
+  --color-footer-logo: rgb(9 14 19);
+  --color-footer-head-bg: rgb(9 14 19);
+  --backdrop-filter-header: blur(40px);
+  --backdrop-filter-header-button: blur(30px);
 }
