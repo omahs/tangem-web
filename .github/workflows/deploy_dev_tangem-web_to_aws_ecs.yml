@@ -6,7 +6,7 @@ on:
      - develop
    workflow_dispatch:
    repository_dispatch:
-    types: [publish_blog]  
+    types: [publish_blog]
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -78,10 +78,10 @@ jobs:
           ${{ github.sha }}
           EOF
 
-     - name: Install node v12
+     - name: Install node v14
        uses: actions/setup-node@v2
        with:
-          node-version: '12'
+          node-version: '14'
 
      - name: Build, tags, and push image to Amazon ECR
        id: build-image
