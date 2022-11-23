@@ -273,7 +273,7 @@ const LangPricingPage = ({prices}) => {
 
 
   return (
-    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')} themeColor='#1E1E1E'>
       { useShopify &&
         <>
           <Script
