@@ -80,7 +80,7 @@ const Header = ({isDark, className, children }) => {
               query: { lang: language },
             }}
           >
-            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }</a>
+            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
 	    { children }

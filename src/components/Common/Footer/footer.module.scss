@@ -3,9 +3,9 @@
 
 .footer {
   margin-top: calc-clamp(0rem, 9.375rem);
-  padding: 60px 0 35px;
-  margin-left: 1rem;
   margin-right: 1rem;
+  margin-left: 1rem;
+  padding: 60px 0 35px;
   overflow: hidden;
 
   @supports not (font-size: clamp(1px, 1vw, 2px)) {
@@ -17,8 +17,8 @@
   }
 
   @media (min-width: 1272px) {
-    margin-left: calc(50% - 620px);
     margin-right: calc(50% - 620px);
+    margin-left: calc(50% - 620px);
   }
 }
 
@@ -94,7 +94,7 @@
   }
 
   svg {
-    fill: rgb(9 14 19);
+    fill: var(--color-footer-head-bg, rgb(9 14 19));
   }
 }
 
@@ -163,7 +163,7 @@
 
 .head {
   margin-bottom: 16px;
-  color: rgb(0 0 0);
+  color: var(--color-footer-head-bg, rgb(0 0 0));
   font-weight: 600;
   font-size: 16px;
   line-height: 28px;
@@ -184,7 +184,7 @@
   }
 
   > * {
-    margin-bottom: 12px;
     display: block;
+    margin-bottom: 12px;
   }
 }

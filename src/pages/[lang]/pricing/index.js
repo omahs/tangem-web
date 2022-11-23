@@ -3,7 +3,7 @@ import {loadInsalesProducts} from "../../../lib/insales";
 import i18next, {t} from "i18next";
 import Layout from "../../../components/Common/Layout";
 import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import Header from "../../../components/Common/Header";
+import Header from "../../../components/Common/HeaderNew";
 import Footer from "../../../components/Common/Footer";
 import * as styles from './pricing.module.scss';
 import classNames from "classnames";
@@ -15,7 +15,7 @@ import {getResellers} from "../../../lib/tangem";
 import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
-import {GiftContext} from "../../../context/gift-context";
+import {PromoContext} from "../../../context/promo-context";
 
 const LangPricingPage = ({prices}) => {
 
@@ -26,14 +26,14 @@ const LangPricingPage = ({prices}) => {
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
       image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
+        <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
+        <source srcSet="/img/pricing/pack3.webp 1x, /img/pricing/pack3@2x.webp 2x" type="image/webp" />
         <img
           alt={t('pricing.pack3.title')}
-          src='/img/packs/pack3@1x.png'
-          srcSet="/img/packs/pack3@2x.png 2x"
-          width={434}
-          height={364}
+          src='/img/pricing/pack3.png'
+          srcSet="/img/pricing/pack3@2x.png 2x"
+          width={650}
+          height={474}
         />
       </picture>,
       defaultPrice: '69.90',
@@ -44,16 +44,16 @@ const LangPricingPage = ({prices}) => {
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
       image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp" />
+        <source srcSet="/img/pricing/pack2.avif 1x, /img/pricing/pack2@2x.avif 2x" type="image/avif" />
+        <source srcSet="/img/pricing/pack2.webp 1x, /img/pricing/pack2@2x.webp 2x" type="image/webp" />
         <img
           loading='lazy'
           decoding='async'
           alt={t('pricing.pack2.title')}
-          src='/img/packs/pack2@1x.png'
-          srcSet="/img/packs/pack2@2x.png 2x"
-          width={434}
-          height={364}
+          src='/img/pricing/pack2.png'
+          srcSet="/img/pricing/pack2@2x.png 2x"
+          width={650}
+          height={474}
         />
       </picture>,
       defaultPrice: '54.90',
@@ -63,8 +63,9 @@ const LangPricingPage = ({prices}) => {
   const {language} = i18next;
 
   const useShopify = !['ru', 'by'].includes(language);
+  const isRuLocale = ['ru', 'by'].includes(language);
 
-  const { isGiftEnabled } = useContext(GiftContext);
+  const { isBlackFridayEnabled } = useContext(PromoContext);
 
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
@@ -72,6 +73,7 @@ const LangPricingPage = ({prices}) => {
   const [products, setProducts] = useState({});
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
+  const [promoStyles, setPromoStyles] = useState([]);
   const refResellers = useRef();
 
   useEffect(() => {
@@ -196,6 +198,11 @@ const LangPricingPage = ({prices}) => {
     refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + "px" : null;
   }, [resellersOpen]);
 
+
+  useEffect(() => {
+    setPromoStyles(isBlackFridayEnabled ? [styles.friday] : [])
+  }, [isBlackFridayEnabled]);
+
   function getFormatPrice(value) {
     const parseValue = Number.parseFloat(value);
     if (Number.isNaN(parseValue)) {
@@ -264,8 +271,9 @@ const LangPricingPage = ({prices}) => {
     );
   }
 
+
   return (
-    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')} themeColor='#1E1E1E'>
       { useShopify &&
         <>
           <Script
@@ -279,8 +287,8 @@ const LangPricingPage = ({prices}) => {
           }
         </>
       }
-      <Header />
-      <div className={styles.page}>
+      <Header className={classNames(...promoStyles)} />
+      <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
           <div className={styles.card}>
             <div className={styles.picture}>
@@ -291,13 +299,17 @@ const LangPricingPage = ({prices}) => {
                 <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
                 <p>{ t('pricing.buy.description')}</p>
               </div>
-              { isGiftEnabled && language === 'ru' ?
+              { isBlackFridayEnabled ?
                 <div className={styles.gift}>
-                { t('pricing.gift') }
+                  <p>{ t('pricing.blackFriday.gift.title')}</p>
+                  <p className={styles.gold}>{ t('pricing.blackFriday.gift.description')}</p>
+                  <a href={t('pricing.blackFriday.gift.docs')} className={classNames(styles.pdf, styles.gold)} target="_blank" rel="noreferrer">
+                    { t('pricing.blackFriday.gift.more') }
+                  </a>
                 </div> : null
               }
               <form className={styles.form} >
-                <span>{t('pricing.choice')}</span>
+                <span>{ isBlackFridayEnabled ? t('pricing.blackFriday.choice') : t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   { packs.map((pack) =>(
                     <React.Fragment key={pack.id}>
@@ -313,7 +325,7 @@ const LangPricingPage = ({prices}) => {
                       <label htmlFor={pack.id}>
                         <div className={styles.info}>
                           <h4>{ pack.title }</h4>
-                          <span>{ getFormatPrice(getPrice(pack)) }</span>
+                          <span className={styles.price}>{ getFormatPrice(getPrice(pack)) }</span>
                           <span>{ pack.description }</span>
                           <span>{ useShopify ? '' : getFormatPrice(getOldPrice(pack)) }</span>
                         </div>
@@ -343,7 +355,7 @@ const LangPricingPage = ({prices}) => {
                     <span className={styles.value}>{ getFormatPrice(quantity * currentPrice) }</span>
                   </div>
                   <div>
-                    <Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                    <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
                   </div>
                 </div>
               }
@@ -374,8 +386,18 @@ const LangPricingPage = ({prices}) => {
                   </ul>
                 </>}
             </div>
-            <Features />
+            <div>
+              <Features />
+              { isBlackFridayEnabled
+                ? <div className={styles.details} dangerouslySetInnerHTML={{ __html: t('pricing.blackFriday.condition.description') }} />
+                : null
+              }
+            </div>
           </div>
+          {isBlackFridayEnabled ? <div className={classNames(styles.promo, {[styles['promo-ru']]: isRuLocale})}>
+            <h2>{ t('pricing.blackFriday.title')}</h2>
+            <p>{ t('pricing.blackFriday.description') }</p>
+          </div> : null}
         </main>
         <Footer />
       </div>
