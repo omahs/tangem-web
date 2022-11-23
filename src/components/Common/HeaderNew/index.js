@@ -8,7 +8,7 @@ import styles from './header.module.scss'
 import classNames from 'classnames'
 import {PromoContext} from "../../../context/promo-context";
 
-const Header = ({isDark, className, children }) => {
+const Header = ({ className, children, hideBuyButton = false }) => {
 	const { language } = i18next;
 	const router = useRouter();
   const { isGiftEnabled } = useContext(PromoContext);
@@ -32,8 +32,6 @@ const Header = ({isDark, className, children }) => {
     <header
       className={classNames(
 				styles.header,
-	      {[styles.dark]: isDark & !className},
-	      {[styles.light]: !isDark & !className},
 	      {[className]: !!className})}
      >
 	    <div className={styles.wrapper}>
@@ -80,7 +78,7 @@ const Header = ({isDark, className, children }) => {
               query: { lang: language },
             }}
           >
-            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled ? <GiftIcon /> : null }</a>
+            <a className={classNames(styles.buy, {[styles.hidden]: hideBuyButton})}>{ t('buttons.buy') } { isGiftEnabled ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
 	    { children }
