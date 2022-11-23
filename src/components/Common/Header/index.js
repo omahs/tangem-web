@@ -6,12 +6,12 @@ import GiftIcon from '../../../../public/svg/button-gift.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
-import {GiftContext} from "../../../context/gift-context";
+import {PromoContext} from "../../../context/promo-context";
 
 const Header = ({isDark, className, children }) => {
 	const { language } = i18next;
 	const router = useRouter();
-  const { isGiftEnabled } = useContext(GiftContext);
+  const { isGiftEnabled } = useContext(PromoContext);
 
 	const menu = {
 		start: [

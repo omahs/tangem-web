@@ -380,10 +380,9 @@ const LangPricingPage = ({prices}) => {
             </div>
             <div>
               <Features />
-              {isBlackFridayEnabled ? <div className={styles.details}>
-                <h3>{t('pricing.blackFriday.condition.title')}</h3>
-                <div dangerouslySetInnerHTML={{__html: t('pricing.blackFriday.condition.description')}} />
-              </div> : null
+              { isBlackFridayEnabled
+                ? <div className={styles.details} dangerouslySetInnerHTML={{ __html: t('pricing.blackFriday.condition.description') }} />
+                : null
               }
             </div>
           </div>

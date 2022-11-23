@@ -11,13 +11,12 @@ export const PromoContext = React.createContext(defaultValues);
 
 export const PromoProvider = ({ children }) => {
   const now = new Date();
-  const [isBlackFridayEnabled] = useState( now >= blackFridayStartedAt && now <= blackFridayFinishedAt);
 
   return (
     <PromoContext.Provider
       value={{
-        isBlackFridayEnabled: isBlackFridayEnabled,
-        isGiftEnabled: isBlackFridayEnabled
+        isBlackFridayEnabled: now >= blackFridayStartedAt && now <= blackFridayFinishedAt,
+        isGiftEnabled: now >= blackFridayStartedAt && now <= blackFridayFinishedAt
       }}
     >
       {children}
