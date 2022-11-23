@@ -25,17 +25,6 @@ const LangPricingPage = ({prices}) => {
       productId: '6677839577154',
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
-      image: <picture className={styles.img}>
-        <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/pricing/pack3.webp 1x, /img/pricing/pack3@2x.webp 2x" type="image/webp" />
-        <img
-          alt={t('pricing.pack3.title')}
-          src='/img/pricing/pack3.png'
-          srcSet="/img/pricing/pack3@2x.png 2x"
-          width={650}
-          height={474}
-        />
-      </picture>,
       defaultPrice: '69.90',
     },
     {
@@ -43,19 +32,6 @@ const LangPricingPage = ({prices}) => {
       productId: '6677836693570',
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
-      image: <picture className={styles.img}>
-        <source srcSet="/img/pricing/pack2.avif 1x, /img/pricing/pack2@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/pricing/pack2.webp 1x, /img/pricing/pack2@2x.webp 2x" type="image/webp" />
-        <img
-          loading='lazy'
-          decoding='async'
-          alt={t('pricing.pack2.title')}
-          src='/img/pricing/pack2.png'
-          srcSet="/img/pricing/pack2@2x.png 2x"
-          width={650}
-          height={474}
-        />
-      </picture>,
       defaultPrice: '54.90',
     }
   ];
@@ -292,7 +268,28 @@ const LangPricingPage = ({prices}) => {
         <main className={styles.main}>
           <div className={styles.card}>
             <div className={styles.picture}>
-              { currentPack && currentPack.image }
+              <picture className={classNames(styles.img, {[styles['visually-hidden']]: currentPack && currentPack.id !== 'pack3'})}>
+                <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
+                <source srcSet="/img/pricing/pack3.webp 1x, /img/pricing/pack3@2x.webp 2x" type="image/webp" />
+                <img
+                  alt={t('pricing.pack3.title')}
+                  src='/img/pricing/pack3.png'
+                  srcSet="/img/pricing/pack3@2x.png 2x"
+                  width={650}
+                  height={474}
+                />
+              </picture>
+              <picture className={classNames(styles.img, {[styles['visually-hidden']]: !currentPack || currentPack.id !== 'pack2'})}>
+                <source srcSet="/img/pricing/pack2.avif 1x, /img/pricing/pack2@2x.avif 2x" type="image/avif" />
+                <source srcSet="/img/pricing/pack2.webp 1x, /img/pricing/pack2@2x.webp 2x" type="image/webp" />
+                <img
+                  alt={t('pricing.pack2.title')}
+                  src='/img/pricing/pack2.png'
+                  srcSet="/img/pricing/pack2@2x.png 2x"
+                  width={650}
+                  height={474}
+                />
+              </picture>
             </div>
             <div className={styles.choice}>
               <div>
@@ -389,7 +386,10 @@ const LangPricingPage = ({prices}) => {
             <div>
               <Features />
               { isBlackFridayEnabled
-                ? <div className={styles.details} dangerouslySetInnerHTML={{ __html: t('pricing.blackFriday.condition.description') }} />
+                ? <div className={styles.details}>
+                    <h3>{ t('pricing.blackFriday.condition.title') }</h3>
+                    <div dangerouslySetInnerHTML={{ __html: t('pricing.blackFriday.condition.description') }} />
+                  </div>
                 : null
               }
             </div>
