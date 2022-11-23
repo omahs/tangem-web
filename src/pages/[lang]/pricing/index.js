@@ -249,7 +249,7 @@ const LangPricingPage = ({prices}) => {
 
 
   return (
-    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')} themeColor='#1E1E1E'>
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')} themeColor='#000000'>
       { useShopify &&
         <>
           <Script
@@ -263,7 +263,7 @@ const LangPricingPage = ({prices}) => {
           }
         </>
       }
-      <Header className={classNames(...promoStyles)} />
+      <Header className={classNames(...promoStyles)} hideBuyButton={true} />
       <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
           <div className={styles.card}>
