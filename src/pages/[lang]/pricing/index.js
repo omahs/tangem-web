@@ -72,6 +72,7 @@ const LangPricingPage = ({prices}) => {
   const [products, setProducts] = useState({});
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
+  const [promoStyles, setPromoStyles] = useState([]);
   const refResellers = useRef();
 
   useEffect(() => {
@@ -196,6 +197,11 @@ const LangPricingPage = ({prices}) => {
     refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + "px" : null;
   }, [resellersOpen]);
 
+
+  useEffect(() => {
+    setPromoStyles(isBlackFridayEnabled ? [styles.friday] : [])
+  }, [isBlackFridayEnabled]);
+
   function getFormatPrice(value) {
     const parseValue = Number.parseFloat(value);
     if (Number.isNaN(parseValue)) {
@@ -264,6 +270,7 @@ const LangPricingPage = ({prices}) => {
     );
   }
 
+
   return (
     <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
       { useShopify &&
@@ -279,8 +286,8 @@ const LangPricingPage = ({prices}) => {
           }
         </>
       }
-      <Header className={classNames({[styles.friday]: isBlackFridayEnabled })} />
-      <div className={classNames(styles.page, {[styles.friday]: isBlackFridayEnabled } )}>
+      <Header className={classNames(...promoStyles)} />
+      <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
           <div className={styles.card}>
             <div className={styles.picture}>
