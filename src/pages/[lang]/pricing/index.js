@@ -295,6 +295,9 @@ const LangPricingPage = ({prices}) => {
                 <div className={styles.gift}>
                   <p>{ t('pricing.blackFriday.gift.title')}</p>
                   <p className={styles.gold}>{ t('pricing.blackFriday.gift.description')}</p>
+                  <a href={t('pricing.blackFriday.gift.docs')} className={classNames(styles.pdf, styles.gold)} target="_blank" rel="noreferrer">
+                    { t('pricing.blackFriday.gift.more') }
+                  </a>
                 </div> : null
               }
               <form className={styles.form} >
@@ -379,14 +382,14 @@ const LangPricingPage = ({prices}) => {
               <Features />
               {isBlackFridayEnabled ? <div className={styles.details}>
                 <h3>{t('pricing.blackFriday.condition.title')}</h3>
-                <p>{t('pricing.blackFriday.condition.description')}</p>
+                <div dangerouslySetInnerHTML={{__html: t('pricing.blackFriday.condition.description')}} />
               </div> : null
               }
             </div>
           </div>
           {isBlackFridayEnabled ? <div className={ styles.promo }>
             <h2>{ t('pricing.blackFriday.title')}</h2>
-            <p>{ t('pricing.blackFriday.description')}</p>
+            <p>{ t('pricing.blackFriday.description') }</p>
           </div> : null}
         </main>
         <Footer />

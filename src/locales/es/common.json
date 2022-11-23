@@ -308,6 +308,21 @@
       "delivery": "Free delivery worldwide",
       "return": "Free and easy returns",
       "support": "Outstanding Customer Support"
+    },
+    "blackFriday": {
+      "title": "Black Friday\nTangem and Binance",
+      "description": "From November 21 to December 11, Tangem is partnering with Binance, the largest crypto exchange, to offer special deals for new customers!",
+      "choice": "Black Friday special prices:",
+      "gift" : {
+        "title": "Buy Tangem Wallet at special Black Friday price and get cash bonuses from Binance:",
+        "description": "+10 BUSD after KYC\n+50 BUSD on trading commission\n+100 BUSD voucher for deposits",
+        "more": "More about conditions",
+        "docs": "/docs/en/black-friday-2022.pdf"
+      },
+      "condition": {
+        "title": "Terms and conditions of promo offer",
+        "description": "Attention, only new Binance users can receive cash bonuses from Binance under this promo offer.\nAfter you purchase Tangem Wallet, sign up and complete KYC on Binance. Then send a proof of Tangem purchase (receipt) acquired during the period of promo offer and your Binance ID to Tangem support on Telegram: <a href='https://t.me/Tangem_Support_bot' rel='nofollow'>@Tangem_Support_bot</a> or send e-mail: <a href='mailto:support@tangem.com'>support@tangem.com</a>.\nAfter you will receive a promo code for bonus activation on Binance. Once the code is activated you get:<ul><li>10 BUSD welcome bonus</li><li>50 BUSD on trading commission</li><li>100 BUSD voucher for deposits (cannot be withdrawn or transferred, but you can earn ~10% APR of 100 BUSD for 90 days )</li></ul>"
+      }
     }
   },
   "socials": {

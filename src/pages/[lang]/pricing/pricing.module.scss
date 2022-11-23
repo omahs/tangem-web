@@ -642,6 +642,34 @@
       font-size: 15px;
     }
   }
+
+  ul {
+    margin: 1rem 0 1rem 2rem;
+    list-style: disc;
+  }
+}
+
+.pdf {
+  position: relative;
+  padding-left: 26px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 23px;
+    background-color: rgb(240 185 11);
+    background-repeat: no-repeat;
+    content: "";
+    mask-image: url("/svg/pdf.svg");
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .friday {
@@ -682,13 +710,15 @@
     }
   }
 
-  .title {
-    color: rgb(255 255 255);
-  }
-
   .choice {
+    position: relative;
+    z-index: 2;
     justify-content: flex-start;
-    color: rgb(176 176 176);
+    color: rgb(255 255 255);
+
+    p {
+      color: rgb(176 176 176);
+    }
   }
 
   .promo {
@@ -738,9 +768,9 @@
         }
 
         @include mixins.respond-to-medium {
-          top: -29%;
-          left: 40%;
-          width: 200%;
+          top: -40%;
+          left: 90%;
+          width: 115%;
           height: 200%;
           margin-top: 60px;
           background-image: url("/img/pricing/bonus.png");
@@ -783,13 +813,13 @@
     background-image: url("/svg/pricing/gift-yellow.svg");
     background-position: 0 6px;
 
+    .gold {
+      color: rgb(240 185 11);
+    }
+
     p {
       color: rgb(255 255 255);
       white-space: break-spaces;
-
-      &.gold {
-        color: rgb(240 185 11);
-      }
     }
   }
 

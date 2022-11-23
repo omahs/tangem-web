@@ -5,7 +5,7 @@ const defaultValues = {
 }
 
 const blackFridayStartedAt = new Date(Date.UTC(2022, 10, 20, 21, 0, 0));
-const blackFridayFinishedAt = new Date(Date.UTC(2022, 11, 4, 21, 0, 0));
+const blackFridayFinishedAt = new Date(Date.UTC(2022, 11, 11, 21, 0, 0));
 
 export const PromoContext = React.createContext(defaultValues);
 
