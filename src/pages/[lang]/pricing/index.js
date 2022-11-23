@@ -26,14 +26,14 @@ const LangPricingPage = ({prices}) => {
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
       image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp" />
+        <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
+        <source srcSet="/img/pricing/pack3.webp 1x, /img/pricing/pack3@2x.webp 2x" type="image/webp" />
         <img
           alt={t('pricing.pack3.title')}
-          src='/img/packs/pack3@1x.png'
-          srcSet="/img/packs/pack3@2x.png 2x"
-          width={434}
-          height={364}
+          src='/img/pricing/pack3.png'
+          srcSet="/img/pricing/pack3@2x.png 2x"
+          width={650}
+          height={474}
         />
       </picture>,
       defaultPrice: '69.90',
@@ -44,16 +44,16 @@ const LangPricingPage = ({prices}) => {
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
       image: <picture className={styles.img}>
-        <source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif" />
-        <source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp" />
+        <source srcSet="/img/pricing/pack2.avif 1x, /img/pricing/pack2@2x.avif 2x" type="image/avif" />
+        <source srcSet="/img/pricing/pack2.webp 1x, /img/pricing/pack2@2x.webp 2x" type="image/webp" />
         <img
           loading='lazy'
           decoding='async'
           alt={t('pricing.pack2.title')}
-          src='/img/packs/pack2@1x.png'
-          srcSet="/img/packs/pack2@2x.png 2x"
-          width={434}
-          height={364}
+          src='/img/pricing/pack2.png'
+          srcSet="/img/pricing/pack2@2x.png 2x"
+          width={650}
+          height={474}
         />
       </picture>,
       defaultPrice: '54.90',
@@ -63,6 +63,7 @@ const LangPricingPage = ({prices}) => {
   const {language} = i18next;
 
   const useShopify = !['ru', 'by'].includes(language);
+  const isRuLocale = ['ru', 'by'].includes(language);
 
   const { isBlackFridayEnabled } = useContext(PromoContext);
 
@@ -393,7 +394,7 @@ const LangPricingPage = ({prices}) => {
               }
             </div>
           </div>
-          {isBlackFridayEnabled ? <div className={ styles.promo }>
+          {isBlackFridayEnabled ? <div className={classNames(styles.promo, {[styles['promo-ru']]: isRuLocale})}>
             <h2>{ t('pricing.blackFriday.title')}</h2>
             <p>{ t('pricing.blackFriday.description') }</p>
           </div> : null}
