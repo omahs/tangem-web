@@ -30,7 +30,7 @@
     flex-direction: row;
     align-items: start;
     justify-content: space-between;
-    max-width: 1240px;
+    max-width: 1270px;
     margin-top: 60px;
     margin-left: 1rem;
   }
@@ -149,19 +149,33 @@
 }
 
 .phone {
+  position: relative;
   align-self: center;
-  min-height: 293px;
-  padding-top: 43px;
+  min-height: 333px;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 48px);
+    height: 0.5px;
+    margin: 0 24px;
+    background: rgb(255 255 255 / 50%);
+    content: "";
+  }
 
   @include mixins.respond-to-medium {
-    flex: 0 1 520px;
+    flex: 0 1 599px;
     align-self: start;
-    padding-top: 88px;
+    padding-top: 100px;
     padding-bottom: 131px;
+
+    &::after {
+      content: none;
+    }
   }
 
   img {
-    max-width: 227px;
+    max-width: 375px;
 
     @include mixins.respond-to-medium {
       max-width: 100%;

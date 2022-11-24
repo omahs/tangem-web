@@ -43,8 +43,8 @@ const SectionHeroBlackFriday = () => {
 							alt={t('sections.safe.title')}
 							src={`/img/hero/phone-mobile-${imgLocale}.png`}
 							srcSet={`/img/hero/phone-mobile-${imgLocale}@2x.png 2x`}
-							height={711}
-							width={520}
+							height={599}
+							width={726}
 						/>
 					</picture>
 				</div>
