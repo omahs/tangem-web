@@ -58,7 +58,8 @@
   "sections": {
     "safe": {
       "title": "The safest crypto wallet\nfor everyone",
-      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
+      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card.",
+      "bonus": "Get Black Friday bonus by"
     },
     "backup": {
       "title": "Ultra secure backup",
@@ -331,7 +332,7 @@
       "description": "From November 21 to December 11, Tangem is partnering with Binance, the largest crypto exchange, to offer special deals for new customers!",
       "choice": "Black Friday special prices:",
       "gift" : {
-        "title": "Buy Tangem Wallet at special Black Friday price and get cash bonuses from Binance:",
+        "title": "Buy Tangem Wallet at special Black Friday price, get Tangem Note for free and cash bonuses from Binance:",
         "description": "+10 BUSD welcome bonus\n+50 BUSD on trading commission\n+100 BUSD voucher for deposits",
         "more": "More about conditions",
         "docs": "/docs/en/black-friday-2022.pdf"
