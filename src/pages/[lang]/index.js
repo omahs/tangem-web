@@ -1,31 +1,9 @@
-import Header from '../../components/Common/Header'
-import SectionHero from '../../components/Home/SectionHero'
-import SectionFeature from '../../components/Home/SectionFeature'
-import SectionWebCompatible from '../../components/Home/SectionCompatible'
-import SectionSecure from '../../components/Home/SectionSecure'
-import SectionFaq from '../../components/Home/SectionFaq'
-import SectionCommunity from '../../components/Home/SectionCommunity'
 import React from "react";
-import {t} from 'i18next';
 import { getAllLanguageSlugs, getLanguage } from '../../lib/lang';
-import Footer from "../../components/Common/Footer";
-import Layout from "../../components/Common/Layout";
+import {LangHomeTemplate} from "../../templates/Home";
 
 export const LangHome = () => {
-	return (
-		<Layout title={t('title')} description={t('description') }>
-			<Header isDark={false} />
-			<main>
-				<SectionHero/>
-				<SectionFeature/>
-				<SectionWebCompatible />
-				<SectionSecure />
-				<SectionFaq />
-				<SectionCommunity />
-			</main>
-			<Footer />
-		</Layout>
-	)
+	return <LangHomeTemplate />
 }
 
 export async function getStaticPaths() {

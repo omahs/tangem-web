@@ -175,7 +175,7 @@
     }
 
     &.active {
-      opacity: 1;
+      color: var(--color-header-font-selected);
 
       &::before {
         position: absolute;

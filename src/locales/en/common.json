@@ -58,7 +58,8 @@
   "sections": {
     "safe": {
       "title": "The safest crypto wallet\nfor everyone",
-      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card."
+      "description": "Tangem Wallet lets you store your crypto assets secure and easily accessible while keeping private keys contained in your card.",
+      "bonus": "Get Black Friday bonus by"
     },
     "backup": {
       "title": "Ultra secure backup",
