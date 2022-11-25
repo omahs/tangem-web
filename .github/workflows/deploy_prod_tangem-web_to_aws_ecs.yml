@@ -68,6 +68,7 @@ jobs:
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI }}
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN }}
+          TANGEM_WEB=${{ secrets.TANGEM_WEB }}
           EOF
 
      - name: Install node v14
