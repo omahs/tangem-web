@@ -2,7 +2,10 @@
 @use "../../../styles/function" as *;
 
 .footer {
-  padding: 57px 1rem 35px;
+  margin-top: calc-clamp(0rem, 9.375rem);
+  margin-right: 1rem;
+  margin-left: 1rem;
+  padding: 60px 0 35px;
   overflow: hidden;
   background: var(--color-bg-page, rgb(0 0 0 / 0%));
 
@@ -27,7 +30,7 @@
 .copyright {
   margin-top: 32px;
   margin-left: 1rem;
-  color: rgb(145 145 145);
+  color: rgb(110 114 117);
   font-size: 14px;
   line-height: 24px;
   white-space: pre-line;
@@ -100,7 +103,7 @@
   }
 
   svg {
-    fill: rgb(9 14 19);
+    fill: var(--color-footer-head-bg, rgb(9 14 19));
   }
 }
 
@@ -138,15 +141,7 @@
   img {
     width: 28px;
     height: 28px;
-    filter:
-      brightness(0)
-      saturate(100%)
-      invert(64%)
-      sepia(3%)
-      saturate(25%)
-      hue-rotate(3deg)
-      brightness(99%)
-      contrast(95%);
+    filter: brightness(0) saturate(100%) invert(64%) sepia(3%) saturate(25%) hue-rotate(3deg) brightness(99%) contrast(95%);
   }
 
   a:hover img,
@@ -177,7 +172,7 @@
 
 .head {
   margin-bottom: 16px;
-  color: rgb(0 0 0);
+  color: var(--color-footer-head-bg, rgb(0 0 0));
   font-weight: 600;
   font-size: 16px;
   line-height: 28px;
