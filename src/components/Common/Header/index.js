@@ -6,12 +6,12 @@ import GiftIcon from '../../../../public/svg/button-gift.svg'
 import i18next, {t} from "i18next";
 import styles from './header.module.scss'
 import classNames from 'classnames'
-import {GiftContext} from "../../../context/gift-context";
+import {PromoContext} from "../../../context/promo-context";
 
 const Header = ({isDark, className, children }) => {
 	const { language } = i18next;
 	const router = useRouter();
-  const { isGiftEnabled } = useContext(GiftContext);
+  const { isGiftEnabled } = useContext(PromoContext);
 
 	const menu = {
 		start: [
@@ -23,8 +23,8 @@ const Header = ({isDark, className, children }) => {
 			...(['ru', 'en'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
-      { name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
+			{ name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 		]
 	};
 
@@ -39,13 +39,13 @@ const Header = ({isDark, className, children }) => {
 	    <div className={styles.wrapper}>
 	      <nav className={styles.nav}>
 	        <Link href="/">
-	          <a aria-label={'Tangem'} className={styles.logo}>
+	          <a className={styles.logo}>
 	            <Logo />
 	          </a>
 	        </Link>
 					<div className={styles.menu}>
 			      <input id="toggle" type="checkbox" className={styles.toggle} />
-			      <label aria-label={t('buttons.toggle')} htmlFor="toggle">
+			      <label htmlFor="toggle">
 				      <span/>
 			      </label>
 						<div className={styles.items}>
@@ -79,11 +79,8 @@ const Header = ({isDark, className, children }) => {
               pathname: '/[lang]/pricing/',
               query: { lang: language },
             }}
-            aria-label={t('buttons.buy')}
           >
-            <a aria-label={t('buttons.buy')} className={classNames(styles.buy)}>
-              { t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }
-            </a>
+            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled ? <GiftIcon /> : null }</a>
           </Link>
 	    </div>
 	    { children }
