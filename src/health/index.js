@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: '.env.production' })
 const fs = require('fs');
 const config = require("../config");
 const output = Object.entries(config)
