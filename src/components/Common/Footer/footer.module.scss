@@ -7,18 +7,23 @@
   margin-left: 1rem;
   padding: 60px 0 35px;
   overflow: hidden;
+  background: var(--color-bg-page, rgb(0 0 0 / 0%));
 
   @supports not (font-size: clamp(1px, 1vw, 2px)) {
-    margin-top: 0;
+    padding-top: 0;
 
     @include mixins.respond-to-medium {
-      margin-top: 9.375rem;
+      padding-top: 9.375rem;
     }
   }
 
+  @include mixins.respond-to-medium {
+    padding-top: 57px;
+  }
+
   @media (min-width: 1272px) {
-    margin-right: calc(50% - 620px);
-    margin-left: calc(50% - 620px);
+    padding-right: calc(50% - 620px);
+    padding-left: calc(50% - 620px);
   }
 }
 
@@ -73,13 +78,17 @@
 
 .grid {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   max-width: 1216px;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   column-gap: 23px;
 
   @include mixins.respond-to-medium {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: auto  minmax(max-content, 120px) minmax(max-content, 160px);
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     column-gap: 40px;
   }
 }
