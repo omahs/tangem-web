@@ -4,25 +4,25 @@
 
 .hero {
   position: relative;
-  min-height: 690px;
-  max-width: 100vw;
-  overflow: hidden;
-  width: 100%;
-  color: #000;
-  box-sizing: border-box;
-  background: linear-gradient(89.93deg, rgba(#A378FF, 0.7) 0.39%, rgba(#FFB876,0.7) 100.27%);
   flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 690px;
+  overflow: hidden;
+  color: rgb(0 0 0);
+  background: linear-gradient(89.93deg, rgba(#a378ff, 0.7) 0.39%, rgba(#ffb876, 0.7) 100.27%);
 
   &::before {
-    content: "";
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
-    background: linear-gradient(180deg, rgba(248, 249, 249, 0) 0%, #F8F9F9 60.77%), rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(81px);
     left: 0;
     z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgb(248 249 249 / 0%) 0%, rgb(248 249 249) 60.77%), rgb(255 255 255 / 50%);
+    backdrop-filter: blur(81px);
+    content: "";
   }
 
   @include mixins.respond-to-medium {
@@ -31,19 +31,19 @@
 }
 
 .grid {
-  display: flex;
   position: relative;
   z-index: 2;
-  margin-top: 47px;
+  display: flex;
   flex-direction: column-reverse;
+  margin-top: 47px;
 
   @include mixins.respond-to-medium {
-    margin-left: 1rem;
-    max-width: 1240px;
-    justify-content: space-between;
-    align-items: start;
-    margin-top: 60px;
     flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+    max-width: 1240px;
+    margin-top: 60px;
+    margin-left: 1rem;
   }
 
   @media (min-width: 1272px) {
@@ -52,15 +52,15 @@
 }
 
 .title {
+  position: relative;
   box-sizing: border-box;
   padding-top: 35px;
   text-align: center;
-  position: relative;
 
   @include mixins.respond-to-medium {
+    flex: 0 1 500px;
     padding-top: 160px;
     text-align: start;
-    flex: 0 1 500px;
   }
 
   &.long {
@@ -70,14 +70,14 @@
   }
 
   h1 {
+    width: 100%;
     margin-bottom: 24px;
+    padding: 0 35px;
+    color: rgb(9 14 19);
     font-weight: 400;
     font-size: calc-clamp(2.875rem, 5rem);
     line-height: 0.95;
     letter-spacing: -0.02em;
-    color: #090E13;
-    width: 100%;
-    padding: 0 35px;
     white-space: pre-line;
 
     @supports not (font-size: clamp(1px, 1vw, 2px)) {
@@ -85,22 +85,22 @@
     }
 
     @include mixins.respond-to-medium {
+      padding: 0;
+      color: rgb(0 0 0);
       font-weight: 500;
       line-height: 0.9;
-      color: #000000;
       letter-spacing: 0;
-      padding: 0;
     }
   }
 
   p {
+    width: 100%;
+    margin-bottom: 40px;
+    padding: 0 35px;
+    color: rgb(104 104 104);
     font-weight: 400;
     font-size: calc-clamp(1.125rem, 1.5rem);
     line-height: 1.3;
-    color: #686868;
-    padding: 0 35px;
-    width: 100%;
-    margin-bottom: 40px;
 
     @supports not (font-size: clamp(1px, 1vw, 2px)) {
       font-size: 1.125rem;
@@ -126,14 +126,14 @@
 
 .phone {
   align-self: center;
-  padding-top: 43px;
   min-height: 293px;
+  padding-top: 43px;
 
   @include mixins.respond-to-medium {
+    flex: 0 1 520px;
+    align-self: start;
     padding-top: 88px;
     padding-bottom: 131px;
-    align-self: start;
-    flex: 0 1 520px;
   }
 
   img {
@@ -148,42 +148,42 @@
 .youtube {
   position: absolute;
   top: 0;
-  width: 100%;
-  height: 56.25vw;
-  max-width: 1680px;
-  max-height: 945px;
   z-index: 5;
+  width: 100%;
+  max-width: 1680px;
+  height: 56.25vw;
+  max-height: 945px;
 }
 
 .video {
-  max-height: 987px;
-  width: 100%;
-  background: transparent;
   position: relative;
-  z-index: 4;
-  min-height: 275px;
   top: 32px;
   bottom: 40px;
+  z-index: 4;
+  width: 100%;
+  min-height: 275px;
+  max-height: 987px;
+  background: rgb(229 229 229);
 
   @include mixins.respond-to-medium {
-    background-size: 1771px 987px;
     background-position: center;
+    background-size: 1771px 987px;
   }
 }
 
 .player {
-  aspect-ratio: 16 / 9;
   width: 100%;
+  max-width: 1680px;
   height: 56.25vw;
   max-height: 945px;
-  max-width: 1680px;
+  aspect-ratio: 16 / 9;
 }
 
 .play {
   position: absolute;
-  z-index: 5;
   top: calc(50% - 32px);
   left: calc(50% - 32px);
+  z-index: 5;
   width: 64px;
   height: 64px;
 
@@ -192,10 +192,10 @@
   }
 
   @include mixins.respond-to-medium {
-    width: 100px;
-    height: 100px;
     top: calc(50% - 50px);
     left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
   }
 
   img {
@@ -210,40 +210,42 @@
 }
 
 .frame {
-  height: 56.25vw;
-  width: 100%;
-  max-width: 1680px;
-  max-height: 945px;
+  position: relative;
   display: flex;
   justify-content: center;
-  position: relative;
+  width: 100%;
+  max-width: 1680px;
+  height: 56.25vw;
+  max-height: 945px;
   margin: auto auto 64px;
 
   &::before {
-    content: "";
     position: absolute;
-    min-height: calc(100% + 64px);
     min-width: 100vw;
-    background-size: contain;
-    background-position: center, center;
+    min-height: calc(100% + 64px);
+    background-image: linear-gradient(180deg, rgb(248 247 248) 5.72%, rgb(255 255 255 / 0%) 49.09%, rgb(250 251 251 / 66.3%) 70.33%, rgb(248 249 249) 90.68%), url("/img/hero/video-cover-mobile@1x.jpg");
     background-repeat: no-repeat no-repeat;
-    background-image: linear-gradient(180deg, #F8F7F8 5.72%, rgba(255, 255, 255, 0) 49.09%, rgba(250, 251, 251, 0.662519) 70.33%, #F8F9F9 90.68%), url('/img/hero/video-cover-mobile@1x.jpg');
+    background-position: center, center;
+    background-size: contain;
+    content: "";
 
     @include mixins.retina {
-      background-image: linear-gradient(180deg, #F8F7F8 5.72%, rgba(255, 255, 255, 0) 49.09%, rgba(250, 251, 251, 0.662519) 70.33%, #F8F9F9 90.68%), url('/img/hero/video-cover-mobile@2x.jpg');
+      background-image: linear-gradient(180deg, rgb(248 247 248) 5.72%, rgb(255 255 255 / 0%) 49.09%, rgb(250 251 251 / 66.3%) 70.33%, rgb(248 249 249) 90.68%), url("/img/hero/video-cover-mobile@2x.jpg");
     }
 
     @include mixins.respond-to-medium {
       left: calc(50% - 50vw);
       max-height: 987px;
-      background-image: linear-gradient(180deg, #F8F7F8 5.72%, rgba(255, 255, 255, 0) 49.09%, rgba(250, 251, 251, 0.662519) 70.33%, #F8F9F9 90.68%), url('/img/hero/video-cover@1x.jpg');
+      background-image: linear-gradient(180deg, rgb(248 247 248) 5.72%, rgb(255 255 255 / 0%) 49.09%, rgb(250 251 251 / 66.3%) 70.33%, rgb(248 249 249) 90.68%), url("/img/hero/video-cover@1x.jpg");
+
       @include mixins.retina {
-        background-image: linear-gradient(180deg, #F8F7F8 5.72%, rgba(255, 255, 255, 0) 49.09%, rgba(250, 251, 251, 0.662519) 70.33%, #F8F9F9 90.68%), url('/img/hero/video-cover@2x.jpg');
+        background-image: linear-gradient(180deg, rgb(248 247 248) 5.72%, rgb(255 255 255 / 0%) 49.09%, rgb(250 251 251 / 66.3%) 70.33%, rgb(248 249 249) 90.68%), url("/img/hero/video-cover@2x.jpg");
       }
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     .play {
       transform: scale(1.14);
     }
@@ -251,13 +253,13 @@
 }
 
 .link {
-  color: rgb(255 255 255);
-  background: rgb(0 0 0);
   padding: 12px 30px;
+  color: rgb(255 255 255);
   font-size: 17px;
   line-height: 22px;
   letter-spacing: 0;
   text-align: center;
+  background: rgb(0 0 0);
   border-radius: 100px;
 
   @media (min-width: 768px) {
@@ -269,7 +271,6 @@
   &:focus {
     background: rgb(51 51 51);
   }
-
 
   @include mixins.motion {
     transition: 0.25s;
