@@ -1,5 +1,5 @@
-import {getLanguage, getSortedLangsData} from "../../../../lib/lang";
-import {getCodeByLanguage, sectionsConfig} from "../../../../config/faq";
+import { getLanguage, getSortedLangsData } from "../../../../lib/lang";
+import { getSectionArticles, getSectionBySlug, getSectionsSlug } from "../../../../lib/zendesk";
 import {t} from "i18next";
 import Layout from "../../../../components/Common/Layout";
 import Header from "../../../../components/Common/Header";
@@ -7,9 +7,7 @@ import * as styles from "./section.module.scss";
 import Footer from "../../../../components/Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
-import ReactHtmlParser from "react-html-parser";
 import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
-import {transformLinkRel} from "../../../../lib/util";
 import {parseHtml} from "../../../../lib/html-parse";
 
 const Accordion = ({ id, title, body }) => {
@@ -44,7 +42,7 @@ const Accordion = ({ id, title, body }) => {
   );
 };
 
-const LangHelpCenterSection = ({ language, articles, section}) => {
+const LangHelpCenterSection = ({ language, articles, section }) => {
 	const breadcrumbs = [
 		{
 			href: `/${language}/help_center`,
@@ -216,7 +214,7 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
             onMouseLeave={() => setIsScrollBlocked(false)}
           >
 						<ul className={styles.menu}>
-							{ articles.articles.map(({title, id}) => (
+							{ articles.map(({title, id}) => (
 								<li key={id}>
 									<a
 										onClick={handleClick}
@@ -234,7 +232,7 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
 				<main>
 					<h1 className={styles['visually-hidden']}>{section.name}</h1>
 					<ul className={styles.articles}>
-						{ articles.articles.map(({title, id, body}) => (
+						{ articles.map(({title, id, body}) => (
               <Accordion key={id} id={id} title={title} body={body} />
 						))}
 					</ul>
@@ -247,13 +245,7 @@ const LangHelpCenterSection = ({ language, articles, section}) => {
 
 export async function getStaticPaths() {
 	const languages = getSortedLangsData();
-	const slugs = Object.keys(sectionsConfig).map((key) => sectionsConfig[key].slug);
-	let paths = [];
-	for (const lang of languages) {
-		for (const section of slugs) {
-			paths = [...paths, { params: { lang, section }}]
-		}
-	}
+  const paths = getSectionsSlug(languages);
 
 	return {
 		paths,
@@ -261,14 +253,10 @@ export async function getStaticPaths() {
 	};
 }
 
-export async function getStaticProps({ params }) {
-	const language = getLanguage(params.lang);
-	const code = getCodeByLanguage(language);
-	const id = Object.keys(sectionsConfig).find(key => sectionsConfig[key].slug === params.section);
-	const resSection = await fetch(`https://tangem.zendesk.com/api/v2/help_center/${code}/sections/${id}`);
-	const { section } = await resSection.json();
-	const res = await fetch(`https://tangem.zendesk.com/api/v2/help_center/${code}/sections/${id}/articles`);
-	const articles = await res.json();
+export async function getStaticProps({ params: {lang, slug} }) {
+	const language = getLanguage(lang);
+	const section = await getSectionBySlug(language, slug);
+	const articles = await getSectionArticles(language, section.id);
 	return {
 		props: {
 			language,

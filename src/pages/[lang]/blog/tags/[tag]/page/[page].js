@@ -1,4 +1,4 @@
-import BlogTaggedList from "../../../../../../components/Blog/BlogTaggedList";
+import BlogTaggedList from "../../../../../../templates/BlogTaggedList";
 import {getPostsForTag, getTag, getTagPagesSlugsPaths} from "../../../../../../lib/cms";
 import {getLanguage, getBlogLangsData} from "../../../../../../lib/lang";
 

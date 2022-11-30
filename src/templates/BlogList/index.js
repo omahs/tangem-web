@@ -1,13 +1,13 @@
-import Layout from "../../Common/Layout";
+import Layout from "../../components/Common/Layout";
 import i18next, {t} from "i18next";
-import Header from "../../Common/Header";
+import Header from "../../components/Common/Header";
 import * as styles from "./blogList.module.scss";
 import Link from "next/link";
-import Footer from "../../Common/Footer";
+import Footer from "../../components/Common/Footer";
 import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
-import Pagination from "../Pagination";
-import Card from "../Card";
+import Pagination from "../../components/Blog/Pagination";
+import Card from "../../components/Blog/Card";
 
 const BlogList = ({ posts, categories, category} ) => {
   const { page, pageCount } = posts.meta.pagination;
@@ -73,7 +73,7 @@ const BlogList = ({ posts, categories, category} ) => {
           <Pagination path={path} pageCount={pageCount} page={page} />
         </section>
       </main>
-      <Footer />
+      <Footer className={styles.body} />
     </Layout>
   );
 }

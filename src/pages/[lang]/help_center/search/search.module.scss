@@ -54,16 +54,6 @@
   }
 }
 
-.reset {
-  position: absolute;
-  top: calc(50% - 12px);
-  right: 14px;
-  display: none;
-  width: 24px;
-  height: 24px;
-  background-image: url("/svg/help/clear.svg");
-}
-
 .search {
   position: relative;
   max-width: 630px;
@@ -74,33 +64,6 @@
 
     @include mixins.respond-to-medium {
       margin: 3.75rem auto 2.25rem;
-    }
-  }
-
-  &:focus,
-  &:focus-visible,
-  &:focus-within {
-    .reset,
-    .list {
-      display: block;
-    }
-  }
-
-  input {
-    width: 100%;
-    padding: 9px 44px;
-    font-size: 17px;
-    line-height: 1.1;
-    background: rgb(236 237 238) url("/svg/help/search.svg") no-repeat 20px center;
-    border-radius: 30px;
-
-    @include mixins.respond-to-medium {
-      padding: 15px 48px;
-      font-size: 20px;
-    }
-
-    &::placeholder {
-      color: rgb(169 169 169);
     }
   }
 }
@@ -115,6 +78,10 @@
     @include mixins.respond-to-medium {
       gap: 1.25rem;
     }
+  }
+
+  @include mixins.respond-to-medium {
+    margin-bottom: 150px;
   }
 }
 

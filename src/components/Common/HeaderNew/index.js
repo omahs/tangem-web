@@ -23,8 +23,8 @@ const Header = ({ className, children, hideBuyButton = false }) => {
 			...(['ru', 'en'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
+      { name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
-			{ name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 		]
 	};
 
@@ -51,7 +51,7 @@ const Header = ({ className, children, hideBuyButton = false }) => {
 							Object.keys(menu).map((key) =>
 								<ul key={key}>
 									{ menu[key].map(({name, href, slug, external = false}) => {
-										const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language).reverse();
+                    const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language);
 										return (
 											<li key={name} className={slugFromRouter === slug ? styles.active : null} >
 												{ router.asPath !== href && (

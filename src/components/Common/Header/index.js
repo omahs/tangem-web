@@ -23,8 +23,8 @@ const Header = ({isDark, className, children }) => {
 			...(['ru', 'en'].includes(language) ? [{ name: t('menu.blog'), slug: 'blog', href: `/${language}/blog/` }] : []),
 		],
 		end: [
+      { name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 			{ name: t('menu.company'), slug: 'company', href: `/${language}/company/` },
-			{ name: t('menu.helpCenter'), slug: 'help_center', href: `/${language}/help_center/` },
 		]
 	};
 
@@ -39,13 +39,13 @@ const Header = ({isDark, className, children }) => {
 	    <div className={styles.wrapper}>
 	      <nav className={styles.nav}>
 	        <Link href="/">
-	          <a className={styles.logo}>
+	          <a aria-label={'Tangem'} className={styles.logo}>
 	            <Logo />
 	          </a>
 	        </Link>
 					<div className={styles.menu}>
 			      <input id="toggle" type="checkbox" className={styles.toggle} />
-			      <label htmlFor="toggle">
+			      <label aria-label={t('buttons.toggle')} htmlFor="toggle">
 				      <span/>
 			      </label>
 						<div className={styles.items}>
@@ -53,7 +53,7 @@ const Header = ({isDark, className, children }) => {
 							Object.keys(menu).map((key) =>
 								<ul key={key}>
 									{ menu[key].map(({name, href, slug, external = false}) => {
-										const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language).reverse();
+										const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language);
 										return (
 											<li key={name} className={slugFromRouter === slug ? styles.active : null} >
 												{ router.asPath !== href && (
@@ -79,8 +79,11 @@ const Header = ({isDark, className, children }) => {
               pathname: '/[lang]/pricing/',
               query: { lang: language },
             }}
+            aria-label={t('buttons.buy')}
           >
-            <a className={classNames(styles.buy)}>{ t('buttons.buy') } { isGiftEnabled ? <GiftIcon /> : null }</a>
+            <a aria-label={t('buttons.buy')} className={classNames(styles.buy)}>
+              { t('buttons.buy') } { isGiftEnabled && language === 'ru' ? <GiftIcon /> : null }
+            </a>
           </Link>
 	    </div>
 	    { children }
