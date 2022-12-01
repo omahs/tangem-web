@@ -148,6 +148,7 @@ const ContactForm = ({ program }) => {
       />
       <button
         type="button"
+        disabled={ isSent }
         className={classNames(styles.submit, {[styles.loading]: isLoading})}
         onClick={handleSubmit}
       >

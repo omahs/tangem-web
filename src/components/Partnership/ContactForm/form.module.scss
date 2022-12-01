@@ -198,6 +198,10 @@
   background: rgb(0 0 0);
   border-radius: 100px;
 
+  &:disabled {
+    background: rgb(235 235 235);
+  }
+
   @include mixins.respond-to-medium {
     width: auto;
     margin-top: 26px;
