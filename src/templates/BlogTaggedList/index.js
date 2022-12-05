@@ -1,15 +1,16 @@
-import Layout from "../../Common/Layout";
+import Layout from "../../components/Common/Layout";
 import i18next, {t} from "i18next";
-import Header from "../../Common/Header";
+import Header from "../../components/Common/Header";
 import * as styles from "./blogTaggedList.module.scss";
-import Footer from "../../Common/Footer";
-import Pagination from "../Pagination";
-import Breadcrumbs from "../../Common/Breadcrumbs";
-import Card from "../Card";
+import Footer from "../../components/Common/Footer";
+import Pagination from "../../components/Blog/Pagination";
+import Breadcrumbs from "../../components/Common/Breadcrumbs";
+import Card from "../../components/Blog/Card";
 
 const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
   const { page, pageCount } = posts.meta.pagination;
   const { language } = i18next;
+  const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
 
   const breadcrumbs = [
     {
@@ -17,11 +18,9 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
       name: t('menu.blog'),
     },
     {
-      name: `#${title}`,
+      name: `#${capitalizeTitle}`,
     }
   ];
-
-  const capitalizeTitle = title.charAt(0).toUpperCase() + title.slice(1);
 
   return (
     <Layout
@@ -33,7 +32,7 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
       </Header>
       <main className={styles.page}>
         <section className={styles.hero}>
-          <h1>{title}</h1>
+          <h1>{capitalizeTitle}</h1>
           <ul className={styles.grid}>
             { posts.data.map(({ attributes }) => {
               return (
@@ -46,7 +45,7 @@ const BlogTaggedList = ({ posts, tag: { title, slug }}) => {
           <Pagination page={page}  pageCount={pageCount} path={`/${language}/blog/tags/${slug}/`} />
         </section>
       </main>
-      <Footer />
+      <Footer className={styles.body}  />
     </Layout>
   );
 }

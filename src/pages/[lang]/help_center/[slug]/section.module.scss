@@ -10,6 +10,7 @@
   margin: 118px 16px 0;
 
   @media (min-width: 1272px) {
+    margin-bottom: 90px;
     margin-left: calc(50% - 620px);
   }
 
@@ -39,6 +40,7 @@
   margin-bottom: 40px;
 
   @include mixins.respond-to-medium {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     position: sticky;
     top: 0;
     height: min-content;

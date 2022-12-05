@@ -2,17 +2,15 @@ import {getAllLanguageSlugs, getLanguage} from "../../../../lib/lang";
 import Layout from "../../../../components/Common/Layout";
 import {t} from "i18next";
 import * as styles from "./search.module.scss";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../../../components/Common/Header";
 import Footer from "../../../../components/Common/Footer";
 import {useRouter} from "next/router";
-import {getCodeByLanguage, sectionsConfig} from "../../../../config/faq";
-import ReactHtmlParser from "react-html-parser";
-import {transformLinkRel} from "../../../../lib/util";
 import {parseHtml} from "../../../../lib/html-parse";
+import {searchArticles} from "../../../../lib/zendesk";
+import {Search} from "../../../../components/HelpCenter/Search";
 
 const LangHelpCenterSearch = ({language}) => {
-	const search = useRef();
 	const router = useRouter()
 	const [ query, setQuery ] = useState('');
 	const [ resultQuery, setResultQuery ] = useState('');
@@ -24,34 +22,25 @@ const LangHelpCenterSearch = ({language}) => {
 
 	useEffect(() => {
 		async function find() {
-			if(query === '') {
+			if (!query) {
 				setResult([]);
 				return function empty() {}
 			}
 
-			const sections = Object.keys(sectionsConfig).join(',')
-			const code = getCodeByLanguage(language);
-			const res = await fetch(`https://tangem.zendesk.com/api/v2/help_center/articles/search?query=${query}&per_page=100&locale=${code}&&section=${sections}`);
-			const {results} = await res.json();
+			const result = await searchArticles(language, query);
 			setResultQuery(query);
-			setResult(results);
+			setResult(result);
 		}
 
 		find()
 	}, [language, query])
 
 	function handleSubmit(e) {
-		e.preventDefault();
-		const text = search.current.value;
-		setQuery(text);
-		router.push(`/${language}/help_center/search?query=${text}`);
-	}
-
-  function handleReset(e) {
     e.preventDefault();
-    search.current.value = '';
-    search.current.focus();
-  }
+		const text = e.target.querySelector('input').value;
+		setQuery(text);
+    router.replace(`/${language}/help_center/search?query=${text}`, undefined,{ shallow: true });
+	}
 
   return (
 		<Layout title={t('pages.helpCenter.search.title')} description={t('description')}>
@@ -60,20 +49,11 @@ const LangHelpCenterSearch = ({language}) => {
 				<main >
 					<section>
 						<h1>{t('pages.helpCenter.search.title')}</h1>
-						<form onSubmit={handleSubmit} className={styles.search} action={`/${language}/help_center/search`} >
-							<input
-								required
-								minLength="1"
-								maxLength="100"
-								type="text"
-								name="query"
-								placeholder={t('sections.helpCenter.search')}
-								defaultValue={query}
-                autoComplete="off"
-								ref={search}
-							/>
-              <button type="reset" className={styles.reset} onClick={handleReset} />
-						</form>
+            <Search
+              onSubmit={handleSubmit}
+              query={query}
+              className={styles.search}
+            />
 						<p className={styles.label}>
 							{ resultQuery !== '' ? (results.length
 									? `${t('pages.helpCenter.search.results', {query: resultQuery})}`
@@ -103,18 +83,16 @@ const LangHelpCenterSearch = ({language}) => {
 
 
 export async function getStaticPaths() {
-	const paths = getAllLanguageSlugs();
 	return {
-		paths,
+		paths: getAllLanguageSlugs(),
 		fallback: false,
 	};
 }
 
-export async function getStaticProps({ params }) {
-	const language = getLanguage(params.lang);
+export async function getStaticProps({ params: { lang }}) {
 	return {
 		props: {
-			language,
+			language: getLanguage(lang),
 		},
 	};
 }

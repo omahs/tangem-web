@@ -1,5 +1,8 @@
-import LangCompany from "../[lang]/company";
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+
+const LangCompany = dynamic(() => import("../[lang]/company"), { suspense: true });
 
 export default function Company() {
-	return <LangCompany language='en' />
+	return <Suspense><LangCompany language='en' /></Suspense>
 }

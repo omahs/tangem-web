@@ -59,6 +59,7 @@ jobs:
        run:
           |
           cat << EOF > .env.production
+          USE_DEV_CONFIG=false
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
@@ -67,6 +68,7 @@ jobs:
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI }}
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN }}
+          TANGEM_WEB=${{ secrets.TANGEM_WEB }}
           EOF
 
      - name: Install node v14

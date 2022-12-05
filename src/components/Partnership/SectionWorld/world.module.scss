@@ -25,8 +25,7 @@
   box-shadow: 0 20px 60px rgb(0 0 0 / 6%);
 
   @media (min-width: 1272px) {
-    margin-right: calc(50% - 620px);
-    margin-left: calc(50% - 620px);
+    margin: 0 calc(50% - 620px)  84px;
   }
 
   @include mixins.respond-to-medium {

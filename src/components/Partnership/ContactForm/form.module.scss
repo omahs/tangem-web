@@ -126,7 +126,7 @@
       padding: 10px 12px;
 
       @include mixins.respond-to-medium {
-        height: 218px;
+        height: 142px;
         padding: 8px 16px;
       }
 
@@ -188,7 +188,7 @@
 
 .submit {
   width: 100%;
-  margin-bottom: 16px;
+  margin: 20px 0 16px;
   padding: 12px 34px;
   color: rgb(255 255 255);
   font-weight: normal;
@@ -198,8 +198,13 @@
   background: rgb(0 0 0);
   border-radius: 100px;
 
+  &:disabled {
+    background: rgb(235 235 235);
+  }
+
   @include mixins.respond-to-medium {
     width: auto;
+    margin-top: 26px;
     margin-right: 16px;
     margin-bottom: 0;
     font-size: 20px;
