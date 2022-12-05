@@ -1,4 +1,4 @@
-import { Html, Head, Main } from 'next/document'
+import {Html, Head, Main, NextScript} from 'next/document'
 import i18next from "i18next";
 import React from "react";
 
@@ -38,6 +38,7 @@ export default function Document() {
 			</noscript>
 			<Main />
 			<div id="portal" />
+      <NextScript />
 			</body>
 		</Html>
 	)
