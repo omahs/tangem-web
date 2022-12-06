@@ -40,6 +40,7 @@ const Footer = ({className}) => {
           <Link href={`/${lang}/partnership/`}>
             <a>{t('menu.partnership')}</a>
           </Link>
+          <a href={t('menu.mediaKit.link')} target="_blank" rel='nofollow noopener noreferrer'>{t('menu.mediaKit.title')}</a>
         </div>
         <div className={styles.socials}>
           <a href={t('socials.telegram')} target="_blank" rel="nofollow noopener noreferrer">

@@ -11,7 +11,11 @@
     "companyPart": "Company",
     "about": "About Tangem",
     "helpCenter": "Help Center",
-    "blog": "Blog"
+    "blog": "Blog",
+    "mediaKit":  {
+      "title": "MediaKit",
+      "link": "https://drive.google.com/drive/folders/1izGnOv0aaLJcwFAgs5RBeqNWc46KscfJ"
+    }
   },
   "pages": {
     "partnership": {
