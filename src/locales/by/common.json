@@ -11,7 +11,11 @@
     "companyPart": "Компания",
     "about": "О компании",
     "helpCenter": "Поддержка",
-    "blog": "Блог"
+    "blog": "Блог",
+    "mediaKit":  {
+      "title": "МедиаКит",
+      "link": "https://drive.google.com/drive/folders/1GgcMqZvl-ahZGjOaESUD4kOGZP0FjHQ0"
+    }
   },
   "pages": {
     "partnership": {
