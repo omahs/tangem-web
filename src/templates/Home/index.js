@@ -9,15 +9,15 @@ import SectionCommunity from "../../components/Home/SectionCommunity";
 import Footer from "../../components/Common/Footer";
 import React from "react";
 import * as styles from './home.module.scss';
-import SectionHeroBlackFriday from "../../components/Home/SectionHeroBlackFriday";
+import SectionHero from "../../components/Home/SectionHero";
 
 
 export const LangHomeTemplate = () => {
   return (
-    <Layout title={t('title')} description={t('description')} themeColor='#000000'>
+    <Layout title={t('title')} description={t('description')}>
       <Header className={styles.header} />
       <main>
-        <SectionHeroBlackFriday/>
+        <SectionHero/>
         <SectionFeature/>
         <SectionWebCompatible />
         <SectionSecure />
