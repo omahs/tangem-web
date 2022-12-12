@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 const defaultValues = {
-  isBlackFridayEnabled: true,
-  isGiftEnabled: true,
+  isBlackFridayEnabled: false,
+  isGiftEnabled: false,
 }
 
 const blackFridayStartedAt = new Date(Date.UTC(2022, 10, 20, 21, 0, 0));
