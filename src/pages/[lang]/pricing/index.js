@@ -51,8 +51,6 @@ const LangPricingPage = ({prices}) => {
   const [promoStyles, setPromoStyles] = useState([]);
   const refResellers = useRef();
 
-  const resellersPath = isBlackFridayEnabled ? 'resellers-dark' : 'resellers';
-
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     setDiscountCode(searchParams.get('promocode'));
@@ -408,8 +406,8 @@ const LangPricingPage = ({prices}) => {
                         <img
                           decoding='async'
                           alt={item.name}
-                          src={`/img/${resellersPath}/${item.id}@1x.png`}
-                          srcSet={`/img/${resellersPath}/${item.id}@2x.png 2x`}
+                          src={`/img/resellers/${item.id}@1x.png`}
+                          srcSet={`/img/resellers/${item.id}@2x.png 2x`}
                         />
                         <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.resellerOpenLink')}</a>
                       </li>
