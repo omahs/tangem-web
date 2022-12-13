@@ -37,11 +37,9 @@ const LangPricingPage = ({prices}) => {
   ];
 
   const {language} = i18next;
-
   const useShopify = !['ru', 'by'].includes(language);
-  const isRuLocale = ['ru', 'by'].includes(language);
 
-  const { isBlackFridayEnabled } = useContext(PromoContext);
+  const { isChristmasEnabled } = useContext(PromoContext);
 
   const [discountCode, setDiscountCode] = useState('');
   const [currentPack, setCurrentPack] = useState(packs[0]);
@@ -216,8 +214,8 @@ const LangPricingPage = ({prices}) => {
 
 
   useEffect(() => {
-    setPromoStyles(isBlackFridayEnabled ? [styles.friday] : [])
-  }, [isBlackFridayEnabled]);
+    setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
+  }, [isChristmasEnabled]);
 
   function getFormatPrice(value) {
     const parseValue = Number.parseFloat(value);
@@ -336,17 +334,14 @@ const LangPricingPage = ({prices}) => {
                 <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
                 <p>{ t('pricing.buy.description')}</p>
               </div>
-              { isBlackFridayEnabled ?
+              { isChristmasEnabled ?
                 <div className={styles.gift}>
-                  <p>{ t('pricing.blackFriday.gift.title')}</p>
-                  <p className={styles.gold}>{ t('pricing.blackFriday.gift.description')}</p>
-                  <a href={t('pricing.blackFriday.gift.docs')} className={classNames(styles.pdf, styles.gold)} target="_blank" rel="noreferrer">
-                    { t('pricing.blackFriday.gift.more') }
-                  </a>
+                  <h2>{ t('pricing.gift.title')}</h2>
+                  <p>{ t('pricing.gift.description')}</p>
                 </div> : null
               }
               <form className={styles.form} >
-                <span>{ isBlackFridayEnabled ? t('pricing.blackFriday.choice') : t('pricing.choice') }</span>
+                <span>{ t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   { packs.map((pack) =>(
                     <React.Fragment key={pack.id}>
@@ -425,18 +420,11 @@ const LangPricingPage = ({prices}) => {
             </div>
             <div>
               <Features />
-              { isBlackFridayEnabled
-                ? <div className={styles.details}>
-                    <h3>{ t('pricing.blackFriday.condition.title') }</h3>
-                    <div dangerouslySetInnerHTML={{ __html: t('pricing.blackFriday.condition.description') }} />
-                  </div>
-                : null
-              }
             </div>
           </div>
-          {isBlackFridayEnabled ? <div className={classNames(styles.promo, {[styles['promo-ru']]: isRuLocale})}>
-            <h2>{ t('pricing.blackFriday.title')}</h2>
-            <p>{ t('pricing.blackFriday.description') }</p>
+          {isChristmasEnabled ? <div className={styles.promo}>
+            <h2>{ t('pricing.christmas.title')}</h2>
+            <p>{ t('pricing.christmas.description') }</p>
           </div> : null}
         </main>
         <Footer />

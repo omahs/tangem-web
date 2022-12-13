@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Logo from '../../../../public/svg/tangem-logo.svg'
@@ -11,7 +11,12 @@ import {PromoContext} from "../../../context/promo-context";
 const Header = ({ className, children, hideBuyButton = false }) => {
 	const { language } = i18next;
 	const router = useRouter();
-  const { isGiftEnabled } = useContext(PromoContext);
+  const { isGiftEnabled, isChristmasEnabled } = useContext(PromoContext);
+  const [promoStyles, setPromoStyles] = useState([]);
+
+  useEffect(() => {
+    setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
+  }, [isChristmasEnabled]);
 
 	const menu = {
 		start: [
@@ -32,6 +37,7 @@ const Header = ({ className, children, hideBuyButton = false }) => {
     <header
       className={classNames(
 				styles.header,
+        promoStyles,
 	      {[className]: !!className})}
      >
 	    <div className={styles.wrapper}>

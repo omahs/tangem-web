@@ -2,3 +2,11 @@
   --color-header-bg: rgb(255 255 255 / 20%);
   --backdrop-filter-header-button: blur(15px);
 }
+
+.christmas {
+  &.header {
+    --color-header-bg: rgb(255 255 255);
+    --color-header-button-bg: rgb(67 97 78);
+    --color-header-button-bg-hover: rgb(93 136 108);
+  }
+}
