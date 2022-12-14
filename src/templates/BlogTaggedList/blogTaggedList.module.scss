@@ -38,8 +38,10 @@
 }
 
 .header {
-  background: rgb(255 255 255 / 50%);
-  backdrop-filter: blur(40px);
+  --color-header-bg: rgb(255 255 255 / 50%);
+  --backdrop-filter-header: blur(20px);
+  --color-breadcrumbs-text: rgb(101 101 101);
+  --color-breadcrumbs-separator: rgb(235 235 235);
 }
 
 .hero {
@@ -62,19 +64,5 @@
   @include mixins.respond-to-medium {
     gap: 44px;
     margin: 68px 0 100px;
-  }
-}
-
-.breadcrumbs {
-  --color-breadcrumbs-text: rgb(101 101 101);
-  --color-breadcrumbs-separator: rgb(235 235 235);
-
-  li {
-    color: rgb(101 101 101);
-
-    &::before,
-    &::after {
-      background: rgb(101 101 101);
-    }
   }
 }

@@ -3,7 +3,7 @@ import {loadInsalesProducts} from "../../../lib/insales";
 import i18next, {t} from "i18next";
 import Layout from "../../../components/Common/Layout";
 import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import Header from "../../../components/Common/HeaderNew";
+import Header from "../../../components/Common/Header";
 import Footer from "../../../components/Common/Footer";
 import * as styles from './pricing.module.scss';
 import classNames from "classnames";

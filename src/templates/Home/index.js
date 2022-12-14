@@ -1,6 +1,6 @@
 import Layout from "../../components/Common/Layout";
 import {t} from "i18next";
-import Header from "../../components/Common/HeaderNew";
+import Header from "../../components/Common/Header";
 import SectionFeature from "../../components/Home/SectionFeature";
 import SectionWebCompatible from "../../components/Home/SectionCompatible";
 import SectionSecure from "../../components/Home/SectionSecure";
