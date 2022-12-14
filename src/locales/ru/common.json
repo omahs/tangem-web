@@ -321,7 +321,6 @@
     "stores": "Доступно в магазинах",
     "quantity": "Количество",
     "total": "Итого",
-    "gift": "Закажите Tangem Wallet до 30 ноября и получите Tangem Note в подарок",
     "buy": {
       "title": "Купить Tangem Wallet",
       "description": "Выбери свой мультивалютный кошелек для управления различными криптоактивами с доступом к DeFi, NFT, DeEx и т.д. — все в одной карте."
@@ -341,20 +340,13 @@
       "return": "Не понравилось?\nЛегко вернуть!",
       "support": "Лучшая поддержка клиентов"
     },
-    "blackFriday": {
-      "title": "Черная пятница \nTangem и Binance",
-      "description": "С 21 ноября по 11 декабря Tangem в партнёрстве с крупнейшей криптобиржей Binance предлагает особые условия для новых клиентов!",
-      "choice": "Специальные цены Черной Пятницы:",
-      "gift" : {
-        "title": "Приобретайте комплекты Tangem Wallet по специальным ценам черной пятницы и в комплекте с подарочным Tangem Note, а также получите реальные денежные бонусы от Binance:",
-        "description": "+10 BUSD приветственный бонус\n+50 BUSD на торговые комиссии\n+100 BUSD ваучер для депозитов",
-        "more": "Подробнее об условиях",
-        "docs": "/docs/ru/black-friday-2022.pdf"
-      },
-      "condition": {
-        "title": "Подробнее об условиях и как активировать бонусы",
-        "description": "После покупки Tangem Wallet, перейдите на сайт <a href='https://www.binance.com/ru' rel='nofollow noopener noreferrer'>Binance</a> и начните процесс регистрации учетной записи. Введите реферальный ID: tangem, пройдите верификацию KYC. Затем отправьте фото чека Tangem, приобретенного в период акции, и номер Binance ID в поддержку Tangem в Telegram: <a href='https://t.me/Tangem_Support_RU_bot' rel='nofollow noopener noreferrer'>@Tangem_Support_RU_bot</a> или на почту <a href='mailto:support@tangem.com'>support@tangem.com</a>\nПосле проверки данных, в течение 2 недель, на ваш счет в Binance будут зачислены следующие бонусы:<ul><li>- 10 BUSD приветственный бонус</li><li>- 50 BUSD на торговые комиссии</li><li>- 100 BUSD ваучер для депозитов</li></ul>"
-      }
+    "christmas": {
+      "title": "Новый год \nНовые скидки",
+      "description": "Универсальный инновационный подарок на Новый год для тех, кто в тренде. Успейте купить до 8 января Tangem Wallet по специальной праздничной цене и получите одновалютную банкноту Tangem Note в подарок к каждой покупке."
+    },
+    "gift" : {
+      "title": "Tangem Note в подарок!",
+      "description": "Приобретайте Tangem Wallet со специальной новогодней скидкой и получайте одновалютный Tangem Note в подарок к каждой покупке"
     }
   },
   "socials": {
