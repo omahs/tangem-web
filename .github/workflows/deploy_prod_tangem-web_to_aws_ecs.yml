@@ -43,6 +43,11 @@ jobs:
           |
           wget -O lobstr.conf ${{ secrets.NGINX_CONF_LOBSTR }}
 
+     - name: Create nginx devapp.conf
+       run:
+          |
+          wget -O devapp.conf ${{ secrets.NGINX_CONF_APP }}
+
      - name: Create nginx nginx.conf
        run:
           |

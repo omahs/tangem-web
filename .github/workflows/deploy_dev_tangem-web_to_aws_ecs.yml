@@ -57,10 +57,15 @@ jobs:
           |
           wget -O devweb.default.conf ${{ secrets.NGINX_DEV_CONF }}
 
-     - name: Create nginx lobstr.conf
+     - name: Create nginx devlobstr.conf
        run:
           |
           wget -O devlobstr.conf ${{ secrets.NGINX_DEV_CONF_LOBSTR }}
+
+     - name: Create nginx devapp.conf
+       run:
+          |
+          wget -O devapp.conf ${{ secrets.NGINX_DEV_CONF_APP }}
 
      - name: Create nginx devnginx.conf
        run:
