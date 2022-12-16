@@ -357,7 +357,7 @@ const LangPricingPage = ({prices}) => {
                           <h4>{ pack.title }</h4>
                           <span className={styles.price}>{ getFormatPrice(getPrice(pack)) }</span>
                           <span>{ pack.description }</span>
-                          <span>{ useShopify ? '' : getFormatPrice(getOldPrice(pack)) }</span>
+                          <span>{ getFormatPrice(getOldPrice(pack)) }</span>
                         </div>
                       </label>
                     </React.Fragment>
