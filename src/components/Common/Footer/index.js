@@ -20,54 +20,56 @@ const Footer = ({className}) => {
 
   return (
     <footer className={classnames(styles.footer, className)}>
-      <div className={styles.grid}>
-        <div className={styles.logo}>
-          <Logo />
-        </div>
-        <div className={styles.address}>
-          Global Headquarters, Tangem AG, Baarerstrasse 10, 6300 Zug, Switzerland
-        </div>
-        <div className={classNames(styles.customer, styles.list)}>
-          <span className={styles.head}>{t('menu.legalPart')}</span>
-          { documents.map(({title, href}) => <a key={href} target="_blank" href={ href } rel="noreferrer">{title}</a> )}
-       </div>
-        <div className={classNames(styles.company, styles.list)}>
-          <span className={styles.head}>{t('menu.companyPart')}</span>
+      <div className={styles.wrapper} >
+        <div className={styles.grid}>
+          <div className={styles.logo}>
+            <Logo />
+          </div>
+          <div className={styles.address}>
+            Global Headquarters, Tangem AG, Baarerstrasse 10, 6300 Zug, Switzerland
+          </div>
+          <div className={classNames(styles.customer, styles.list)}>
+            <span className={styles.head}>{t('menu.legalPart')}</span>
+            { documents.map(({title, href}) => <a key={href} target="_blank" href={ href } rel="noreferrer">{title}</a> )}
+         </div>
+          <div className={classNames(styles.company, styles.list)}>
+            <span className={styles.head}>{t('menu.companyPart')}</span>
 
-          <Link href={`/${lang}/company/`}>
-            <a>{t('menu.about')}</a>
-          </Link>
-          <Link href={`/${lang}/partnership/`}>
-            <a>{t('menu.partnership')}</a>
-          </Link>
-          <a href={t('menu.mediaKit.link')} target="_blank" rel='nofollow noopener noreferrer'>{t('menu.mediaKit.title')}</a>
+            <Link href={`/${lang}/company/`}>
+              <a>{t('menu.about')}</a>
+            </Link>
+            <Link href={`/${lang}/partnership/`}>
+              <a>{t('menu.partnership')}</a>
+            </Link>
+            <a href={t('menu.mediaKit.link')} target="_blank" rel='nofollow noopener noreferrer'>{t('menu.mediaKit.title')}</a>
+          </div>
+          <div className={styles.socials}>
+            <a href={t('socials.telegram')} target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/telegram.svg' alt='telegram' loading='lazy' />
+            </a>
+            <a href="https://twitter.com/tangem" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/twitter.svg' alt='twitter' loading='lazy' />
+            </a>
+            <a href="https://m.facebook.com/TangemCards/" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/facebook.svg' alt='facebook' loading='lazy' />
+            </a>
+            <a href="https://instagram.com/tangemcards" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/instagram.svg' alt='instagram' loading='lazy' />
+            </a>
+            <a href="https://github.com/tangem" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/github.svg' alt='github' loading='lazy' />
+            </a>
+            <a href="https://youtube.com/channel/UCFGwLS7yggzVkP6ozte0m1w" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/youtube.svg' alt='youtube' loading='lazy' />
+            </a>
+            <a href="https://www.linkedin.com/company/tangem" target="_blank" rel="nofollow noopener noreferrer">
+              <img src='/svg/linkedin.svg' alt='linkedin' loading='lazy' />
+            </a>
+          </div>
         </div>
-        <div className={styles.socials}>
-          <a href={t('socials.telegram')} target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/telegram.svg' alt='telegram' loading='lazy' />
-          </a>
-          <a href="https://twitter.com/tangem" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/twitter.svg' alt='twitter' loading='lazy' />
-          </a>
-          <a href="https://m.facebook.com/TangemCards/" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/facebook.svg' alt='facebook' loading='lazy' />
-          </a>
-          <a href="https://instagram.com/tangemcards" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/instagram.svg' alt='instagram' loading='lazy' />
-          </a>
-          <a href="https://github.com/tangem" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/github.svg' alt='github' loading='lazy' />
-          </a>
-          <a href="https://youtube.com/channel/UCFGwLS7yggzVkP6ozte0m1w" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/youtube.svg' alt='youtube' loading='lazy' />
-          </a>
-          <a href="https://www.linkedin.com/company/tangem" target="_blank" rel="nofollow noopener noreferrer">
-            <img src='/svg/linkedin.svg' alt='linkedin' loading='lazy' />
-          </a>
+        <div className={styles.copyright}>
+          Copyright © {(new Date()).getFullYear()} Tangem AG. All Rights Reserved
         </div>
-      </div>
-      <div className={styles.copyright}>
-        Copyright © {(new Date()).getFullYear()} Tangem AG. All Rights Reserved
       </div>
       <span className={styles.made}>
 		    From Switzerland

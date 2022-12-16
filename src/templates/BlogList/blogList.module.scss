@@ -5,6 +5,11 @@
   --color-bg-page: rgb(245 245 245);
 }
 
+.header {
+  --color-header-bg: rgb(255 255 255 / 50%);
+  --backdrop-filter-header: blur(20px);
+}
+
 .page {
   position: relative;
   box-sizing: border-box;
@@ -34,11 +39,6 @@
       line-height: 0.95;
     }
   }
-}
-
-.header {
-  background: rgb(255 255 255 / 50%);
-  backdrop-filter: blur(40px);
 }
 
 .hero {

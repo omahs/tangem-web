@@ -15,7 +15,7 @@ const LangCompany = () => {
 
 	return (
 		<Layout title={t('pages.company.title')} description={t('description')} >
-			<Header isDark={false} className={styles.header} />
+			<Header className={styles.header} />
 			<main>
 				<SectionHero />
 				<SectionTeam />

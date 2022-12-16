@@ -45,7 +45,7 @@ const LangHelpCenterSearch = ({language}) => {
   return (
 		<Layout title={t('pages.helpCenter.search.title')} description={t('description')}>
 			<div className={styles.page}>
-				<Header />
+				<Header className={styles.header} />
 				<main >
 					<section>
 						<h1>{t('pages.helpCenter.search.title')}</h1>

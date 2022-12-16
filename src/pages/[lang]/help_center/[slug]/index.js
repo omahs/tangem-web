@@ -203,7 +203,7 @@ const LangHelpCenterSection = ({ language, articles, section }) => {
   const pageDescription = description ? `${section.name}. ${description}` : t('description');
   return (
 		<Layout title={pageTitle} description={pageDescription}>
-			<Header isDark={true}>
+			<Header className={styles.header}>
         <Breadcrumbs items={breadcrumbs} />
       </Header>
 			<div className={styles.wrapper}>
