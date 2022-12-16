@@ -16,6 +16,8 @@ import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 import {PromoContext} from "../../../context/promo-context";
+import Client from 'shopify-buy';
+
 
 const LangPricingPage = ({prices}) => {
 
@@ -137,9 +139,44 @@ const LangPricingPage = ({prices}) => {
       }
     }
 
-    const shopifyClient = ShopifyBuy.buildClient({
+    const shopifyClient = Client.buildClient({
       domain: SHOPIFY_DOMAIN,
       storefrontAccessToken: SHOPIFY_API_KEY,
+    });
+
+    console.log(shopifyClient);
+
+    shopifyClient.product.fetch('gid://shopify/Product/6668876480578').then((product) => {
+      // Do something with the product
+      console.log(product);
+    });
+
+    const lineItemsToAdd = [
+      {
+        variantId: 'gid://shopify/ProductVariant/39605720449090',
+        quantity: 5,
+        customAttributes: [{key: "MyKey", value: "MyValue"}]
+      },
+      {
+        variantId: 'gid://shopify/ProductVariant/39585728266306',
+        quantity: 1
+      }
+    ];
+
+
+
+
+
+
+    shopifyClient.checkout.create().then((checkout) => {
+      // Do something with the checkout
+      console.log(checkout);
+      const checkoutId = checkout.id;
+
+      shopifyClient.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+        // Do something with the updated checkout
+        console.log(checkout.lineItems); // Array with one additional line item
+      });
     });
 
     const ui = ShopifyBuy.UI.init(shopifyClient);
@@ -292,7 +329,7 @@ const LangPricingPage = ({prices}) => {
         <>
           <Script
           id="buy-button"
-          src="https://sdks.shopifycdn.com/buy-button/2.2.1/buybutton.min.js"
+          src="https://sdks.shopifycdn.com/js-buy-sdk/2.0.1/index.unoptimized.umd.min.js"
           strategy="afterInteractive"
           onLoad={() => setShopifyLoaded(true)}
           />
