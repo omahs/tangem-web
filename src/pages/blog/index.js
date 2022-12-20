@@ -1,4 +1,4 @@
-import BlogList from "../../components/Blog/BlogList";
+import BlogList from "../../templates/BlogList";
 import { getLanguage} from "../../lib/lang";
 import {getPostsAndCategories} from "../../lib/cms";
 

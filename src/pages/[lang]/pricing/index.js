@@ -6,92 +6,63 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import Header from '../../../components/Common/Header';
 import Footer from '../../../components/Common/Footer';
 import * as styles from './pricing.module.scss';
-import classNames from 'classnames';
-import Button from '../../../components/Common/Button';
-import DeliveryIcon from '../../../../public/svg/delivery-buy.svg';
-import ReturnIcon from '../../../../public/svg/return.svg';
-import SupportIcon from '../../../../public/svg/support.svg';
-import { getResellers } from '../../../lib/tangem';
-import Script from 'next/script';
-import { SHOPIFY_API_KEY, SHOPIFY_DOMAIN } from '../../../config';
-import ArrowIcon from '../../../../public/svg/faq_arrow.svg';
-import { GiftContext } from '../../../context/gift-context';
+import classNames from "classnames";
+import Button from "../../../components/Common/Button";
+import DeliveryIcon from "../../../../public/svg/delivery-buy.svg";
+import ReturnIcon from "../../../../public/svg/return.svg";
+import SupportIcon from "../../../../public/svg/support.svg";
+import {getResellers} from "../../../lib/tangem";
+import Script from "next/script";
+import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
+import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
+import {PromoContext} from "../../../context/promo-context";
 import { usePromocode } from '../../../hooks/usePromocode';
 
-const packs = [
-  {
-    id: 'pack3',
-    productId: '6677839577154',
-    title: t('pricing.pack3.title'),
-    description: t('pricing.pack3.description'),
-    image: <picture className={styles.img}>
-      <source srcSet="/img/packs/pack3@1x.avif 1x, /img/packs/pack3@2x.avif 2x" type="image/avif"/>
-      <source srcSet="/img/packs/pack3@1x.webp 1x, /img/packs/pack3@2x.webp 2x" type="image/webp"/>
-      <img
-        loading="lazy"
-        decoding="async"
-        alt="Pack of 3 Cards"
-        src="/img/packs/pack3@1x.png"
-        srcSet="/img/packs/pack3@2x.png 2x"
-      />
-    </picture>,
-    defaultPrice: '69.90',
-  },
-  {
-    id: 'pack2',
-    productId: '6677836693570',
-    title: t('pricing.pack2.title'),
-    description: t('pricing.pack2.description'),
-    image: <picture className={styles.img}>
-      <source srcSet="/img/packs/pack2@1x.avif 1x, /img/packs/pack2@2x.avif 2x" type="image/avif"/>
-      <source srcSet="/img/packs/pack2@1x.webp 1x, /img/packs/pack2@2x.webp 2x" type="image/webp"/>
-      <img
-        loading="lazy"
-        decoding="async"
-        alt="Pack of 2 Cards"
-        src="/img/packs/pack2@1x.png"
-        srcSet="/img/packs/pack2@2x.png 2x"
-      />
-    </picture>,
-    defaultPrice: '54.90',
-  },
-];
+const LangPricingPage = ({prices}) => {
 
-const LangPricingPage = ({ prices }) => {
-  const { language } = i18next;
-  const resellersLocales = ['ru', 'by'];
+  const packs = [
+    {
+      id: 'pack3',
+      productId: '6677839577154',
+      title: t('pricing.pack3.title'),
+      description: t('pricing.pack3.description'),
+      defaultPrice: '69.90',
+    },
+    {
+      id: 'pack2',
+      productId: '6677836693570',
+      title: t('pricing.pack2.title'),
+      description: t('pricing.pack2.description'),
+      defaultPrice: '54.90',
+    }
+  ];
 
-  const useResellerList = resellersLocales.includes(language);
+  const {language} = i18next;
+  const useShopify = !['ru', 'by'].includes(language);
 
-  const useShopify = !resellersLocales.includes(language);
-
-  const { isGiftEnabled } = useContext(GiftContext);
+  const { isChristmasEnabled } = useContext(PromoContext);
 
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
   const [products, setProducts] = useState({});
-  const [list, setList] = useState([]);
+  const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
+  const [promoStyles, setPromoStyles] = useState([]);
   const refResellers = useRef();
   const { promocode, discount, discountType } = usePromocode();
 
   useEffect(() => {
-    if (!useResellerList) {
-      return function empty() {
-      };
-    }
-
     async function getData() {
       try {
         const resellers = await getResellers(language);
-        setList(resellers);
+        setResellersList(resellers);
       } catch (e) {
       }
     }
 
-    getData();
-  }, [language, useResellerList]);
+    getData()
+  }, [language]);
 
   function handleClick(name) {
     if (ga !== undefined) {
@@ -223,7 +194,7 @@ const LangPricingPage = ({ prices }) => {
       });
     }
 
-  },[shopifyLoaded, packs, promocode]);
+  },[shopifyLoaded, promocode]);
 
   useEffect(() => {
     if (!refResellers.current) {
@@ -233,6 +204,10 @@ const LangPricingPage = ({ prices }) => {
     }
     refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + 'px' : null;
   }, [resellersOpen]);
+
+  useEffect(() => {
+    setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
+  }, [isChristmasEnabled]);
 
   function getFormatPrice(value, useDiscount = false) {
     let parsedValue = Number.parseFloat(value);
@@ -306,9 +281,10 @@ const LangPricingPage = ({ prices }) => {
     );
   };
 
+
   return (
-    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')}>
-      {useShopify &&
+    <Layout title={t('pages.pricing.title')} description={t('pages.pricing.description')} themeColor='#000000'>
+      { useShopify &&
         <>
           <Script
             id="buy-button"
@@ -321,25 +297,47 @@ const LangPricingPage = ({ prices }) => {
           }
         </>
       }
-      <Header/>
-      <div className={styles.page}>
+      <Header className={classNames(...promoStyles)} hideBuyButton={true} />
+      <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
           <div className={styles.card}>
             <div className={styles.picture}>
-              {currentPack && currentPack.image}
+              <picture className={classNames(styles.img, {[styles['visually-hidden']]: currentPack && currentPack.id !== 'pack3'})}>
+                <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
+                <source srcSet="/img/pricing/pack3.webp 1x, /img/pricing/pack3@2x.webp 2x" type="image/webp" />
+                <img
+                  alt={t('pricing.pack3.title')}
+                  src='/img/pricing/pack3.png'
+                  srcSet="/img/pricing/pack3@2x.png 2x"
+                  width={650}
+                  height={474}
+                />
+              </picture>
+              <picture className={classNames(styles.img, {[styles['visually-hidden']]: !currentPack || currentPack.id !== 'pack2'})}>
+                <source srcSet="/img/pricing/pack2.avif 1x, /img/pricing/pack2@2x.avif 2x" type="image/avif" />
+                <source srcSet="/img/pricing/pack2.webp 1x, /img/pricing/pack2@2x.webp 2x" type="image/webp" />
+                <img
+                  alt={t('pricing.pack2.title')}
+                  src='/img/pricing/pack2.png'
+                  srcSet="/img/pricing/pack2@2x.png 2x"
+                  width={650}
+                  height={474}
+                />
+              </picture>
             </div>
             <div className={styles.choice}>
               <div>
-                <h3>{t('pricing.buy.title')}</h3>
-                <p>{t('pricing.buy.description')}</p>
+                <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
+                <p>{ t('pricing.buy.description')}</p>
               </div>
-              {isGiftEnabled && language === 'ru' ?
+              { isChristmasEnabled ?
                 <div className={styles.gift}>
-                  {t('pricing.gift')}
+                  <h2>{ t('pricing.gift.title')}</h2>
+                  <p>{ t('pricing.gift.description')}</p>
                 </div> : null
               }
-              <form className={styles.form}>
-                <span>{t('pricing.choice')}</span>
+              <form className={styles.form} >
+                <span>{ t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   {packs.map((pack) => (
                     <React.Fragment key={pack.id}>
@@ -354,10 +352,10 @@ const LangPricingPage = ({ prices }) => {
                       />
                       <label htmlFor={pack.id}>
                         <div className={styles.info}>
-                          <h4>{pack.title}</h4>
-                          <span>{getFormatPrice(getPrice(pack), true)}</span>
-                          <span>{pack.description}</span>
-                          <span>{promocode ? getFormatPrice(getPrice(pack)) : useShopify ? '' : getFormatPrice(getOldPrice(pack))}</span>
+                          <h4>{ pack.title }</h4>
+                          <span className={styles.price}>{ getFormatPrice(getPrice(pack), true) }</span>
+                          <span>{ pack.description }</span>
+                          <span>{ promocode ? getFormatPrice(getOldPrice(pack)) : getFormatPrice(getOldPrice(pack)) }</span>
                         </div>
                       </label>
                     </React.Fragment>
@@ -385,11 +383,11 @@ const LangPricingPage = ({ prices }) => {
                     <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
                   </div>
                   <div>
-                    <Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                    <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
                   </div>
                 </div>
               }
-              {useResellerList &&
+              { !!resellersList.length &&
                 <>
                   <div
                     className={classNames(styles.stories, resellersOpen && styles.open)}
@@ -400,26 +398,30 @@ const LangPricingPage = ({ prices }) => {
                       <ArrowIcon/>
                     </button>
                   </div>
-                  <ul className={styles.list} ref={refResellers}>
-                    {list.map((item) => (
+                  <ul className={styles.list} ref={refResellers} >
+                    { resellersList.map((item) => (
                       <li key={item.id}>
                         <img
-                          loading="lazy"
-                          decoding="async"
+                          decoding='async'
                           alt={item.name}
                           src={`/img/resellers/${item.id}@1x.png`}
                           srcSet={`/img/resellers/${item.id}@2x.png 2x`}
                         />
-                        <a target="_blank" href={item[currentPack.id]} onClick={() => handleClick(item.name)}
-                           rel="noreferrer">{t('buttons.goTo')}</a>
+                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.resellerOpenLink')}</a>
                       </li>
                     ))
                     }
                   </ul>
                 </>}
             </div>
-            <Features/>
+            <div>
+              <Features />
+            </div>
           </div>
+          {isChristmasEnabled ? <div className={styles.promo}>
+            <h2>{ t('pricing.christmas.title')}</h2>
+            <p>{ t('pricing.christmas.description') }</p>
+          </div> : null}
         </main>
         <Footer/>
       </div>

@@ -1,19 +1,17 @@
 import {t} from 'i18next';
 import Header from "../../../components/Common/Header";
-import React, {useContext, useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import Layout from "../../../components/Common/Layout";
 import Footer from "../../../components/Common/Footer";
 import {getAllLanguageSlugs, getLanguage} from "../../../lib/lang";
 import * as styles from './helpCenter.module.scss';
 import Link from "next/link";
-import {getCodeByLanguage, sectionsConfig} from "../../../config/faq";
+import { getSections, sectionsConfig} from "../../../lib/zendesk";
 import {ZendeskContext} from "../../../context/zendesk-context";
+import {Search} from "../../../components/HelpCenter/Search";
 
 const LangHelpCenter = ({sections, language}) => {
 	const { setNeedOpen, setNeedLoad } = useContext(ZendeskContext);
-  const [ isFormActive, setIsFormActive ] = useState(false);
-  const search = useRef()
-  const form = useRef();
 
 	const videos = [
 		{
@@ -28,40 +26,11 @@ const LangHelpCenter = ({sections, language}) => {
 
   useEffect(() => {
     setNeedLoad(true);
-
-    function hide() {
-      setIsFormActive(false);
-    }
-
-    window.addEventListener('click', hide);
-    return function remove() {
-      window.removeEventListener('click', hide);
-      setIsFormActive(false);
-    }
-  }, []);
-
-  function handleOptionClick(e) {
-    search.current.value = e.target.innerText;
-    form.current.submit();
-  }
-
-  function handleFormClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  function handleReset(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    search.current.value = '';
-    search.current.focus();
-  }
-
-  const questions = t('sections.helpCenter.questions');
+  }, [setNeedLoad]);
 
   return (
 		<Layout title={t('pages.helpCenter.title')} description={t('description') }>
-			<Header isDark={true} />
+			<Header className={styles.header } />
 			<main className={styles.page}>
 				<div className={styles.wrapper} >
 					<section className={styles.hero}>
@@ -77,32 +46,7 @@ const LangHelpCenter = ({sections, language}) => {
 				</div>
 				<section>
 					<h2>{t('sections.helpCenter.usingTangem')}</h2>
-					<form
-            className={styles.search}
-            action={`/${language}/help_center/search`}
-            onClick={handleFormClick}
-            onFocus={()=>setIsFormActive(true)}
-            ref={form}
-          >
-						<input
-              ref={search}
-							required
-							minLength="1"
-							maxLength="100"
-							type="text"
-							name="query"
-              autoComplete="off"
-							placeholder={t('sections.helpCenter.search')}
-              onFocus={()=>setIsFormActive(true)}
-						/>
-            <button type="reset" className={styles.reset} onClick={handleReset} />
-            { isFormActive && questions.length ?
-              <ul className={styles.list}>
-                {
-                  questions.map((question) => <li key={question} onClick={handleOptionClick}>{ question }</li>)
-                }
-            </ul>: null }
-					</form>
+          <Search action={`/${language}/help_center/search`} className={styles.search} />
 				</section>
 				<section>
 					<ul className={styles.sections}>
@@ -153,9 +97,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const language = getLanguage(params.lang);
-	const code = getCodeByLanguage(language);
-	const res = await fetch(`https://tangem.zendesk.com/api/v2/help_center/${code}/sections.json`);
-	const { sections } = await res.json();
+  const sections = await getSections(language);
 
 	return {
 		props: {

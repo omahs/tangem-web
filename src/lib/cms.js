@@ -40,12 +40,12 @@ function getTagBySlug(slug, language) {
   return getData(`tags/?filters[slug][$eq]=${slug}&locale=${language}`);
 }
 
-function getCategoriesData(language) {
-  return getData(`categories/?locale=${language}&sort[0]=position&sort[1]=id`)
+function getCategoriesData(language, page = 1, pageSize = MAX_PAGE_SIZE) {
+  return getData(`categories/?locale=${language}&sort[0]=position&sort[1]=id&pagination[page]=${page}&pagination[pageSize]=${pageSize}`)
 }
 
-function getTagsData(language) {
-  return getData(`tags/?locale=${language}`)
+function getTagsData(language, page = 1, pageSize = MAX_PAGE_SIZE) {
+  return getData(`tags/?locale=${language}&pagination[page]=${page}&pagination[pageSize]=${pageSize}`)
 }
 
 export async function getPostsForTag(options) {
@@ -90,13 +90,12 @@ export async function getTag(slug, language) {
   return item.attributes;
 }
 
-export async function getSlugPaths(response, languages, param) {
-  const result = await Promise.all(response.map(item => item.json()));
+export async function getSlugPaths(data, languages, param) {
 
-  return result.reduce((acc, {data}, index) => {
+  return data.reduce((acc, {data}) => {
     const params =  data
       .map(({attributes}) => ( attributes.slug
-          ? { params: { lang: languages[index], [param]: attributes.slug}}
+          ? { params: { lang: attributes.locale, [param]: attributes.slug}}
           : undefined
       ))
       .filter((item) => !!item);
@@ -106,12 +105,34 @@ export async function getSlugPaths(response, languages, param) {
 
 export async function getCategoriesSlugsPaths(languages) {
   const response = await Promise.all(languages.map((lang) => getCategoriesData(lang)));
-  return await getSlugPaths(response, languages, 'category');
+  const result = await Promise.all(response.map(item => item.json()));
+
+  const promises = result.reduce((acc, {meta}, index) => {
+    for (let page = 2; page <= meta.pagination.pageCount; page++) {
+      acc = [...acc, getCategoriesData(languages[index], page)];
+    }
+    return acc;
+  }, []);
+  const responseExtra = await Promise.all(promises);
+  const resultExtra = await Promise.all(responseExtra.map(item => item.json()));
+
+  return await getSlugPaths([...result, ...resultExtra], languages, 'category');
 }
 
 export async function getTagsSlugsPaths(languages) {
   const response = await Promise.all(languages.map((lang) => getTagsData(lang)));
-  return await getSlugPaths(response, languages, 'tag');
+  const result = await Promise.all(response.map(item => item.json()));
+  const promises = result.reduce((acc, {meta}, index) => {
+    for (let page = 2; page <= meta.pagination.pageCount; page++) {
+      acc = [...acc, getTagsData(languages[index], page)];
+    }
+
+    return acc;
+  }, []);
+  const responseExtra = await Promise.all(promises);
+  const resultExtra = await Promise.all(responseExtra.map(item => item.json()));
+
+  return await getSlugPaths([...result, ...resultExtra], languages, 'tag');
 }
 
 export async function getPostsSlugsPaths(languages) {
@@ -188,9 +209,9 @@ export async function getCategoryPagesSlugsPaths(languages) {
 
 export async function getTagPagesSlugsPaths(languages) {
   const responseTags = await getTagsData();
-  const {data } = await responseTags.json();
+  const { data } = await responseTags.json();
 
-  const tags = data.reduce((acc, {attributes: { slug: tag}}) => {
+  const tags = data.reduce((acc, { attributes: { slug: tag }}) => {
     languages.forEach((language) => acc.push({ language, tag, pageSize: POST_TAG_PAGE_SIZE }));
     return acc;
   }, []);
@@ -219,7 +240,7 @@ export function getSrcSet(formats) {
   }
 
   return Object.values(formats)
-    .sort((a, b) => b.width - a.width)
+    .sort((a, b) => a.width - b.width)
     .map(({url, width}) => `${url} ${width}w`)
     .join(', ');
 }

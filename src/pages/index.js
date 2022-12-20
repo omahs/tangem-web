@@ -1,7 +1,6 @@
-import LangHome from "./[lang]";
+import {LangHomeTemplate} from "../templates/Home";
 
-export default function Home() {
-	return <>
-		<LangHome language='en' />
-	</>;
+export default function LangHome() {
+  return <LangHomeTemplate />
 }
+

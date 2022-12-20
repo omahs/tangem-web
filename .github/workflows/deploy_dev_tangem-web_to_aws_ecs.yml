@@ -6,7 +6,7 @@ on:
      - develop
    workflow_dispatch:
    repository_dispatch:
-    types: [publish_blog]  
+    types: [publish_blog]
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -39,6 +39,7 @@ jobs:
        run:
           |
           cat << EOF > .env.production
+          USE_DEV_CONFIG=true
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
@@ -47,6 +48,8 @@ jobs:
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI_DEV }}
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN_DEV }}
+          NEXT_PUBLIC_TANGEM_RESELLERS_API_URI=https://devapi.tangem-tech.com/v1/resellers/
+          TANGEM_WEB_DEV=${{ secrets.TANGEM_WEB_DEV }}
           EOF
 
      - name: Create nginx devdefault.conf
@@ -54,10 +57,15 @@ jobs:
           |
           wget -O devweb.default.conf ${{ secrets.NGINX_DEV_CONF }}
 
-     - name: Create nginx lobstr.conf
+     - name: Create nginx devlobstr.conf
        run:
           |
           wget -O devlobstr.conf ${{ secrets.NGINX_DEV_CONF_LOBSTR }}
+
+     - name: Create nginx devapp.conf
+       run:
+          |
+          wget -O devapp.conf ${{ secrets.NGINX_DEV_CONF_APP }}
 
      - name: Create nginx devnginx.conf
        run:
@@ -78,10 +86,10 @@ jobs:
           ${{ github.sha }}
           EOF
 
-     - name: Install node v12
+     - name: Install node v14
        uses: actions/setup-node@v2
        with:
-          node-version: '12'
+          node-version: '14'
 
      - name: Build, tags, and push image to Amazon ECR
        id: build-image

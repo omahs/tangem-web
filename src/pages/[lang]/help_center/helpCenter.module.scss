@@ -32,6 +32,17 @@
   }
 }
 
+.header {
+  --color-header-bg: rgb(0 0 0 / 50%);
+  --color-header-font: rgb(255 255 255 / 50%);
+  --color-header-font-selected: rgb(255 255 255);
+  --color-header-logo: rgb(255 255 255);
+  --color-header-menu: rgb(255 255 255);
+  --color-header-button-bg: rgb(255 255 255);
+  --color-header-button-bg-hover: rgb(255 255 255);
+  --color-header-button-font: rgb(0 0 0);
+}
+
 .wrapper {
   width: 100vw;
   background-color: rgb(8 7 5);
@@ -203,6 +214,7 @@
 
 .sections {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   justify-content: space-between;
@@ -232,18 +244,9 @@
   }
 }
 
-.reset {
-  position: absolute;
-  top: calc(50% - 12px);
-  right: 14px;
-  display: none;
-  width: 24px;
-  height: 24px;
-  background-image: url("/svg/help/clear.svg");
-}
-
 .videos {
   display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: 1fr;
   gap: 20px;
   justify-content: space-between;
@@ -255,6 +258,7 @@
   }
 
   @include mixins.respond-to-medium {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: repeat(2, 1fr);
 
     @supports not (font-size: clamp(1px, 1vw, 2px)) {
@@ -277,53 +281,7 @@
   }
 }
 
-.list {
-  position: absolute;
-  top: 46px;
-  left: -6px;
-  z-index: 2;
-  display: block;
-  width: calc(100% + 12px);
-  padding: 8px;
-  background: rgb(255 255 255);
-  border: 0.5px solid rgb(225 225 225);
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgb(0 0 0 / 8%);
-
-  @include mixins.respond-to-medium {
-    top: 60px;
-    left: 0;
-    width: 100%;
-  }
-
-  li {
-    width: 100%;
-    height: 44px;
-    padding: 11px 0 11px 44px;
-    overflow: hidden;
-    font-size: 17px;
-    line-height: 22px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    background: url("/svg/help/search.svg") no-repeat 18px center;
-
-    @include mixins.respond-to-medium {
-      font-size: 20px;
-      background-position-x: 12px;
-    }
-
-    &:hover,
-    &:focus {
-      background-color: rgb(245 245 245);
-      border-radius: 12px;
-      cursor: pointer;
-    }
-  }
-}
-
 .search {
-  position: relative;
-  max-width: 630px;
   margin: calc-clamp(2.625rem, 3.75rem) auto calc-clamp(2.5rem, 6.25rem);
 
   @supports not (font-size: clamp(1px, 1vw, 2px)) {
@@ -331,33 +289,6 @@
 
     @include mixins.respond-to-medium {
       margin: 3.75rem auto 6.25rem;
-    }
-  }
-
-  &:focus,
-  &:focus-visible,
-  &:focus-within {
-    .reset,
-    .list {
-      display: block;
-    }
-  }
-
-  input {
-    width: 100%;
-    padding: 9px 44px;
-    font-size: 17px;
-    line-height: 1.1;
-    background: rgb(236 237 238) url("/svg/help/search.svg") no-repeat 20px center;
-    border-radius: 30px;
-
-    @include mixins.respond-to-medium {
-      padding: 15px 48px;
-      font-size: 20px;
-    }
-
-    &::placeholder {
-      color: rgb(169 169 169);
     }
   }
 }

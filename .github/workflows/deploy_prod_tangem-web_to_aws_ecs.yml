@@ -43,6 +43,11 @@ jobs:
           |
           wget -O lobstr.conf ${{ secrets.NGINX_CONF_LOBSTR }}
 
+     - name: Create nginx app.conf
+       run:
+          |
+          wget -O app.conf ${{ secrets.NGINX_CONF_APP }}
+
      - name: Create nginx nginx.conf
        run:
           |
@@ -59,6 +64,7 @@ jobs:
        run:
           |
           cat << EOF > .env.production
+          USE_DEV_CONFIG=false
           NEXT_PUBLIC_SHOPIFY_DOMAIN=${{ secrets.NEXT_PUBLIC_SHOPIFY_DOMAIN }}
           NEXT_PUBLIC_SHOPIFY_API_KEY=${{ secrets.NEXT_PUBLIC_SHOPIFY_API_KEY }}
           NEXT_PUBLIC_TANGEM_COINS_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_COINS_API_URI }}
@@ -67,12 +73,13 @@ jobs:
           NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD=${{ secrets.NEXT_PUBLIC_TANGEM_INSALES_API_PASSWORD }}
           NEXT_PUBLIC_TANGEM_CMS_URI=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_URI }}
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN }}
+          TANGEM_WEB=${{ secrets.TANGEM_WEB }}
           EOF
 
-     - name: Install node v12
+     - name: Install node v14
        uses: actions/setup-node@v2
        with:
-          node-version: '12'
+          node-version: '14'
 
      - name: Build, tags, and push image to Amazon ECR
        id: build-image

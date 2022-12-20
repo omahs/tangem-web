@@ -11,7 +11,11 @@
     "companyPart": "Company",
     "about": "About Tangem",
     "helpCenter": "Help Center",
-    "blog": "Blog"
+    "blog": "Blog",
+    "mediaKit":  {
+      "title": "MediaKit",
+      "link": "https://drive.google.com/drive/folders/1izGnOv0aaLJcwFAgs5RBeqNWc46KscfJ"
+    }
   },
   "pages": {
     "partnership": {
@@ -49,7 +53,8 @@
   "sections": {
     "safe": {
       "title": "Manten tus criptoactivos seguros",
-      "description": "La Tangem Wallet te permite guardar tus criptoactivos de forma segura, al tiempo que podrás tener un fácil acceso a tu monedero. Además, podrás mantener tus claves privadas en tu tarjeta."
+      "description": "La Tangem Wallet te permite guardar tus criptoactivos de forma segura, al tiempo que podrás tener un fácil acceso a tu monedero. Además, podrás mantener tus claves privadas en tu tarjeta.",
+      "bonus": "Get Black Friday bonus by"
     },
     "backup": {
       "title": "Backup ultra seguro",
@@ -234,7 +239,7 @@
     },
     "helpCenter": {
       "title": "We’re here\n to help",
-      "usingTangem": "Have a questions?",
+      "usingTangem": "Do you have any questions?",
       "search" : "Search for a topic or question",
       "getStarted": "Get started"
     }
@@ -249,6 +254,7 @@
     "submit": "Submit",
     "join-us": "Join Us",
     "contact-support": "Contact Support",
+    "resellerOpenLink": "Open",
     "goTo": "Go to",
     "accordion": {
       "open": "Open",
@@ -314,6 +320,14 @@
       "delivery": "Free delivery worldwide",
       "return": "Free and easy returns",
       "support": "Outstanding Customer Support"
+    },
+    "christmas": {
+      "title": "New Year\nNew promo offers",
+      "description": "Innovative and perfect New Year gift for trendy people. Buy Tangem Wallet at a special holiday price until January 8 and get a free single-coin Tangem Note."
+    },
+    "gift" : {
+      "title": "Free Tangem Note",
+      "description": "Buy Tangem Wallet with special holiday discount and get a single-coin Tangem Note as a gift with every purchase."
     }
   },
   "socials": {

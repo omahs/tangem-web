@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import {Html, Head, Main, NextScript} from 'next/document'
 import i18next from "i18next";
 import React from "react";
 
@@ -8,7 +8,8 @@ export default function Document() {
 	return (
 		<Html lang={language}>
 			<Head>
-				<NextScript
+        {/* eslint-disable-next-line @next/next/next-script-for-ga */}
+				<script
 					dangerouslySetInnerHTML={{
 						__html: `
 							(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -37,6 +38,7 @@ export default function Document() {
 			</noscript>
 			<Main />
 			<div id="portal" />
+      <NextScript />
 			</body>
 		</Html>
 	)

@@ -1,0 +1,210 @@
+@use "../../styles/mixins";
+@use "../../styles/function" as *;
+
+.body {
+  --color-bg-page: rgb(245 245 245);
+}
+
+.header {
+  --color-header-bg: rgb(255 255 255 / 50%);
+  --backdrop-filter-header: blur(20px);
+}
+
+.page {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100vw;
+  padding: 100px 16px 0;
+  overflow-x: hidden;
+  background: rgb(245 245 245);
+
+  @media (min-width: 1272px) {
+    padding-right: calc(50% - 620px);
+    padding-left: calc(50% - 620px);
+  }
+
+  @include mixins.respond-to-large {
+    min-width: 100%;
+    padding-top: 200px;
+  }
+
+  h1 {
+    color: rgb(30 30 30);
+    font-size: 60px;
+    line-height: 1;
+
+    @include mixins.respond-to-medium {
+      font-size: 100px;
+      line-height: 0.95;
+    }
+  }
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.categories {
+  position: relative;
+
+  ul {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    flex-flow: column nowrap;
+    gap: 16px;
+    max-height: 0;
+    padding: 0 46px 0 16px;
+    overflow: hidden;
+    color: rgb(30 30 30);
+    font-size: 20px;
+    line-height: 1.3;
+    border-radius: 20px;
+
+    @include mixins.respond-to-large {
+      position: relative;
+      display: flex;
+      flex-flow: row nowrap;
+      align-self: flex-end;
+      max-height: none;
+      padding: 20px 0 12px;
+    }
+
+    @include mixins.motion {
+      transition: all 0.3s ease;
+    }
+  }
+
+  li {
+    color: rgb(30 30 30);
+    white-space: nowrap;
+
+    @include mixins.respond-to-large {
+      color: rgb(101 101 101);
+    }
+
+    &.current {
+      display: none;
+
+      @include mixins.respond-to-large {
+        display: inline;
+        color: rgb(30 30 30);
+      }
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  z-index: 5;
+  margin-top: -42px;
+
+  @include mixins.respond-to-large {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+
+  @include mixins.motion {
+    transition: all 0.3s ease;
+  }
+
+  button {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    padding: 20px 40px 16px 16px;
+    color: rgb(30 30 30);
+    font-size: 20px;
+    line-height: 1.3;
+    text-align: left;
+
+    &::after {
+      position: absolute;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+      background-color: rgb(101 101 101);
+      transform: rotate(90deg);
+      content: "";
+      mask-image: url("/svg/arrow.svg");
+
+      @include mixins.motion {
+        transition: all 0.3s ease;
+      }
+    }
+
+    @include mixins.respond-to-large {
+      display: none;
+    }
+  }
+
+  &.open {
+    max-height: none;
+    background: rgb(255 255 255);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgb(0 0 0 / 6%);
+
+    @include mixins.respond-to-large {
+      max-height: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    ul {
+      margin-bottom: 20px;
+    }
+
+    button::after {
+      transform: rotate(270deg);
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  width: 100%;
+  margin: 34px 0 68px;
+  padding-bottom: 4px;
+
+  @include mixins.respond-to-medium {
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
+    grid-template-columns: repeat(6, 1fr);
+    gap: 44px;
+    margin: 68px 0 100px;
+
+    > li {
+      position: relative;
+
+      &:first-child {
+        grid-column: 1/4;
+      }
+
+      &:nth-child(2) {
+        grid-column: 4/7;
+      }
+
+      &:nth-child(3n+3) {
+        grid-column: 1/3;
+      }
+
+      &:nth-child(3n+4) {
+        grid-column: 3/5;
+      }
+
+      &:nth-child(3n+5) {
+        grid-column: 5/7;
+      }
+    }
+  }
+}

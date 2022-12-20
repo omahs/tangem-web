@@ -5,11 +5,11 @@ import Header from "../../../../components/Common/Header";
 import * as styles from "./post.module.scss";
 import React from "react";
 import Footer from "../../../../components/Common/Footer";
-import ReactHtmlParser from "react-html-parser";
 import Layout from "../../../../components/Common/Layout";
 import Breadcrumbs from "../../../../components/Common/Breadcrumbs";
 import {getFormatDate} from "../../../../lib/util";
 import Tags from "../../../../components/Blog/Tags";
+import {parseHtml} from "../../../../lib/html-parse";
 
 const LangBlogPostPage = ({post})  => {
   const { body, title, image, category, author, publishedAt, tags, excerpt } = post;
@@ -37,9 +37,8 @@ const LangBlogPostPage = ({post})  => {
 
   return (
     <Layout
-      title={title}
-      titleSuffix={t('pages.blog.titleSuffix')}
-      description={excerpt || t('description')}
+      title={t('pages.blog.post.title', { title })}
+      description={t('pages.blog.post.description', { title })}
       ogImage={image?.data?.attributes?.url}
       ogDescription={excerpt}
     >
@@ -68,7 +67,7 @@ const LangBlogPostPage = ({post})  => {
                 <time dateTime={localDate} className={styles.date}>{localDate}</time>
               </div> : null
             }
-            { tags.data ? <Tags items={tags} /> : null }
+            { tags.data ? <Tags className={styles.tags} items={tags} /> : null }
             { image.data ?
               <div className={styles.cover}>
                 <img
@@ -83,7 +82,7 @@ const LangBlogPostPage = ({post})  => {
               </div> : null
             }
             <div className={styles.body}>
-            {  ReactHtmlParser(body) }
+            { parseHtml(body) }
             </div>
           </section>
         </main>
