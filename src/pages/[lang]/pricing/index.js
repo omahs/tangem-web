@@ -1,10 +1,10 @@
-import {getAllLanguageSlugs, getLanguage} from "../../../lib/lang";
-import {loadInsalesProducts} from "../../../lib/insales";
-import i18next, {t} from "i18next";
-import Layout from "../../../components/Common/Layout";
-import React, {useContext, useEffect, useMemo, useRef, useState} from "react";
-import Header from "../../../components/Common/Header";
-import Footer from "../../../components/Common/Footer";
+import { getAllLanguageSlugs, getLanguage } from '../../../lib/lang';
+import { loadInsalesProducts } from '../../../lib/insales';
+import i18next, { t } from 'i18next';
+import Layout from '../../../components/Common/Layout';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import Header from '../../../components/Common/Header';
+import Footer from '../../../components/Common/Footer';
 import * as styles from './pricing.module.scss';
 import classNames from "classnames";
 import Button from "../../../components/Common/Button";
@@ -16,6 +16,7 @@ import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 import {PromoContext} from "../../../context/promo-context";
+import { usePromocode } from '../../../hooks/usePromocode';
 
 const LangPricingPage = ({prices}) => {
 
@@ -41,7 +42,6 @@ const LangPricingPage = ({prices}) => {
 
   const { isChristmasEnabled } = useContext(PromoContext);
 
-  const [discountCode, setDiscountCode] = useState('');
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
@@ -50,11 +50,7 @@ const LangPricingPage = ({prices}) => {
   const [resellersOpen, setResellersOpen] = useState(false);
   const [promoStyles, setPromoStyles] = useState([]);
   const refResellers = useRef();
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    setDiscountCode(searchParams.get('promocode'));
-  }, []);
+  const { promocode, discount, discountType } = usePromocode();
 
   useEffect(() => {
     async function getData() {
@@ -77,9 +73,9 @@ const LangPricingPage = ({prices}) => {
   function handleBuy() {
     if (useShopify) {
       if (!currentPack || !currentPack.id) {
-        return
+        return;
       }
-      const cardId =`buy-now-${currentPack.productId}`;
+      const cardId = `buy-now-${currentPack.productId}`;
 
       const elem = document
         .getElementById(cardId)
@@ -93,7 +89,7 @@ const LangPricingPage = ({prices}) => {
           .querySelector('iframe')
           .contentDocument
           .querySelector('.shopify-buy__quantity-increment');
-        for (let i = elem.value; i < quantity; i-- ) {
+        for (let i = elem.value; i < quantity; i--) {
           decrement.click();
         }
       }
@@ -105,7 +101,7 @@ const LangPricingPage = ({prices}) => {
           .contentDocument
           .querySelector('.shopify-buy__quantity-increment');
 
-        for (let i = elem.value; i < quantity; i++ ) {
+        for (let i = elem.value; i < quantity; i++) {
           increment.click();
         }
       }
@@ -115,24 +111,23 @@ const LangPricingPage = ({prices}) => {
         .querySelector('iframe')
         .contentDocument
         .querySelector('.shopify-buy__btn')
-        .click()
-    }
-    else {
+        .click();
+    } else {
       const searchParams = new URLSearchParams();
       searchParams.set('variant_id', prices[currentPack.id].id);
       searchParams.set('qty', quantity);
-      if (discountCode) {
-        searchParams.set('promocode', discountCode);
+      if (promocode) {
+        searchParams.set('promocode', promocode);
       }
       window.location.href = `https://sales.tangem.com/?${searchParams.toString()}`;
     }
   }
 
   useEffect(() => {
-    if (typeof ShopifyBuy === "undefined"  && !shopifyLoaded) {
+    if (typeof ShopifyBuy === 'undefined' && !shopifyLoaded) {
       return function empty() {
         //
-      }
+      };
     }
 
     const shopifyClient = ShopifyBuy.buildClient({
@@ -171,7 +166,7 @@ const LangPricingPage = ({prices}) => {
               };
 
               btnProps.props.client.checkout.create(input).then((checkout) => {
-                checkoutWindow.location = `${checkout.webUrl}&discount=${discountCode}`;
+                checkoutWindow.location = `${checkout.webUrl}&discount=${promocode}`;
               });
             },
             contents: {
@@ -182,51 +177,55 @@ const LangPricingPage = ({prices}) => {
               button: true,
               img: false,
               title: false,
-            }
+            },
           },
           cart: {
             startOpen: false,
             popup: false,
-          }
+          },
         },
         node: document && document.getElementById(`buy-now-${id}`),
       });
     }
 
-    for (const {productId, id} of packs) {
+    for (const { productId, id } of packs) {
       init(productId).then((product) => {
-        setProducts((v) => ({[id]: product.selectedVariant, ...v}))
+        setProducts((v) => ({ [id]: product.selectedVariant, ...v }));
       });
     }
 
-  },[shopifyLoaded]);
+  },[shopifyLoaded, promocode]);
 
   useEffect(() => {
-    if(!refResellers.current) {
+    if (!refResellers.current) {
       return function empty() {
         //
-      }
+      };
     }
-    refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + "px" : null;
+    refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + 'px' : null;
   }, [resellersOpen]);
-
 
   useEffect(() => {
     setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
   }, [isChristmasEnabled]);
 
-  function getFormatPrice(value) {
-    const parseValue = Number.parseFloat(value);
-    if (Number.isNaN(parseValue)) {
+  function getFormatPrice(value, useDiscount = false) {
+    let parsedValue = Number.parseFloat(value);
+    if (Number.isNaN(parsedValue)) {
       return value;
     }
+    if (useDiscount && promocode && discount) {
+      parsedValue = discountType === 'percentage' ? parsedValue * (100 - discount) / 100 : parsedValue - discount;
+      parsedValue = useShopify ? Math.round((parsedValue + Number.EPSILON) * 100) / 100 : Math.round(parsedValue);
+    }
+
     const options = {
       style: 'currency',
       minimumFractionDigits: (useShopify ? 2 : prices.fractionDigits),
       currency: getPriceCurrency()
     }
 
-    return parseValue.toLocaleString(getPriceLocale(), options);
+    return parsedValue.toLocaleString(getPriceLocale(), options);
   }
 
   function getPriceLocale() {
@@ -243,9 +242,9 @@ const LangPricingPage = ({prices}) => {
     }).replace(/\d/g, '').trim();
   }
 
-  function getPrice({id, defaultPrice}) {
+  function getPrice({ id, defaultPrice }) {
     if (useShopify) {
-      return products[id] ? products[id].price : defaultPrice
+      return products[id] ? products[id].price : defaultPrice;
     }
     return prices[id].price;
   }
@@ -259,7 +258,7 @@ const LangPricingPage = ({prices}) => {
 
   const currentPrice = useMemo(() => {
     if (useShopify) {
-      return products[currentPack.id] ? products[currentPack.id].price : currentPack.defaultPrice
+      return products[currentPack.id] ? products[currentPack.id].price : currentPack.defaultPrice;
     }
     return prices[currentPack.id].price;
 
@@ -270,23 +269,23 @@ const LangPricingPage = ({prices}) => {
       {
         id: 'delivery',
         text: t('pricing.features.delivery'),
-        icon: <DeliveryIcon />
+        icon: <DeliveryIcon/>,
       },
       {
         id: 'return',
         text: t('pricing.features.return'),
-        icon: <ReturnIcon />
+        icon: <ReturnIcon/>,
       },
       {
         id: 'support',
         text: t('pricing.features.support'),
-        icon: <SupportIcon />
-      }
+        icon: <SupportIcon/>,
+      },
     ];
 
     return (
       <div className={styles.props}>
-        {features && features.map(({id, icon, text}) => (
+        {features && features.map(({ id, icon, text }) => (
           <div key={id} className={styles.prop}>
             {icon}
             <p>{text}</p>
@@ -294,7 +293,7 @@ const LangPricingPage = ({prices}) => {
         ))}
       </div>
     );
-  }
+  };
 
 
   return (
@@ -302,13 +301,13 @@ const LangPricingPage = ({prices}) => {
       { useShopify &&
         <>
           <Script
-          id="buy-button"
-          src="https://sdks.shopifycdn.com/buy-button/2.2.1/buybutton.min.js"
-          strategy="afterInteractive"
-          onLoad={() => setShopifyLoaded(true)}
+            id="buy-button"
+            src="https://sdks.shopifycdn.com/buy-button/2.2.1/buybutton.min.js"
+            strategy="afterInteractive"
+            onLoad={() => setShopifyLoaded(true)}
           />
           {
-            packs.map(({productId}) => <div key={productId} id={`buy-now-${productId}`} style={{display: 'none'}} />)
+            packs.map(({ productId }) => <div key={productId} id={`buy-now-${productId}`} style={{ display: 'none' }}/>)
           }
         </>
       }
@@ -355,7 +354,7 @@ const LangPricingPage = ({prices}) => {
               <form className={styles.form}>
                 <span>{ t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
-                  { packs.map((pack) =>(
+                  {packs.map((pack) => (
                     <React.Fragment key={pack.id}>
                       <input
                         type="radio"
@@ -363,7 +362,7 @@ const LangPricingPage = ({prices}) => {
                         value={pack.id}
                         id={pack.id}
                         checked={pack.id === currentPack.id}
-                        onChange={ () => setCurrentPack(pack)}
+                        onChange={() => setCurrentPack(pack)}
                         className={styles.radio}
                       />
                       <label htmlFor={pack.id} itemScope itemType="https://schema.org/Product">
@@ -389,21 +388,21 @@ const LangPricingPage = ({prices}) => {
               <div className={styles['counter-block']}>
                 <div className={styles.counter}>
                   <button
-                    className={classNames(styles.decrement, {[styles.disabled]: quantity < 2})}
-                    onClick={()=>setQuantity(v => Math.max(v - 1, 1))}
+                    className={classNames(styles.decrement, { [styles.disabled]: quantity < 2 })}
+                    onClick={() => setQuantity(v => Math.max(v - 1, 1))}
                   ></button>
                   <span className={styles.quantity}>{quantity}</span>
                   <button
                     className={styles.increment}
-                    onClick={()=>setQuantity(v => v + 1)}
+                    onClick={() => setQuantity(v => v + 1)}
                   ></button>
                 </div>
               </div>
-              { currentPack.id &&
-                <div className={styles.total} >
+              {currentPack.id &&
+                <div className={styles.total}>
                   <div>
                     <span className={styles.label}>{t('pricing.total')}</span>
-                    <span className={styles.value}>{ getFormatPrice(quantity * currentPrice) }</span>
+                    <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
                   </div>
                   <div>
                     <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
@@ -416,9 +415,9 @@ const LangPricingPage = ({prices}) => {
                     className={classNames(styles.stories, resellersOpen && styles.open)}
                     onClick={() => setResellersOpen((v) => !v)}
                   >
-                    <span >{t('pricing.stores')}</span>
+                    <span>{t('pricing.stores')}</span>
                     <button type="button">
-                      <ArrowIcon />
+                      <ArrowIcon/>
                     </button>
                   </div>
                   <ul className={styles.list} ref={refResellers} >
@@ -446,10 +445,10 @@ const LangPricingPage = ({prices}) => {
             <p>{ t('pricing.christmas.description') }</p>
           </div> : null}
         </main>
-        <Footer />
+        <Footer/>
       </div>
     </Layout>
-  )
+  );
 };
 
 export async function getStaticPaths() {
