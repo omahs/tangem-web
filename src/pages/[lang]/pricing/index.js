@@ -370,13 +370,13 @@ const LangPricingPage = ({prices}) => {
                         <div className={styles.info}>
                           <h4 itemProp="name">{ pack.title }</h4>
                           <span className={styles.price} itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                            { getFormatPrice(getPrice(pack)) }
+                            { getFormatPrice(getPrice(pack), true) }
                             <meta itemProp="price" content={ getPrice(pack) } />
                             <meta itemProp="priceCurrency" content={ getPriceCurrencySymbol() } />
                           </span>
                           <span itemProp="description">{ pack.description }</span>
                           <span>
-                            { getFormatPrice(getOldPrice(pack)) }
+                            { promocode ? getFormatPrice(getPrice(pack)) : getFormatPrice(getOldPrice(pack)) }
                           </span>
                         </div>
                       </label>
