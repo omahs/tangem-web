@@ -88,7 +88,7 @@
         display: block;
         width: 100%;
         height: 2px;
-        background-color: var(--color-header-menu);
+        background-color: var(--color-header-burger-button);
 
         @include mixins.motion {
           transition: 0.25s;
@@ -107,7 +107,7 @@
     margin: 0;
     padding: 3rem 0;
     list-style: none;
-    background-color: var(--color-header-bg, rgb(255 255 255));
+    background-color: var(--color-header-menu-aside, rgb(255 255 255));
     box-shadow: 1px 0 6px rgb(9 14 19 / 20%);
     visibility: hidden;
 

@@ -48,7 +48,7 @@ const LangPricingPage = ({prices}) => {
   const [products, setProducts] = useState({});
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
-  const [promoStyles, setPromoStyles] = useState([]);
+  const [promoStyles, setPromoStyles] = useState([styles.christmas]);
   const refResellers = useRef();
   const { promocode, discount, discountType } = usePromocode();
 

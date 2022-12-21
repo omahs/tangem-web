@@ -16,7 +16,7 @@ import classNames from "classnames";
 
 
 export const LangHomeTemplate = () => {
-  const [promoStyles, setPromoStyles] = useState([]);
+  const [promoStyles, setPromoStyles] = useState([styles.christmas]);
   const { isChristmasEnabled } = useContext(PromoContext);
 
   useEffect(() => {

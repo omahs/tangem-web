@@ -12,7 +12,7 @@ const Header = ({ className, children, hideBuyButton = false }) => {
 	const { language } = i18next;
 	const router = useRouter();
   const { isGiftEnabled, isChristmasEnabled } = useContext(PromoContext);
-  const [promoStyles, setPromoStyles] = useState([]);
+  const [promoStyles, setPromoStyles] = useState([styles.christmas]);
 
   useEffect(() => {
     setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
