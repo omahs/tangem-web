@@ -218,14 +218,28 @@ const LangPricingPage = ({prices}) => {
       parsedValue = discountType === 'percentage' ? parsedValue * (100 - discount) / 100 : parsedValue - discount;
       parsedValue = useShopify ? Math.round((parsedValue + Number.EPSILON) * 100) / 100 : Math.round(parsedValue);
     }
-    const locale = useShopify ? 'en-US' : prices.locale;
+
     const options = {
       style: 'currency',
       minimumFractionDigits: (useShopify ? 2 : prices.fractionDigits),
-      currency: (useShopify ? 'usd' : prices.currency),
-    };
+      currency: getPriceCurrency()
+    }
 
-    return parsedValue.toLocaleString(locale, options);
+    return parsedValue.toLocaleString(getPriceLocale(), options);
+  }
+
+  function getPriceLocale() {
+    return useShopify ? 'en-US' : prices.locale;
+  }
+
+  function getPriceCurrency() {
+    return (useShopify ? 'usd' : prices.currency)
+  }
+
+  function getPriceCurrencySymbol() {
+    return (0).toLocaleString(getPriceLocale(), {
+      style: 'currency', currency: getPriceCurrency(), minimumFractionDigits: 0, maximumFractionDigits: 0
+    }).replace(/\d/g, '').trim();
   }
 
   function getPrice({ id, defaultPrice }) {
@@ -300,7 +314,8 @@ const LangPricingPage = ({prices}) => {
       <Header className={classNames(...promoStyles)} hideBuyButton={true} />
       <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
-          <div className={styles.card}>
+          <div className={styles.card} itemScope itemType="https://schema.org/ProductGroup">
+            <meta itemProp="productGroupID" content={t('pricing.buy.title')}/>
             <div className={styles.picture}>
               <picture className={classNames(styles.img, {[styles['visually-hidden']]: currentPack && currentPack.id !== 'pack3'})}>
                 <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
@@ -327,8 +342,8 @@ const LangPricingPage = ({prices}) => {
             </div>
             <div className={styles.choice}>
               <div>
-                <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
-                <p>{ t('pricing.buy.description')}</p>
+                <h1 itemProp="name" className={styles.title}>{ t('pricing.buy.title')}</h1>
+                <p itemProp="description">{ t('pricing.buy.description')}</p>
               </div>
               { isChristmasEnabled ?
                 <div className={styles.gift}>
@@ -336,7 +351,7 @@ const LangPricingPage = ({prices}) => {
                   <p>{ t('pricing.gift.description')}</p>
                 </div> : null
               }
-              <form className={styles.form} >
+              <form className={styles.form}>
                 <span>{ t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   {packs.map((pack) => (
@@ -350,12 +365,19 @@ const LangPricingPage = ({prices}) => {
                         onChange={() => setCurrentPack(pack)}
                         className={styles.radio}
                       />
-                      <label htmlFor={pack.id}>
+                      <label htmlFor={pack.id} itemScope itemType="https://schema.org/Product">
+                        <meta itemProp="inProductGroupWithID" content={t('pricing.buy.title')} />
                         <div className={styles.info}>
-                          <h4>{ pack.title }</h4>
-                          <span className={styles.price}>{ getFormatPrice(getPrice(pack), true) }</span>
-                          <span>{ pack.description }</span>
-                          <span>{ promocode ? getFormatPrice(getOldPrice(pack)) : getFormatPrice(getOldPrice(pack)) }</span>
+                          <h4 itemProp="name">{ pack.title }</h4>
+                          <span className={styles.price} itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                            { getFormatPrice(getPrice(pack)) }
+                            <meta itemProp="price" content={ getPrice(pack) } />
+                            <meta itemProp="priceCurrency" content={ getPriceCurrencySymbol() } />
+                          </span>
+                          <span itemProp="description">{ pack.description }</span>
+                          <span>
+                            { getFormatPrice(getOldPrice(pack)) }
+                          </span>
                         </div>
                       </label>
                     </React.Fragment>
