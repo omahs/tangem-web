@@ -9,14 +9,13 @@ const Tags = ({items: {data}, className }) => {
 
   return data.length ? (
      <ul className={classNames(tags, className)}>
-      { data.map( ({ attributes : { title, slug }}) =>
+      { data.map( ({attributes : { title, slug }}) =>
         <li className={tag} key={title}>
           <Link href={`/${language}/blog/tags/${slug}/`}>
-            <a className={link} rel="tag">{title}</a>
+            <a className={link}>{title}</a>
           </Link>
         </li>
       )}
-      <meta itemProp="keywords" content={ data.map(({ attributes : { title }}) => title).join(', ') } />
     </ul>
   ) : null;
 }

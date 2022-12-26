@@ -222,7 +222,7 @@ const LangPricingPage = ({prices}) => {
     const options = {
       style: 'currency',
       minimumFractionDigits: (useShopify ? 2 : prices.fractionDigits),
-      currency: getPriceCurrency()
+      currency: (useShopify ? 'usd' : prices.currency)
     }
 
     return parsedValue.toLocaleString(getPriceLocale(), options);
@@ -314,8 +314,7 @@ const LangPricingPage = ({prices}) => {
       <Header className={classNames(...promoStyles)} hideBuyButton={true} />
       <div className={classNames(styles.page, ...promoStyles )}>
         <main className={styles.main}>
-          <div className={styles.card} itemScope itemType="https://schema.org/ProductGroup">
-            <meta itemProp="productGroupID" content={t('pricing.buy.title')}/>
+          <div className={styles.card}>
             <div className={styles.picture}>
               <picture className={classNames(styles.img, {[styles['visually-hidden']]: currentPack && currentPack.id !== 'pack3'})}>
                 <source srcSet="/img/pricing/pack3.avif 1x, /img/pricing/pack3@2x.avif 2x" type="image/avif" />
@@ -342,8 +341,8 @@ const LangPricingPage = ({prices}) => {
             </div>
             <div className={styles.choice}>
               <div>
-                <h1 itemProp="name" className={styles.title}>{ t('pricing.buy.title')}</h1>
-                <p itemProp="description">{ t('pricing.buy.description')}</p>
+                <h1 className={styles.title}>{ t('pricing.buy.title')}</h1>
+                <p>{ t('pricing.buy.description')}</p>
               </div>
               { isChristmasEnabled ?
                 <div className={styles.gift}>
@@ -351,7 +350,7 @@ const LangPricingPage = ({prices}) => {
                   <p>{ t('pricing.gift.description')}</p>
                 </div> : null
               }
-              <form className={styles.form}>
+              <form className={styles.form} >
                 <span>{ t('pricing.choice') }</span>
                 <fieldset className={styles['check-shopify']}>
                   {packs.map((pack) => (
@@ -365,8 +364,7 @@ const LangPricingPage = ({prices}) => {
                         onChange={() => setCurrentPack(pack)}
                         className={styles.radio}
                       />
-                      <label htmlFor={pack.id} itemScope itemType="https://schema.org/Product">
-                        <meta itemProp="inProductGroupWithID" content={t('pricing.buy.title')} />
+                      <label htmlFor={pack.id}>
                         <div className={styles.info}>
                           <h4 itemProp="name">{ pack.title }</h4>
                           <span className={styles.price} itemProp="offers" itemScope itemType="https://schema.org/Offer">

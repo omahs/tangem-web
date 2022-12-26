@@ -25,10 +25,8 @@ const Footer = ({className}) => {
           <div className={styles.logo}>
             <Logo />
           </div>
-          <div className={styles.address} itemScope itemType="https://schema.org/Organization">
-            <span itemProp="name">Global Headquarters, Tangem AG</span>, <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-              <span itemProp="streetAddress">Baarerstrasse 10</span>, <span itemProp="postalCode">6300 Zug</span>, <span itemProp="addressCountry">Switzerland</span>
-            </span>
+          <div className={styles.address}>
+            Global Headquarters, Tangem AG, Baarerstrasse 10, 6300 Zug, Switzerland
           </div>
           <div className={classNames(styles.customer, styles.list)}>
             <span className={styles.head}>{t('menu.legalPart')}</span>
