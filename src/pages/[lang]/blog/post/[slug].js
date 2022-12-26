@@ -47,10 +47,11 @@ const LangBlogPostPage = ({post})  => {
       </Header>
       <div className={styles.wrapper}>
         <main className={styles.page}>
-          <section className={styles.post}>
-            <h1>{title}</h1>
+          <section className={styles.post} itemScope itemType="https://schema.org/BlogPosting">
+            <h1 itemProp='name'>{title}</h1>
+            <meta itemProp='description' content={excerpt} />
             { author ?
-              <div className={styles.author} role="group">
+              <div className={styles.author} role="group" itemProp="author" itemScope itemType="https://schema.org/Person">
                 {authorImage ?
                   <img
                     height={52}
@@ -61,15 +62,16 @@ const LangBlogPostPage = ({post})  => {
                     src={authorImage.url}
                     srcSet={getSrcSet(authorImage.formats)}
                     className={styles.avatar}
+                    itemProp="image"
                   /> : null
                 }
-                <span>{author.data.attributes.title}</span>
+                <span itemProp="name">{author.data.attributes.title}</span>
                 <time dateTime={localDate} className={styles.date}>{localDate}</time>
               </div> : null
             }
             { tags.data ? <Tags className={styles.tags} items={tags} /> : null }
             { image.data ?
-              <div className={styles.cover}>
+              <div className={styles.cover} itemProp="image">
                 <img
                   height={377}
                   width={752}
@@ -81,7 +83,7 @@ const LangBlogPostPage = ({post})  => {
                 />
               </div> : null
             }
-            <div className={styles.body}>
+            <div className={styles.body} itemProp="articleBody">
             { parseHtml(body) }
             </div>
           </section>
