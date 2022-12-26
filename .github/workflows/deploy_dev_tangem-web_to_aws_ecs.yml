@@ -50,6 +50,7 @@ jobs:
           NEXT_PUBLIC_TANGEM_CMS_TOKEN=${{ secrets.NEXT_PUBLIC_TANGEM_CMS_TOKEN_DEV }}
           NEXT_PUBLIC_TANGEM_RESELLERS_API_URI=https://devapi.tangem-tech.com/v1/resellers/
           TANGEM_WEB_DEV=${{ secrets.TANGEM_WEB_DEV }}
+          NEXT_PUBLIC_TANGEM_PROMOCODES_API_URI=${{ secrets.NEXT_PUBLIC_TANGEM_PROMOCODES_API_URI }}
           EOF
 
      - name: Create nginx devdefault.conf
