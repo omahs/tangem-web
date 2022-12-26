@@ -8,11 +8,12 @@ import SectionAffiliate from "../../../components/Partnership/SectionAffiliate";
 import SectionWorld from "../../../components/Partnership/SectionWorld";
 import Footer from "../../../components/Common/Footer";
 import Layout from "../../../components/Common/Layout";
+import { header }  from './partnership.module.scss';
 
 const LangPartnership = () => {
 	return (
-		<Layout title={t('pages.partnership.title')} description={t('description') }>
-			<Header isDark={true} />
+		<Layout title={t('pages.partnership.title')} description={t('description')} themeColor='#000000'>
+			<Header className={ header } />
 			<main>
 				<SectionHero />
 				<SectionReseller />

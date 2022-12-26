@@ -33,7 +33,7 @@ const BlogList = ({ posts, categories, category} ) => {
       title={ title ? t('pages.blog.category.title', { title }) : t('pages.blog.title')}
       description={ title ? t('pages.blog.category.description', { title }) : t('pages.blog.description')}
     >
-      <Header />
+      <Header className={styles.header} />
       <main className={styles.page}>
         <section className={styles.hero}>
           <h1>{t('pages.blog.title')}</h1>

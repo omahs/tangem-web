@@ -18,7 +18,7 @@ const Pricing = ({ prices }) => {
   const packs = [
     {
       id: 'pack3',
-      productId: '6864268689474',
+      productId: '6677839577154',
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
       image: <picture className={styles.img}>
@@ -36,7 +36,7 @@ const Pricing = ({ prices }) => {
     },
     {
       id: 'pack2',
-      productId: '6864269213762',
+      productId: '6677836693570',
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
       image: <picture className={styles.img}>

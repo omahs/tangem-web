@@ -13,7 +13,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(40px);
+  color: var(--color-header-font, rgb(9 14 19));
+  background: var(--color-header-bg, rgb(248 249 249 / 70%));
+  backdrop-filter: var(--backdrop-filter-header, blur(40px));
 }
 
 .wrapper {
@@ -27,20 +29,6 @@
   @media (min-width: 1272px) {
     padding-right: calc(50% - 620px);
     padding-left: calc(50% - 620px);
-  }
-}
-
-.dark {
-  color: colors.$header-text-dark;
-  background: rgb(0 0 0 / 50%);
-}
-
-.light {
-  color: colors.$header-text-light;
-  background: rgb(248 249 249 / 70%);
-
-  @include mixins.respond-to-medium {
-    background: rgb(255 255 255 / 20%);
   }
 }
 
@@ -100,14 +88,10 @@
         display: block;
         width: 100%;
         height: 2px;
-        background-color: colors.$header-text-light;
+        background-color: var(--color-header-burger-button);
 
         @include mixins.motion {
           transition: 0.25s;
-        }
-
-        .dark & {
-          background-color: colors.$header-text-dark;
         }
       }
     }
@@ -123,13 +107,9 @@
     margin: 0;
     padding: 3rem 0;
     list-style: none;
-    background-color: colors.$header-bg-light;
+    background-color: var(--color-header-menu-aside, rgb(255 255 255));
     box-shadow: 1px 0 6px rgb(9 14 19 / 20%);
     visibility: hidden;
-
-    .dark & {
-      background-color: colors.$header-bg-dark;
-    }
 
     @include mixins.respond-to-large {
       position: relative;
@@ -152,10 +132,6 @@
           padding: 0 3.125rem;
         }
       }
-
-      .dark & {
-        background: transparent;
-      }
     }
   }
 
@@ -174,16 +150,6 @@
     @include mixins.motion {
       transition: 0.25s;
     }
-
-    .dark & {
-      background-color: colors.$header-bg-dark;
-      box-shadow: 1px 0 6px rgb(255 255 255 / 20%);
-
-      @include mixins.respond-to-large {
-        background: transparent;
-        box-shadow: none;
-      }
-    }
   }
 
   li {
@@ -191,13 +157,13 @@
     display: flex;
     margin: 0 20px 0 16px;
     padding: 16px 0;
+    color: var(--color-header-font);
     font-weight: 400;
     font-size: 17px;
     font-style: normal;
     line-height: 1;
     letter-spacing: unset;
     text-decoration: none;
-    opacity: 0.5;
 
     @include mixins.motion {
       transition: 0.25s;
@@ -209,7 +175,7 @@
     }
 
     &.active {
-      opacity: 1;
+      color: var(--color-header-font-selected);
 
       &::before {
         position: absolute;
@@ -217,12 +183,8 @@
         bottom: -1px;
         left: -6px;
         height: 2px;
-        background: colors.$header-text-light;
+        background: var(--color-header-font-selected);
         content: "";
-
-        .dark & {
-          background: colors.$header-text-dark;
-        }
       }
     }
   }
@@ -262,11 +224,7 @@
   margin-top: 3px;
 
   svg {
-    fill: rgb(9 14 19);
-  }
-
-  .dark & svg {
-    fill: rgb(255 255 255);
+    fill: var(--color-header-logo, rgb(9 14 19));
   }
 }
 
@@ -276,18 +234,22 @@
   align-items: center;
   margin-left: 8px;
   padding: 5.5px 11px;
-  color: rgb(255 255 255);
+  color: var(--color-header-button-font, rgb(255 255 255));
   font-size: 15px;
   line-height: 1;
   letter-spacing: 0;
   text-align: center;
-  background: rgb(0 0 0);
+  background: var(--color-header-button-bg, rgb(0 0 0));
   border-radius: 100px;
-  backdrop-filter: blur(30px);
+  backdrop-filter: var(--backdrop-filter-header-button);
 
   &:hover,
   &:focus {
-    background: rgb(51 51 51);
+    background: var(--color-header-button-bg-hover, rgb(51 51 51));
+  }
+
+  &.hidden {
+    visibility: hidden;
   }
 
   @media (min-width: 768px) {
@@ -295,19 +257,36 @@
     padding: 6px 14px;
     font-size: 17px;
   }
+}
 
-  .dark & {
-    color: rgb(0 0 0);
-    background: rgb(255 255 255);
-  }
+.christmas {
+  .buy {
+    --color-header-button-bg: rgb(67 97 78);
+    --color-header-button-bg-hover: rgb(93 136 108);
+    --color-header-button-font: rgb(255 255 255);
 
-  .light & {
-    color: rgb(255 255 255);
-    background: rgb(0 0 0);
+    position: relative;
+    padding: 6px 20px;
 
-    &:hover,
-    &:focus {
-      background: rgb(51 51 51);
+    &::before {
+      position: absolute;
+      top: -6px;
+      left: -41px;
+      display: block;
+      width: 62px;
+      height: 38px;
+      background-image: url("/img/christmas/buy-button.png");
+      background-repeat: no-repeat;
+      background-size: 62px 38px;
+      content: "";
+
+      @include mixins.retina {
+        background-image: url("/img/christmas/buy-button@2x.png");
+      }
+    }
+
+    @include mixins.respond-to-large {
+      margin-right: -20px;
     }
   }
 }
