@@ -33,6 +33,8 @@ const Header = ({ className, children, hideBuyButton = false }) => {
 		]
 	};
 
+  const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language);
+
   return (
     <header
       className={classNames(
@@ -52,26 +54,17 @@ const Header = ({ className, children, hideBuyButton = false }) => {
 			      <label htmlFor="toggle">
 				      <span/>
 			      </label>
-						<div className={styles.items}>
+						<div className={styles.items} itemScope itemType="https://www.schema.org/SiteNavigationElement">
 						{
 							Object.keys(menu).map((key) =>
 								<ul key={key}>
-									{ menu[key].map(({name, href, slug, external = false}) => {
-                    const [slugFromRouter = ''] = router.asPath.split('/').filter(i => !!i & i !== language);
-										return (
-											<li key={name} className={slugFromRouter === slug ? styles.active : null} >
-												{ router.asPath !== href && (
-														<Link href={href}>
-															<a target={external ? '_blank' : '_self'}>{name}</a>
-														</Link>
-													) ||
-													(
-														<span>{name}</span>
-													)
-												}
-											</li>
-										)
-									}) }
+									{ menu[key].map(({name, href, slug, external = false}) => (
+                    <li itemProp="name" key={name} className={slugFromRouter === slug ? styles.active : null} >
+                      <Link href={href} >
+                        <a itemProp="url"  target={external ? '_blank' : '_self'}>{name}</a>
+                      </Link>
+                    </li>
+										))}
 								</ul>
 							)
 						}
