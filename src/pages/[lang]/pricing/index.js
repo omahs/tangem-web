@@ -23,14 +23,14 @@ const LangPricingPage = ({prices}) => {
   const packs = [
     {
       id: 'pack3',
-      productId: '6677839577154',
+      productId: '6864268689474',
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
       defaultPrice: '69.90',
     },
     {
       id: 'pack2',
-      productId: '6677836693570',
+      productId: '6864269213762',
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
       defaultPrice: '54.90',
