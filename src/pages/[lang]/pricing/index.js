@@ -16,7 +16,7 @@ import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 import {PromoContext} from "../../../context/promo-context";
-import { usePromocode } from '../../../hooks/usePromocode';
+import { usePromoCode } from '../../../hooks/usePromoCode';
 
 const LangPricingPage = ({prices}) => {
 
@@ -50,7 +50,7 @@ const LangPricingPage = ({prices}) => {
   const [resellersOpen, setResellersOpen] = useState(false);
   const [promoStyles, setPromoStyles] = useState([styles.christmas]);
   const refResellers = useRef();
-  const { promocode, discount, discountType } = usePromocode();
+  const { promoCode, discount, discountType } = usePromoCode();
 
   useEffect(() => {
     async function getData() {
@@ -116,8 +116,8 @@ const LangPricingPage = ({prices}) => {
       const searchParams = new URLSearchParams();
       searchParams.set('variant_id', prices[currentPack.id].id);
       searchParams.set('qty', quantity);
-      if (promocode) {
-        searchParams.set('promocode', promocode);
+      if (promoCode) {
+        searchParams.set('promocode', promoCode);
       }
       window.location.href = `https://sales.tangem.com/?${searchParams.toString()}`;
     }
@@ -166,7 +166,7 @@ const LangPricingPage = ({prices}) => {
               };
 
               btnProps.props.client.checkout.create(input).then((checkout) => {
-                checkoutWindow.location = `${checkout.webUrl}&discount=${promocode}`;
+                checkoutWindow.location = `${checkout.webUrl}&discount=${promoCode}`;
               });
             },
             contents: {
@@ -194,7 +194,7 @@ const LangPricingPage = ({prices}) => {
       });
     }
 
-  },[shopifyLoaded, promocode]);
+  },[shopifyLoaded, promoCode]);
 
   useEffect(() => {
     if (!refResellers.current) {
@@ -209,14 +209,10 @@ const LangPricingPage = ({prices}) => {
     setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
   }, [isChristmasEnabled]);
 
-  function getFormatPrice(value, useDiscount = false) {
+  function getFormatPrice(value) {
     let parsedValue = Number.parseFloat(value);
     if (Number.isNaN(parsedValue)) {
       return value;
-    }
-    if (useDiscount && promocode && discount) {
-      parsedValue = discountType === 'percentage' ? parsedValue * (100 - discount) / 100 : parsedValue - discount;
-      parsedValue = useShopify ? Math.round((parsedValue + Number.EPSILON) * 100) / 100 : Math.round(parsedValue);
     }
 
     const options = {
@@ -254,6 +250,20 @@ const LangPricingPage = ({prices}) => {
       return products[id] ? products[id].compareAtPrice : ''
     }
     return prices[id].old_price;
+  }
+
+  function getPriceBeforeDiscount(pack) {
+    return promoCode && discount ? getPrice(pack) : getOldPrice(pack)
+  }
+
+  function getPriceAfterDiscount(pack) {
+    const price = getPrice(pack);
+    if (promoCode && discount) {
+      const value = discountType === 'percentage' ? price * (100 - discount) / 100 : price - discount;
+      return useShopify ? Math.round((value + Number.EPSILON) * 100) / 100 : Math.round(value);
+    }
+
+    return price;
   }
 
   const currentPrice = useMemo(() => {
@@ -370,13 +380,13 @@ const LangPricingPage = ({prices}) => {
                         <div className={styles.info}>
                           <h4 itemProp="name">{ pack.title }</h4>
                           <span className={styles.price} itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                            { getFormatPrice(getPrice(pack), true) }
+                            { getFormatPrice(getPriceAfterDiscount(pack)) }
                             <meta itemProp="price" content={ getPrice(pack) } />
                             <meta itemProp="priceCurrency" content={ getPriceCurrencySymbol() } />
                           </span>
                           <span itemProp="description">{ pack.description }</span>
                           <span>
-                            { promocode ? getFormatPrice(getPrice(pack)) : getFormatPrice(getOldPrice(pack)) }
+                            { getFormatPrice(getPriceBeforeDiscount(pack)) }
                           </span>
                         </div>
                       </label>
