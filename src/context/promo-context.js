@@ -1,7 +1,7 @@
 import React from "react";
 const defaultValues = {
-  isGiftEnabled: true,
-  isChristmasEnabled: true,
+  isGiftEnabled: false,
+  isChristmasEnabled: false,
 }
 
 const christmasStartedAt = new Date(Date.UTC(2022, 11, 11, 21, 0, 0));

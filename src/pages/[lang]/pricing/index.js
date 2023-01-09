@@ -39,6 +39,7 @@ const LangPricingPage = ({prices}) => {
 
   const {language} = i18next;
   const useShopify = !['ru', 'by'].includes(language);
+  const isSoldOut = ['ru', 'by'].includes(language);
 
   const { isChristmasEnabled } = useContext(PromoContext);
 
@@ -243,6 +244,9 @@ const LangPricingPage = ({prices}) => {
   }
 
   function getPrice({ id, defaultPrice }) {
+    if (isSoldOut) {
+      return '';
+    }
     if (useShopify) {
       return products[id] ? products[id].price : defaultPrice;
     }
@@ -250,6 +254,9 @@ const LangPricingPage = ({prices}) => {
   }
 
   function getOldPrice({id}) {
+    if (isSoldOut) {
+      return '';
+    }
     if (useShopify) {
       return products[id] ? products[id].compareAtPrice : ''
     }
@@ -384,34 +391,45 @@ const LangPricingPage = ({prices}) => {
                   ))}
                 </fieldset>
               </form>
-              <span className={styles['quantity-label']}>{t('pricing.quantity')}</span>
-              <div className={styles['counter-block']}>
-                <div className={styles.counter}>
-                  <button
-                    className={classNames(styles.decrement, { [styles.disabled]: quantity < 2 })}
-                    onClick={() => setQuantity(v => Math.max(v - 1, 1))}
-                  ></button>
-                  <span className={styles.quantity}>{quantity}</span>
-                  <button
-                    className={styles.increment}
-                    onClick={() => setQuantity(v => v + 1)}
-                  ></button>
-                </div>
-              </div>
-              {currentPack.id &&
-                <div className={styles.total}>
-                  <div>
-                    <span className={styles.label}>{t('pricing.total')}</span>
-                    <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
-                  </div>
-                  <div>
-                    <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+              { isSoldOut ?
+                <div className={styles.soldout}>
+                  <h3>{t('pricing.soldOut.title')}</h3>
+                  <span>{t('pricing.soldOut.description')}</span>
+                </div> : <>
+                <span className={styles['quantity-label']}>{t('pricing.quantity')}</span>
+                <div className={styles['counter-block']}>
+                  <div className={styles.counter}>
+                    <button
+                      className={classNames(styles.decrement, { [styles.disabled]: quantity < 2 })}
+                      onClick={() => setQuantity(v => Math.max(v - 1, 1))}
+                    ></button>
+                    <span className={styles.quantity}>{quantity}</span>
+                    <button
+                      className={styles.increment}
+                      onClick={() => setQuantity(v => v + 1)}
+                    ></button>
                   </div>
                 </div>
+                {currentPack.id &&
+                  <div className={styles.total}>
+                    <div>
+                      <span className={styles.label}>{t('pricing.total')}</span>
+                      <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
+                    </div>
+                    <div>
+                      <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                    </div>
+                  </div>
+                }
+                </>
               }
               { !!resellersList.length &&
                 <>
-                  <div
+                  {isSoldOut ? <div
+                    className={classNames(styles.stories, styles.open)}
+                  >
+                    <span>{t('pricing.stores')}</span>
+                  </div> : <div
                     className={classNames(styles.stories, resellersOpen && styles.open)}
                     onClick={() => setResellersOpen((v) => !v)}
                   >
@@ -419,8 +437,8 @@ const LangPricingPage = ({prices}) => {
                     <button type="button">
                       <ArrowIcon/>
                     </button>
-                  </div>
-                  <ul className={styles.list} ref={refResellers} >
+                  </div> }
+                  <ul className={classNames(styles.list, isSoldOut && styles['list-open'])} ref={refResellers} >
                     { resellersList.map((item) => (
                       <li key={item.id}>
                         <img
