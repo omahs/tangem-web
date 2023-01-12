@@ -167,7 +167,8 @@ const LangPricingPage = ({prices}) => {
               };
 
               btnProps.props.client.checkout.create(input).then((checkout) => {
-                checkoutWindow.location = `${checkout.webUrl}&discount=${promocode}`;
+                const discount = promocode ? `&discount=${promocode}` : '';
+                checkoutWindow.location = `${checkout.webUrl}${discount}`;
               });
             },
             contents: {
