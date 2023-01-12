@@ -139,6 +139,7 @@ const LangPricingPage = ({prices}) => {
     const ui = ShopifyBuy.UI.init(shopifyClient);
 
     async function init(id) {
+      const code = promocode;
       return await ui.createComponent('product', {
         id,
         options: {
@@ -167,7 +168,7 @@ const LangPricingPage = ({prices}) => {
               };
 
               btnProps.props.client.checkout.create(input).then((checkout) => {
-                const discount = promocode ? `&discount=${promocode}` : '';
+                const discount = !!code ? `&discount=${code}` : '';
                 checkoutWindow.location = `${checkout.webUrl}${discount}`;
               });
             },
