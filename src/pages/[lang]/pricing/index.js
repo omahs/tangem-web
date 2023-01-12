@@ -49,7 +49,7 @@ const LangPricingPage = ({prices}) => {
   const [products, setProducts] = useState({});
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
-  const [promoStyles, setPromoStyles] = useState([styles.christmas]);
+  const promoStyles = [];
   const refResellers = useRef();
   const { promocode, discount, discountType } = usePromocode();
 
@@ -207,10 +207,6 @@ const LangPricingPage = ({prices}) => {
     }
     refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + 'px' : null;
   }, [resellersOpen]);
-
-  useEffect(() => {
-    setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
-  }, [isChristmasEnabled]);
 
   function getFormatPrice(value, useDiscount = false) {
     let parsedValue = Number.parseFloat(value);
