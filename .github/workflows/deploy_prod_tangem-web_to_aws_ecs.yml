@@ -60,6 +60,11 @@ jobs:
           ${{ github.sha }}
           EOF
 
+     - name: Download apk file
+       run:
+          |
+          wget -O tangem.apk https://s3.eu-central-1.amazonaws.com/tangem.web.public/tangem.apk
+
      - name: Create env file
        run:
           |
