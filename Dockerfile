@@ -7,4 +7,4 @@ COPY /default.conf /etc/nginx/conf.d
 COPY /nginx.conf /etc/nginx/nginx.conf
 COPY /lobstr.conf /etc/nginx/conf.d
 COPY /app.conf /etc/nginx/conf.d/app.conf
-COPY /tangem.apk /usr/share/nginx/html
+COPY /tangem-beta.apk /usr/share/nginx/html
