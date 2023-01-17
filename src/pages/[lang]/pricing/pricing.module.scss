@@ -406,6 +406,11 @@
   max-height: 0;
   overflow: hidden;
 
+  &.list-open {
+    max-height: unset;
+    overflow: auto;
+  }
+
   @include mixins.motion {
     transition: all 0.3s ease;
   }
@@ -874,5 +879,24 @@
 
   .value {
     color: rgb(67 97 78 / 100%);
+  }
+}
+
+.soldout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 22px 22px 80px;
+  color: rgb(104 104 104);
+  font-size: 15px;
+  line-height: 1.2;
+  background: rgb(240 241 241) url("/svg/soldout.svg") no-repeat 18px center;
+  border-radius: 20px;
+
+  h3 {
+    color: rgb(0 0 0);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.3;
   }
 }
