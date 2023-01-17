@@ -447,7 +447,12 @@ const LangPricingPage = ({prices}) => {
                           src={`/img/resellers/${item.id}@1x.png`}
                           srcSet={`/img/resellers/${item.id}@2x.png 2x`}
                         />
-                        <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.resellerOpenLink')}</a>
+                        {
+                          item[currentPack.id] ?
+                            <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">
+                              { t('buttons.resellerOpenLink') }
+                            </a> : null
+                        }
                       </li>
                     ))
                     }
