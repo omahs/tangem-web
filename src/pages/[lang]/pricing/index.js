@@ -39,7 +39,6 @@ const LangPricingPage = ({prices}) => {
 
   const {language} = i18next;
   const useShopify = !['ru', 'by'].includes(language);
-  const isSoldOut = ['ru', 'by'].includes(language);
 
   const { isChristmasEnabled } = useContext(PromoContext);
 
@@ -244,9 +243,6 @@ const LangPricingPage = ({prices}) => {
   }
 
   function getPrice({ id, defaultPrice }) {
-    if (isSoldOut) {
-      return '';
-    }
     if (useShopify) {
       return products[id] ? products[id].price : defaultPrice;
     }
@@ -254,9 +250,6 @@ const LangPricingPage = ({prices}) => {
   }
 
   function getOldPrice({id}) {
-    if (isSoldOut) {
-      return '';
-    }
     if (useShopify) {
       return products[id] ? products[id].compareAtPrice : ''
     }
@@ -391,11 +384,7 @@ const LangPricingPage = ({prices}) => {
                   ))}
                 </fieldset>
               </form>
-              { isSoldOut ?
-                <div className={styles.soldout}>
-                  <h3>{t('pricing.soldOut.title')}</h3>
-                  <span>{t('pricing.soldOut.description')}</span>
-                </div> : <>
+              <>
                 <span className={styles['quantity-label']}>{t('pricing.quantity')}</span>
                 <div className={styles['counter-block']}>
                   <div className={styles.counter}>
@@ -421,15 +410,10 @@ const LangPricingPage = ({prices}) => {
                     </div>
                   </div>
                 }
-                </>
-              }
+              </>
               { !!resellersList.length &&
                 <>
-                  {isSoldOut ? <div
-                    className={classNames(styles.stories, styles.open)}
-                  >
-                    <span>{t('pricing.stores')}</span>
-                  </div> : <div
+                  <div
                     className={classNames(styles.stories, resellersOpen && styles.open)}
                     onClick={() => setResellersOpen((v) => !v)}
                   >
@@ -437,8 +421,8 @@ const LangPricingPage = ({prices}) => {
                     <button type="button">
                       <ArrowIcon/>
                     </button>
-                  </div> }
-                  <ul className={classNames(styles.list, isSoldOut && styles['list-open'])} ref={refResellers} >
+                  </div>
+                  <ul className={styles.list} ref={refResellers} >
                     { resellersList.map((item) => (
                       <li key={item.id}>
                         <img
