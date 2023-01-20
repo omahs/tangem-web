@@ -23,7 +23,7 @@ const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription,
 				<meta property="og:video" content="https://www.youtube.com/watch?v=ST4jvcaE_UU" />
 				<meta property="og:locale" content="en_US" />
 				<meta name="yandex-verification" content="d7ceaf19b3538bb6" />
-        <meta name="google-site-verification" content="HiqJR4SKQQWvvCG7tdHqZ9Wqq0_dpRX0xC3pgA5pQ_Q" />
+        <meta name="google-site-verification" content="J9VZ9OTdfpWzS6xsC5IQbu1mCnkQZLwCzOSaA0BUnqc" />
         { themeColor ? <meta name="theme-color" content={themeColor}/> : null}
 				<title>{ title }</title>
 				<link rel='shortcut icon' href='/img/favicon/favicon.png' />
