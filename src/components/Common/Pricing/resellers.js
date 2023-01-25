@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import * as styles from './pricing.module.scss';
-import i18next, {t} from "i18next";
+import {t} from "i18next";
 import {getResellers} from "../../../lib/tangem";
 
 const Resellers = ({children}) => {
-	const {language} = i18next;
 	const packKeys = ['pack3', 'pack2'];
 
 	const packs = {
@@ -41,18 +40,17 @@ const Resellers = ({children}) => {
 	};
 
 	const [currentPack, setCurrentPack] = useState(packKeys[0]);
-	const [isLoading, setLoading] = useState(false);
 	const [list, setList] = useState([]);
 
 	useEffect(() => {
 		async function getData() {
-			setLoading(true);
 			try {
-				const resellers = await getResellers(language);
+				const {resellers} = await getResellers('ru');
+
 				setList(resellers);
-			} finally {
-				setLoading(false);
-			}
+			} catch (e) {
+
+      }
 		}
 
     getData();
@@ -109,7 +107,10 @@ const Resellers = ({children}) => {
 									src={`/img/resellers/${item.id}@1x.png`}
 									srcSet={`/img/resellers/${item.id}@2x.png 2x`}
 								/>
-								<a target='_blank' href={item[currentPack]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.buy')}</a>
+                { item[currentPack]
+                  ? <a target='_blank' href={item[currentPack]} onClick={() => handleClick(item.name)} rel="noreferrer">{t('buttons.buy')}</a>
+                  : null
+                }
 							</li>
 						))
 						}

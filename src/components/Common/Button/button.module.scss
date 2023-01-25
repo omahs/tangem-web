@@ -43,6 +43,10 @@
       &:focus {
         background: var(--color-button-primary-bg-hover);
       }
+
+      &:disabled {
+        background: rgb(235 235 235);
+      }
     }
 
     &.dark {

@@ -1,5 +1,4 @@
 import { getAllLanguageSlugs, getLanguage } from '../../../lib/lang';
-import { loadInsalesProducts } from '../../../lib/insales';
 import i18next, { t } from 'i18next';
 import Layout from '../../../components/Common/Layout';
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
@@ -11,14 +10,14 @@ import Button from "../../../components/Common/Button";
 import DeliveryIcon from "../../../../public/svg/delivery-buy.svg";
 import ReturnIcon from "../../../../public/svg/return.svg";
 import SupportIcon from "../../../../public/svg/support.svg";
-import {getResellers} from "../../../lib/tangem";
+import { getProducts } from "../../../lib/tangem";
 import Script from "next/script";
 import {SHOPIFY_API_KEY, SHOPIFY_DOMAIN} from "../../../config";
 import ArrowIcon from "../../../../public/svg/faq_arrow.svg";
 import {PromoContext} from "../../../context/promo-context";
 import { usePromocode } from '../../../hooks/usePromocode';
 
-const LangPricingPage = ({prices}) => {
+const LangPricingPage = () => {
 
   const packs = [
     {
@@ -26,42 +25,45 @@ const LangPricingPage = ({prices}) => {
       productId: '6864268689474',
       title: t('pricing.pack3.title'),
       description: t('pricing.pack3.description'),
-      defaultPrice: '69.90',
     },
     {
       id: 'pack2',
       productId: '6864269213762',
       title: t('pricing.pack2.title'),
       description: t('pricing.pack2.description'),
-      defaultPrice: '54.90',
     }
   ];
 
   const {language} = i18next;
-  const useShopify = !['ru', 'by'].includes(language);
-
   const { isChristmasEnabled } = useContext(PromoContext);
 
   const [currentPack, setCurrentPack] = useState(packs[0]);
   const [quantity, setQuantity] = useState(1);
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
-  const [products, setProducts] = useState({});
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
   const [promoStyles, setPromoStyles] = useState([styles.christmas]);
+  const [useShopify, setUseShopify] = useState(false);
+  const [useInsales, setUseInsales] = useState(false);
   const refResellers = useRef();
   const { promocode, discount, discountType } = usePromocode();
+  const [ prices, setPrices ] = useState(undefined)
 
   useEffect(() => {
     async function getData() {
       try {
-        const resellers = await getResellers(language);
+        const { resellers, countryCode, prices } = await getProducts(language);
         setResellersList(resellers);
+        if (countryCode) {
+          setUseShopify(!['ru', 'by'].includes(countryCode));
+          setUseInsales(['ru', 'by'].includes(countryCode));
+        }
+        setPrices(prices);
       } catch (e) {
       }
     }
 
-    getData()
+     getData()
   }, [language]);
 
   function handleClick(name) {
@@ -112,7 +114,8 @@ const LangPricingPage = ({prices}) => {
         .contentDocument
         .querySelector('.shopify-buy__btn')
         .click();
-    } else {
+    }
+    if (useInsales){
       const searchParams = new URLSearchParams();
       searchParams.set('variant_id', prices[currentPack.id].id);
       searchParams.set('qty', quantity);
@@ -189,8 +192,8 @@ const LangPricingPage = ({prices}) => {
     }
 
     for (const { productId, id } of packs) {
-      init(productId).then((product) => {
-        setProducts((v) => ({ [id]: product.selectedVariant, ...v }));
+      init(productId).then(({selectedVariant : {price, compareAtPrice: old_price}}) => {
+        setPrices((v) => ({ [id]: { id, price, old_price }, ...v }));
       });
     }
 
@@ -211,7 +214,7 @@ const LangPricingPage = ({prices}) => {
 
   function getFormatPrice(value, useDiscount = false) {
     let parsedValue = Number.parseFloat(value);
-    if (Number.isNaN(parsedValue)) {
+    if (Number.isNaN(parsedValue) || !prices) {
       return value;
     }
     if (useDiscount && promocode && discount) {
@@ -221,48 +224,37 @@ const LangPricingPage = ({prices}) => {
 
     const options = {
       style: 'currency',
-      minimumFractionDigits: (useShopify ? 2 : prices.fractionDigits),
-      currency: getPriceCurrency()
+      minimumFractionDigits: prices.fractionDigits,
+      currency: prices.currency,
     }
 
-    return parsedValue.toLocaleString(getPriceLocale(), options);
-  }
-
-  function getPriceLocale() {
-    return useShopify ? 'en-US' : prices.locale;
-  }
-
-  function getPriceCurrency() {
-    return (useShopify ? 'usd' : prices.currency)
+    return parsedValue.toLocaleString(prices.locale, options);
   }
 
   function getPriceCurrencySymbol() {
-    return (0).toLocaleString(getPriceLocale(), {
-      style: 'currency', currency: getPriceCurrency(), minimumFractionDigits: 0, maximumFractionDigits: 0
+    if (!prices || !prices.hasOwnProperty('currency')) {
+      return ''
+    }
+    return (0).toLocaleString(prices.locale , {
+      style: 'currency', currency: prices.currency, minimumFractionDigits: 0, maximumFractionDigits: 0
     }).replace(/\d/g, '').trim();
   }
 
-  function getPrice({ id, defaultPrice }) {
-    if (useShopify) {
-      return products[id] ? products[id].price : defaultPrice;
-    }
-    return prices[id].price;
+  function getPrice({ id }) {
+    return prices && prices[id] && prices[id].price ? prices[id].price: null;
   }
 
   function getOldPrice({id}) {
-    if (useShopify) {
-      return products[id] ? products[id].compareAtPrice : ''
-    }
-    return prices[id].old_price;
+    return prices && prices[id] && prices[id].old_price ? prices[id].old_price : undefined;
   }
 
   const currentPrice = useMemo(() => {
-    if (useShopify) {
-      return products[currentPack.id] ? products[currentPack.id].price : currentPack.defaultPrice;
+    if (!prices || !prices[currentPack.id]) {
+      return '';
     }
     return prices[currentPack.id].price;
 
-  }, [prices, products, useShopify, currentPack.id, currentPack.defaultPrice]);
+  }, [prices, currentPack.id]);
 
   const Features = () => {
     const features = [
@@ -406,7 +398,7 @@ const LangPricingPage = ({prices}) => {
                       <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
                     </div>
                     <div>
-                      <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                      <Button disabled={!prices} className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
                     </div>
                   </div>
                 }
@@ -468,12 +460,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const language = getLanguage(params.lang);
-  const prices = await loadInsalesProducts();
 
   return {
     props: {
       language,
-      prices,
     },
   };
 }

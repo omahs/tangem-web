@@ -1,18 +1,13 @@
-import {TANGEM_GEO_API_URI, TANGEM_RESELLERS_API_URI} from "../config";
+import { TANGEM_API_URI} from "../config";
 
 export async function getResellers(language) {
   const params = language ? `?defaultCode=${language}` : '';
-  const response = await fetch(`${TANGEM_RESELLERS_API_URI}${params}`);
-  const {resellers} = await response.json();
-  return resellers;
+  const response = await fetch(`${TANGEM_API_URI}/v1/resellers/${params}`);
+  return response.json();
 }
 
-export async function getGeoCode() {
-  try {
-    const response = await fetch(TANGEM_GEO_API_URI);
-    const { code } = await response.json();
-    return code;
-  } catch (e) {
-    return ''
-  }
+export async function getProducts(language) {
+  const params = language ? `?defaultCode=${language}` : '';
+  const response = await fetch(`${TANGEM_API_URI}/v1/products/${params}`);
+  return response.json();
 }

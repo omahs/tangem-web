@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './button.module.scss';
 import classnames from "classnames";
 
-const Button = ({ appearance = 'primary', theme = 'light', size = 'medium', className, onClick, children }) => {
+const Button = ({ appearance = 'primary', theme = 'light', size = 'medium', className, onClick, children, disabled = false }) => {
 	return (
 		<button
 			type='button'
+      disabled={disabled}
 			onClick={onClick}
 			className={classnames(styles.button, className, {
 				[styles.primary]: appearance === 'primary',
