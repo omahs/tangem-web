@@ -149,10 +149,10 @@
     },
     "company": {
       "title": "Company",
-      "description": "Tangem is a high-tech company in the blockchain sector was founded in 2017, headquartered in Zug, Switzerland, with branches in North America, Eastern Europe, and APAC.",
+      "description": "Tangem is a high-tech company in the blockchain sector founded in 2017, headquartered in Zug, Switzerland, with branches in North America, Eastern Europe, and APAC.",
       "quote": "Tangem Wallet is the last mile between 8 billion people and the Crypto World.",
       "about-1": "Tangem started with the idea of bringing cryptocurrencies to the masses using a unique combination of a smartcard-based hardware wallet and mobile applications.",
-      "about-2": "Company owns and promotes the technology of hardware cold-wallet for crypto assets with secure and simple UX in 170 countries today. Our customers enjoy setup time within 1 minute with the ultimate security level for crypto assets on their wallet. Tangem solutions offer multi-support of a growing number of thousadns of tokens by a single wallet.",
+      "about-2": "Company owns and promotes the technology of hardware cold-wallet for crypto assets with secure and simple UX in 170 countries today. Our customers enjoy setup time within 1 minute with the ultimate security level for crypto assets on their wallet. Tangem solutions offer multi-support of a growing number of thousands of tokens by a single wallet.",
       "about-sbi": "SBI Crypto Investment Ltd., the digital asset venture investment company wholly owned by SBI Holdings Inc., has invested $15 million into Tangem in 2019 for mass adoption of blockchain technology."
     },
     "team": {
@@ -285,7 +285,7 @@
     "items": [
       {
         "question": "What is a Tangem Wallet?",
-        "answer": "Tangem Wallet is the safest hardware wallet in the world. Tangem Wallet keeps your Bitcoin, Ethereum, and more than 1000 additional cryptocurrencies completely safe. The card is the key to your wallet, and using your funds requires taping the card to your phone."
+        "answer": "Tangem Wallet is the safest hardware wallet in the world. Tangem Wallet keeps your Bitcoin, Ethereum, and more than 1000 additional cryptocurrencies completely safe. The card is the key to your wallet, and using your funds requires tapping the card to your phone."
       },
       {
         "question": "What can I do with Tangem Wallet?",
