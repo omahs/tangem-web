@@ -28,6 +28,27 @@ const Layout = ({ title, description, children, ogImage, ogTitle, ogDescription,
 				<title>{ title }</title>
 				<link rel='shortcut icon' href='/img/favicon/favicon.png' />
 				<link rel='apple-touch-icon' href='/img/favicon/favicon-180.png' />
+        <link
+          rel="preload"
+          href="/fonts/sf-pro/SFProDisplay-Medium.woff2"
+          as="font"
+          crossOrigin=""
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="/fonts/sf-pro/SFProDisplay-Regular.woff2"
+          as="font"
+          crossOrigin=""
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="/fonts/sf-pro/SFProDisplay-Semibold.woff2"
+          as="font"
+          crossOrigin=""
+          type="font/woff2"
+        />
 			</Head>
 			<Script
 				id="yandex-metrika"

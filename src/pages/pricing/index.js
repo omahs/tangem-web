@@ -1,10 +1,5 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-
-const LangPricingPage = dynamic(() => import('../[lang]/pricing'), { suspense: true });
+import LangPricingPage from "../[lang]/pricing";
 
 export default function PricingPage() {
-  return <Suspense>
-    <LangPricingPage language="en"/>
-  </Suspense>;
+  return <LangPricingPage language="en"/>
 }

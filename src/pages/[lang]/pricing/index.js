@@ -410,7 +410,7 @@ const LangPricingPage = ({prices}) => {
                       <span className={styles.value}>{getFormatPrice(quantity * currentPrice, true)}</span>
                     </div>
                     <div>
-                      <Button className={styles.buy} onClick={handleBuy}>{t('buttons.buy-now')}</Button>
+                      <Button onClick={handleBuy}>{t('buttons.buy-now')}</Button>
                     </div>
                   </div>
                 }
