@@ -42,9 +42,9 @@ const LangPricingPage = () => {
   const [shopifyLoaded, setShopifyLoaded] = useState(false);
   const [resellersList, setResellersList] = useState([]);
   const [resellersOpen, setResellersOpen] = useState(false);
-  const [promoStyles, setPromoStyles] = useState([styles.christmas]);
   const [useShopify, setUseShopify] = useState(false);
   const [useInsales, setUseInsales] = useState(false);
+  const promoStyles = [];
   const refResellers = useRef();
   const { promocode, discount, discountType } = usePromocode();
   const [ prices, setPrices ] = useState(undefined)
@@ -141,6 +141,7 @@ const LangPricingPage = () => {
     const ui = ShopifyBuy.UI.init(shopifyClient);
 
     async function init(id) {
+      const code = promocode;
       return await ui.createComponent('product', {
         id,
         options: {
@@ -169,7 +170,8 @@ const LangPricingPage = () => {
               };
 
               btnProps.props.client.checkout.create(input).then((checkout) => {
-                checkoutWindow.location = `${checkout.webUrl}&discount=${promocode}`;
+                const discount = !!code ? `&discount=${code}` : '';
+                checkoutWindow.location = `${checkout.webUrl}${discount}`;
               });
             },
             contents: {
@@ -207,10 +209,6 @@ const LangPricingPage = () => {
     }
     refResellers.current.style.maxHeight = resellersOpen ? refResellers.current.scrollHeight + 'px' : null;
   }, [resellersOpen]);
-
-  useEffect(() => {
-    setPromoStyles(isChristmasEnabled ? [styles.christmas] : [])
-  }, [isChristmasEnabled]);
 
   function getFormatPrice(value, useDiscount = false) {
     let parsedValue = Number.parseFloat(value);
