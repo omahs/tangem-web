@@ -40,7 +40,7 @@
     border-radius: 20px;
   }
 
-  @media (min-width: 1272px) {
+  @media screen and (min-width: 1204px) {
     height: 520px;
     max-height: 520px;
   }
@@ -161,17 +161,21 @@
   /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   column-gap: 2rem;
 
-  @media (min-width: 1172px) {
-    margin-bottom: 38px;
-    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
-    column-gap: calc(100% - 1140px);
-  }
-
   @include mixins.respond-to-medium {
-    grid-template-rows: auto min-content auto;
+    grid-template-rows: auto min-content max-content;
     /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
     grid-template-columns: 650fr 490fr;
     max-width: 1260px;
+  }
+
+  @media screen and (min-width: 1204px) {
+    grid-template-rows: minmax(auto, 520px) min-content auto;
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
+    grid-template-columns: 650px 490px;
+    width: 100%;
+    margin-bottom: 38px;
+    /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
+    column-gap: unset;
   }
 }
 
@@ -180,6 +184,7 @@
   /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   grid-template-columns: 1fr;
   gap: 10px;
+  /* stylelint-disable-next-line  plugin/no-unsupported-browser-features */
   height: min-content;
   margin-top: 20px;
 
