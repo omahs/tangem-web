@@ -262,6 +262,12 @@ const LangPricingPage = ({prices}) => {
 
   }, [prices, products, useShopify, currentPack.id, currentPack.defaultPrice]);
 
+  function handleStoriesClick() {
+    if (resellersList.length) {
+      setResellersOpen((v) => !v)
+    }
+  }
+
   const Features = () => {
     const features = [
       {
@@ -409,44 +415,44 @@ const LangPricingPage = ({prices}) => {
                   </div>
                 }
               </>
-              { !!resellersList.length &&
-                <>
-                  <div
-                    className={classNames(styles.stories, resellersOpen && styles.open)}
-                    onClick={() => setResellersOpen((v) => !v)}
-                  >
-                    <span>{t('pricing.stores')}</span>
-                    <button type="button">
-                      <ArrowIcon/>
-                    </button>
-                  </div>
-                  <ul className={styles.list} ref={refResellers} >
-                    { resellersList.map((item) => (
-                      <li key={item.id}>
-                        <img
-                          decoding='async'
-                          alt={item.name}
-                          src={`/img/resellers/${item.id}@1x.png`}
-                          srcSet={`/img/resellers/${item.id}@2x.png 2x`}
-                        />
-                        {
-                          item[currentPack.id] ?
-                            <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)} rel="noreferrer">
-                              { t('buttons.resellerOpenLink') }
-                            </a> : null
-                        }
-                      </li>
-                    ))
-                    }
-                  </ul>
-                </>}
+              <div
+                className={classNames(styles.stories, {[styles.open]: resellersOpen, [styles.hidden]: !resellersList.length })}
+                onClick={handleStoriesClick}
+              >
+                <span>{t('pricing.stores')}</span>
+                <button type="button">
+                  <ArrowIcon/>
+                </button>
+              </div>
+              {!!resellersList.length &&
+                <ul className={styles.list} ref={refResellers}>
+                  {resellersList.map((item) => (
+                    <li key={item.id}>
+                      <img
+                        decoding='async'
+                        alt={item.name}
+                        src={`/img/resellers/${item.id}@1x.png`}
+                        srcSet={`/img/resellers/${item.id}@2x.png 2x`}
+                      />
+                      {
+                        item[currentPack.id] ?
+                          <a target='_blank' href={item[currentPack.id]} onClick={() => handleClick(item.name)}
+                             rel="noreferrer">
+                            {t('buttons.resellerOpenLink')}
+                          </a> : null
+                      }
+                    </li>
+                  ))
+                  }
+                </ul>
+              }
             </div>
             <div>
               <Features />
             </div>
           </div>
           {isChristmasEnabled ? <div className={styles.promo}>
-            <h2>{ t('pricing.christmas.title')}</h2>
+            <h2>{ t('pricing.christmas.title') }</h2>
             <p>{ t('pricing.christmas.description') }</p>
           </div> : null}
         </main>
