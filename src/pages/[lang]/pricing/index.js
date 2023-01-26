@@ -359,7 +359,7 @@ const LangPricingPage = () => {
                       />
                       <label htmlFor={pack.id} itemScope itemType="https://schema.org/Product">
                         <meta itemProp="inProductGroupWithID" content={t('pricing.buy.title')} />
-                        <div className={styles.info}>
+                        <div className={classNames(styles.info, {[styles.loadable]: !prices || !prices[pack.id]})}>
                           <h4 itemProp="name">{ pack.title }</h4>
                           <span className={styles.price} itemProp="offers" itemScope itemType="https://schema.org/Offer">
                             { getFormatPrice(getPrice(pack), true) }
@@ -367,7 +367,7 @@ const LangPricingPage = () => {
                             <meta itemProp="priceCurrency" content={ getPriceCurrencySymbol() } />
                           </span>
                           <span itemProp="description">{ pack.description }</span>
-                          <span>
+                          <span className={styles.oldprice}>
                             { promocode ? getFormatPrice(getPrice(pack)) : getFormatPrice(getOldPrice(pack)) }
                           </span>
                         </div>

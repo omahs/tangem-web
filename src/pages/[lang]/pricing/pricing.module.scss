@@ -289,6 +289,46 @@
     flex-direction: row;
     font-weight: 500;
   }
+
+  &.loadable {
+    @keyframes shine {
+      to {
+        background-position-x: -200%;
+      }
+    }
+
+    .price::after {
+      position: absolute;
+      width: 80px;
+      height: 24px;
+      background: rgb(245 245 245);
+      background: linear-gradient(110deg, rgb(236 236 236) 8%, rgb(245 245 245) 18%, rgb(236 236 236) 33%);
+      background-size: 200% 100%;
+      border-radius: 4px;
+      animation: none;
+      content: "";
+
+      @include mixins.motion {
+        animation: 1.5s shine linear infinite;
+      }
+    }
+
+    .oldprice::after {
+      position: absolute;
+      width: 67px;
+      height: 18px;
+      background: rgb(245 245 245);
+      background: linear-gradient(110deg, rgb(236 236 236) 8%, rgb(245 245 245) 18%, rgb(236 236 236) 33%);
+      background-size: 200% 100%;
+      border-radius: 4px;
+      animation: none;
+      content: "";
+
+      @include mixins.motion {
+        animation: 1.5s shine linear infinite;
+      }
+    }
+  }
 }
 
 .radio {
